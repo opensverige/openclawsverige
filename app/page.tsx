@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { SiteNav } from "@/components/landing/site-nav";
 
 const DISCORD_URL = "https://discord.gg/CSphbTk8En";
