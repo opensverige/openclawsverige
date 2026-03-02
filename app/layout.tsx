@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
-import {
-  Playfair_Display,
-  DM_Sans,
-  JetBrains_Mono,
-} from "next/font/google";
+﻿import type { Metadata } from "next";
+import { Playfair_Display, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  SITE_NAME,
+  SITE_URL,
+  DEFAULT_OG_IMAGE_PATH,
+  absoluteUrl,
+} from "@/lib/seo";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -27,28 +29,16 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const DEFAULT_SITE_URL = "https://opensverige.se";
-const VERCEL_ENV = process.env.VERCEL_ENV;
-const VERCEL_HOST = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : undefined;
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (VERCEL_ENV === "production" ? DEFAULT_SITE_URL : VERCEL_HOST ?? DEFAULT_SITE_URL);
-
-const OG_IMAGE_PATH = "/assets/1200x_hand.png";
-const OG_IMAGE_URL = new URL(OG_IMAGE_PATH, SITE_URL).toString();
-
-const TITLE = "opensverige — Det svenska AI agent-communityt";
+const TITLE = "opensverige - Sveriges community for AI-agenter";
 const DESCRIPTION =
-  "Öppen community för folk som bygger AI-agenter i Sverige. OpenClaw, CrewAI, MCP, multi-agent. Discord + IRL meetups. Gratis, öppen källkod, verktygsagnostiskt.";
+  "Oppet community for folk som bygger AI-agenter i Sverige. OpenClaw, CrewAI, MCP och multi-agent. Discord + IRL meetups. Gratis och oppen kallkod.";
+const OG_IMAGE_URL = absoluteUrl(DEFAULT_OG_IMAGE_PATH);
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
-    template: "%s | opensverige",
+    template: `%s | ${SITE_NAME}`,
   },
   description: DESCRIPTION,
   keywords: [
@@ -60,7 +50,7 @@ export const metadata: Metadata = {
     "AI community Sverige",
     "AI meetup Stockholm",
     "AI agents Swedish",
-    "öppen källkod AI",
+    "oppen kallkod AI",
     "Fortnox AI integration",
     "svenska AI-builders",
   ],
@@ -68,7 +58,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "sv_SE",
     url: SITE_URL,
-    siteName: "opensverige",
+    siteName: SITE_NAME,
     title: TITLE,
     description: DESCRIPTION,
     images: [
@@ -104,9 +94,9 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "opensverige",
+  name: SITE_NAME,
   url: SITE_URL,
-  description: "Det svenska AI agent-communityt",
+  description: "Sveriges community for AI-agenter",
   sameAs: [
     "https://discord.gg/CSphbTk8En",
     "https://www.facebook.com/groups/2097332881024571/",
@@ -132,8 +122,17 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="font-sans antialiased" style={{ backgroundColor: "#0a0a0a", color: "#e8e0d4" }}>
-        <div style={{ backgroundColor: "#0a0a0a", color: "#e8e0d4", minHeight: "100vh" }}>
+      <body
+        className="font-sans antialiased"
+        style={{ backgroundColor: "#0a0a0a", color: "#e8e0d4" }}
+      >
+        <div
+          style={{
+            backgroundColor: "#0a0a0a",
+            color: "#e8e0d4",
+            minHeight: "100vh",
+          }}
+        >
           {children}
         </div>
       </body>

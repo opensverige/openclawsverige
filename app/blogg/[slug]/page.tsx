@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import {
@@ -24,6 +24,7 @@ import { MdxImage } from "@/components/mdx/mdx-image";
 import { PreWithCopyBar } from "@/components/blog/pre-with-copy";
 import { TableOfContents } from "@/components/blog/table-of-contents";
 import { ArticleTocMobile } from "@/components/blog/article-toc-mobile";
+import { buildPageMetadata, DEFAULT_OG_IMAGE_PATH } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -44,15 +45,16 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) return { title: "Inlägg hittades inte" };
-  return {
+  if (!post) return { title: "Inlagg hittades inte" };
+
+  return buildPageMetadata({
     title: post.frontmatter.title,
     description: post.frontmatter.summary,
-    openGraph: {
-      title: post.frontmatter.title,
-      description: post.frontmatter.summary,
-    },
-  };
+    path: `/blogg/${slug}`,
+    type: "article",
+    imagePath: post.frontmatter.image ?? DEFAULT_OG_IMAGE_PATH,
+    imageAlt: post.frontmatter.title,
+  });
 }
 
 function createMdxComponents() {
@@ -299,3 +301,4 @@ rehypePlugins: mdxRehypePlugins,
     </main>
   );
 }
+

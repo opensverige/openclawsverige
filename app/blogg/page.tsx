@@ -2,12 +2,14 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { BlogEmptyState } from "@/components/blog/blog-empty-state";
 import { getPosts } from "@/lib/blog";
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Blogg",
   description:
     "Artiklar och tankar om AI-agenter, multi-agent-system och det svenska AI-agent-communityt.",
-};
+  path: "/blogg",
+});
 
 export default function BloggPage() {
   const posts = getPosts();
