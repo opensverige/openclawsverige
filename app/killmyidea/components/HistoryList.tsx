@@ -1,6 +1,6 @@
 import type { ScoreRecord } from "@/lib/openscore/openscore";
 
-import { HistoryListItem } from "./HistoryListItem";
+import { HistoryListItem } from "@/app/killmyidea/components/HistoryListItem";
 
 interface HistoryListProps {
   items: ScoreRecord[];
