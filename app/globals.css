@@ -1090,3 +1090,89 @@ a.brand-link:hover {
 .prose code .fn { color: var(--syntax-function); }
 .prose .token.number,
 .prose code .nr { color: var(--syntax-number); }
+
+/* ============================================
+   KILLMYIDEA — verdict + accordion
+   ============================================ */
+.killmyidea-verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.killmyidea-verdict--build {
+  color: var(--nordic-blue-light);
+  background: rgba(46, 74, 98, 0.12);
+  border-color: rgba(46, 74, 98, 0.25);
+}
+.killmyidea-verdict--pivot {
+  color: var(--gold);
+  background: rgba(201, 165, 90, 0.12);
+  border-color: rgba(201, 165, 90, 0.25);
+}
+.killmyidea-verdict--kill {
+  color: var(--crayfish-light);
+  background: rgba(232, 81, 45, 0.12);
+  border-color: rgba(232, 81, 45, 0.25);
+}
+
+.killmyidea-accordion {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-5);
+}
+.killmyidea-accordion + .killmyidea-accordion { margin-top: var(--sp-4); }
+.killmyidea-accordion summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.killmyidea-accordion summary::-webkit-details-marker { display: none; }
+.killmyidea-accordion summary::after {
+  content: "+";
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--text-muted);
+  transition: transform var(--transition), color var(--transition);
+}
+.killmyidea-accordion[open] summary { margin-bottom: var(--sp-3); }
+.killmyidea-accordion[open] summary::after {
+  transform: rotate(45deg);
+  color: var(--gold);
+}
+.killmyidea-accordion > :not(summary) {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.killmyidea-score-glow {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 165, 90, 0.18) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+}
