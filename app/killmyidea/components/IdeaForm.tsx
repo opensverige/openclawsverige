@@ -24,17 +24,20 @@ export function IdeaForm({
   return (
     <section className="card">
       <form onSubmit={onSubmit}>
-        <div className="label">Idé</div>
+        <label className="label" htmlFor="killmyidea-idea">
+          Idé
+        </label>
         <p className="t-body" style={{ marginBottom: "var(--sp-3)" }}>
           Beskriv målgrupp, problem, lösning, team och risker i ett stycke.
         </p>
         <textarea
+          id="killmyidea-idea"
           rows={8}
           value={idea}
           onChange={(event) => onChange(event.target.value)}
           disabled={isLoading}
           aria-invalid={Boolean(error)}
-          aria-describedby="idea-error"
+          aria-describedby={error ? "idea-error" : undefined}
           placeholder="Ex: Vi bygger en AI-driven tjänst för..."
           style={{
             width: "100%",
