@@ -33,3 +33,10 @@
 👉 [**LinkedIn-gruppen**](https://www.linkedin.com/groups/9544657/)
 
 Du behöver INTE vara expert – vi lär oss tillsammans.
+
+---
+
+## Databas-konventioner
+
+- Nya tabeller ska alltid prefixas med `opensverige_` (t.ex. `opensverige_killmyidea_scores`).
+- Befintliga `openscore_*`-tabeller är legacy och lämnas orörda.
