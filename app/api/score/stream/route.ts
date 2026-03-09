@@ -1,4 +1,4 @@
-﻿import { randomUUID } from "node:crypto";
+import { randomUUID } from "node:crypto";
 
 import { NextResponse } from "next/server";
 
@@ -20,6 +20,7 @@ import {
 } from "@/lib/openscore/score-config";
 import { getOpenAIClient, getSupabaseAdminClient } from "@/lib/openscore/server-clients";
 
+export const runtime = "nodejs";
 export const maxDuration = 240;
 
 type ScoreStreamEvent =

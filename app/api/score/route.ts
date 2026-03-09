@@ -20,6 +20,7 @@ import {
 } from "@/lib/openscore/score-config";
 import { getOpenAIClient, getSupabaseAdminClient } from "@/lib/openscore/server-clients";
 
+export const runtime = "nodejs";
 export const maxDuration = 240;
 
 export async function POST(request: Request) {

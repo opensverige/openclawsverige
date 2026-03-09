@@ -54,6 +54,7 @@ interface JobPayload {
   ideaScoreId: string | null;
 }
 
+export const runtime = "nodejs";
 export const maxDuration = 240;
 
 export async function GET(

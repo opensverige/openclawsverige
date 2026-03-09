@@ -1,7 +1,9 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { assertIdeaInput } from "@/lib/openscore/openscore";
 import { getSupabaseAdminClient } from "@/lib/openscore/server-clients";
+
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
