@@ -192,6 +192,10 @@ export default function ScoreCelebrationCanvas({
       sizeRef.current = { width, height };
       if (!isActiveRef.current || reducedMotionRef.current) {
         clearCanvas();
+        return;
+      }
+      if (width > 0 && height > 0 && rafIdRef.current === null) {
+        startAnimation();
       }
     };
 
