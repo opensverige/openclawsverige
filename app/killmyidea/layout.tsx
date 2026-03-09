@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
+
 import { SiteChrome } from "@/components/landing/site-chrome";
 
 export default function KillMyIdeaLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div className="page">

@@ -35,7 +35,13 @@ export function HistoryList({
         <p className="t-body">Inga sparade idéer</p>
       ) : null}
 
-      <div style={{ marginTop: "var(--sp-4)" }}>
+      <div
+        style={{
+          marginTop: "var(--sp-4)",
+          display: "grid",
+          gap: "var(--sp-3)",
+        }}
+      >
         {items.map((item) => (
           <HistoryListItem
             key={item.id}
