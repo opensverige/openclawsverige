@@ -407,36 +407,27 @@ export function KillMyIdeaPage() {
   }, [clearActiveJob, supabase]);
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-5xl px-4 py-8 sm:px-6 sm:py-10">
-      <div className="space-y-6">
+    <main>
+      <div className="section">
         <HeroSection />
-        <div className="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-center gap-3 text-center">
-          <Link
-            href="/prompt"
-            className="inline-flex rounded-lg border border-zinc-700 px-3 py-1.5 text-xs text-zinc-300 transition hover:border-zinc-500 hover:text-zinc-100"
-          >
+        <div className="button-row" style={{ justifyContent: "center" }}>
+          <Link href="/prompt" className="btn btn-secondary">
             Visa aktiv prompt
           </Link>
 
           {isAuthenticated ? (
-            <button
-              type="button"
-              onClick={() => void handleLogout()}
-              className="inline-flex rounded-lg border border-zinc-700 px-3 py-1.5 text-xs text-zinc-300 transition hover:border-zinc-500 hover:text-zinc-100"
-            >
+            <button type="button" onClick={() => void handleLogout()} className="btn btn-secondary">
               Logga ut {userEmail ? `(${userEmail})` : ""}
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={() => setIsAuthModalOpen(true)}
-              className="inline-flex rounded-lg border border-zinc-700 px-3 py-1.5 text-xs text-zinc-300 transition hover:border-zinc-500 hover:text-zinc-100"
-            >
+            <button type="button" onClick={() => setIsAuthModalOpen(true)} className="btn btn-secondary">
               Logga in
             </button>
           )}
         </div>
+      </div>
 
+      <div className="section">
         <IdeaForm
           idea={formValues.idea}
           error={formErrors.idea}
@@ -446,33 +437,43 @@ export function KillMyIdeaPage() {
           onChange={handleIdeaChange}
           onSubmit={handleSubmit}
         />
+      </div>
 
-        {viewState === "error" && statusMessage ? (
-          <section className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
-            {statusMessage}
-          </section>
-        ) : null}
+      {viewState === "error" && statusMessage ? (
+        <div className="callout warning">
+          <span className="callout-icon">⚠️</span>
+          <span>
+            <strong>Misslyckades.</strong> {statusMessage}
+          </span>
+        </div>
+      ) : null}
 
-        {viewState === "loading" ? (
-          <section className="rounded-xl border border-zinc-800 bg-zinc-900/70 px-4 py-3 text-sm text-zinc-300">
-            <p>{loadingLine}</p>
+      {viewState === "loading" ? (
+        <div className="callout info">
+          <span className="callout-icon">⏳</span>
+          <div>
+            <strong>{loadingLine}</strong>
             {liveStatus ? (
-              <p className="mt-2 text-xs uppercase tracking-wide text-zinc-400">{liveStatus}</p>
+              <div className="t-body" style={{ marginTop: "var(--sp-2)" }}>
+                {liveStatus}
+              </div>
             ) : null}
             {liveEvents.length > 0 ? (
-              <ul className="mt-3 space-y-1 border-t border-zinc-800 pt-3 text-xs text-zinc-400">
+              <ul className="format-list" style={{ marginTop: "var(--sp-2)" }}>
                 {liveEvents.map((line, index) => (
                   <li key={`${line}-${index}`}>{line}</li>
                 ))}
               </ul>
             ) : null}
-          </section>
-        ) : null}
+          </div>
+        </div>
+      ) : null}
 
-        {viewState === "success" && currentRecord ? (
-          <ScoreResult record={currentRecord} showSavedNotice={showSavedNotice} />
-        ) : null}
+      {viewState === "success" && currentRecord ? (
+        <ScoreResult record={currentRecord} showSavedNotice={showSavedNotice} />
+      ) : null}
 
+      <div className="section">
         <HistoryList
           items={historyItems}
           activeId={currentRecord?.id ?? null}

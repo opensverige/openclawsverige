@@ -8,16 +8,16 @@ interface HistoryListItemProps {
   onSelect: (item: ScoreRecord) => void;
 }
 
-const verdictStyles: Record<ScoreRecord["verdict"], string> = {
-  BUILD: "text-emerald-300",
-  PIVOT: "text-amber-300",
-  KILL: "text-red-300",
-};
-
 const verdictLabels: Record<ScoreRecord["verdict"], string> = {
   BUILD: "BYGG",
   PIVOT: "PIVOTERA",
   KILL: "LÄGG NER",
+};
+
+const verdictClasses: Record<ScoreRecord["verdict"], string> = {
+  BUILD: "killmyidea-verdict--build",
+  PIVOT: "killmyidea-verdict--pivot",
+  KILL: "killmyidea-verdict--kill",
 };
 
 export function HistoryListItem({ item, isActive, onSelect }: HistoryListItemProps) {
@@ -33,19 +33,28 @@ export function HistoryListItem({ item, isActive, onSelect }: HistoryListItemPro
     <button
       type="button"
       onClick={() => onSelect(item)}
-      className={`w-full rounded-xl border p-3 text-left transition ${
-        isActive
-          ? "border-zinc-400 bg-zinc-900"
-          : "border-zinc-800 bg-zinc-950/70 hover:border-zinc-600"
-      }`}
+      className="card"
+      style={{
+        width: "100%",
+        textAlign: "left",
+        padding: "var(--sp-4)",
+        background: isActive ? "var(--bg-surface)" : "var(--bg-card)",
+        borderColor: isActive ? "var(--gold)" : "var(--border)",
+        transition: "var(--transition)",
+        cursor: "pointer",
+      }}
     >
-      <p className="text-sm font-medium text-zinc-100">{title}</p>
-      <p className="mt-2 text-xs text-zinc-500">{date}</p>
-      <div className="mt-2 flex items-center gap-3 text-xs">
-        <span className={`font-semibold ${verdictStyles[item.verdict]}`}>
+      <p className="t-body" style={{ color: "var(--text-primary)" }}>
+        {title}
+      </p>
+      <p className="t-mono stats" style={{ color: "var(--text-muted)" }}>
+        {date}
+      </p>
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--sp-3)" }}>
+        <span className={`killmyidea-verdict ${verdictClasses[item.verdict]}`}>
           {verdictLabels[item.verdict]}
         </span>
-        <span className="text-zinc-400">poäng {item.totalScore}</span>
+        <span className="t-mono stats">poäng {item.totalScore}</span>
       </div>
     </button>
   );

@@ -20,17 +20,22 @@ export function HistoryList({
   onSelect,
 }: HistoryListProps) {
   return (
-    <section className="space-y-3 rounded-2xl border border-zinc-800 bg-zinc-950/80 p-5 sm:p-6">
-      <h2 className="text-lg font-semibold text-zinc-100">Tidigare idéer</h2>
+    <section className="card">
+      <div className="label">Historik</div>
+      <h2 className="t-heading">Tidigare idéer</h2>
 
-      {isLoading ? <p className="text-sm text-zinc-500">Laddar historik...</p> : null}
-      {error ? <p className="text-sm text-red-400">{error}</p> : null}
-
-      {!isLoading && items.length === 0 ? (
-        <p className="text-sm text-zinc-500">Inga sparade idéer</p>
+      {isLoading ? <p className="t-body">Laddar historik...</p> : null}
+      {error ? (
+        <p className="t-body" style={{ color: "var(--crayfish-light)" }}>
+          {error}
+        </p>
       ) : null}
 
-      <div className="space-y-2">
+      {!isLoading && items.length === 0 ? (
+        <p className="t-body">Inga sparade idéer</p>
+      ) : null}
+
+      <div style={{ marginTop: "var(--sp-4)" }}>
         {items.map((item) => (
           <HistoryListItem
             key={item.id}
