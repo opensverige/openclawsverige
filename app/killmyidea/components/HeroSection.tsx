@@ -1,4 +1,6 @@
-﻿export function HeroSection() {
+"use client";
+
+export function HeroSection() {
   return (
     <section className="mx-auto w-full max-w-3xl space-y-3 text-center">
       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500">

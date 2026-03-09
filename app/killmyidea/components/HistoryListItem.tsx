@@ -1,3 +1,5 @@
+"use client";
+
 import type { ScoreRecord } from "@/lib/openscore/openscore";
 
 interface HistoryListItemProps {
