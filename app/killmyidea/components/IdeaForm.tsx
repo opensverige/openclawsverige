@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import type { FormEvent } from "react";
 
@@ -22,46 +22,59 @@ export function IdeaForm({
   onSubmit,
 }: IdeaFormProps) {
   return (
-    <section className="mx-auto w-full max-w-3xl rounded-2xl border border-zinc-800 bg-zinc-950/80 p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] sm:p-6">
-      <form className="space-y-4" onSubmit={onSubmit}>
-        <label className="block space-y-2">
-          <p className="text-xs text-zinc-500">
-            Skriv hela caset i ett fält: målgrupp, problem, lösning, team, risker och
-            antaganden.
-          </p>
-          <textarea
-            className="min-h-0 w-full resize-y rounded-xl border border-zinc-800 bg-zinc-900/70 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-zinc-500 focus:ring-2 focus:ring-zinc-700/50"
-            rows={8}
-            value={idea}
-            onChange={(event) => onChange(event.target.value)}
-            disabled={isLoading}
-            aria-invalid={Boolean(error)}
-            aria-describedby="idea-error"
-            placeholder="Ex: Vi bygger en AI-driven tjänst för..."
-          />
-          {error ? (
-            <span id="idea-error" className="text-xs text-red-400">
-              {error}
-            </span>
-          ) : null}
-        </label>
-
-        <button
-          type="submit"
+    <section className="card">
+      <form onSubmit={onSubmit}>
+        <div className="label">Idé</div>
+        <p className="t-body" style={{ marginBottom: "var(--sp-3)" }}>
+          Beskriv målgrupp, problem, lösning, team och risker i ett stycke.
+        </p>
+        <textarea
+          rows={8}
+          value={idea}
+          onChange={(event) => onChange(event.target.value)}
           disabled={isLoading}
-          className="inline-flex w-full items-center justify-center rounded-xl border border-zinc-700 bg-zinc-100 px-4 py-2.5 text-sm font-semibold text-zinc-900 transition hover:bg-white disabled:cursor-not-allowed disabled:border-zinc-700 disabled:bg-zinc-700 disabled:text-zinc-200"
-        >
-          {isLoading
-            ? "Poängsätter brutalt..."
-            : isAuthenticated
-              ? "Poängsätt idé"
-              : "Logga in för att poängsätta"}
-        </button>
+          aria-invalid={Boolean(error)}
+          aria-describedby="idea-error"
+          placeholder="Ex: Vi bygger en AI-driven tjänst för..."
+          style={{
+            width: "100%",
+            minHeight: 160,
+            resize: "vertical",
+            borderRadius: "var(--radius-md)",
+            border: "1px solid var(--border)",
+            background: "var(--bg-surface)",
+            color: "var(--text-primary)",
+            padding: "var(--sp-4)",
+            fontFamily: "var(--font-body)",
+            fontSize: 15,
+            lineHeight: 1.6,
+          }}
+        />
+        {error ? (
+          <div id="idea-error" className="t-body" style={{ color: "var(--crayfish-light)" }}>
+            {error}
+          </div>
+        ) : null}
+
+        <div style={{ marginTop: "var(--sp-4)" }}>
+          <button type="submit" disabled={isLoading} className="btn btn-primary">
+            {isLoading
+              ? "Poängsätter brutalt..."
+              : isAuthenticated
+                ? "Poängsätt idé"
+                : "Logga in för att poängsätta"}
+          </button>
+        </div>
 
         {isLoading ? (
-          <p className="text-sm text-zinc-400" role="status" aria-live="polite">
+          <div
+            className="t-mono stats"
+            role="status"
+            aria-live="polite"
+            style={{ marginTop: "var(--sp-3)", color: "var(--text-muted)" }}
+          >
             {loadingLine}
-          </p>
+          </div>
         ) : null}
       </form>
     </section>

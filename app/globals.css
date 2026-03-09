@@ -1169,9 +1169,16 @@ a.brand-link:hover {
 }
 
 .killmyidea-score-hero { position: relative; }
-.killmyidea-score-hero > :not(.killmyidea-score-glow) {
+.killmyidea-score-hero > :not(.killmyidea-score-glow):not(.killmyidea-score-canvas) {
   position: relative;
   z-index: 1;
+}
+
+.killmyidea-score-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .killmyidea-score-glow {
