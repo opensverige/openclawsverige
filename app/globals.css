@@ -1108,7 +1108,6 @@ a.brand-link:hover {
   text-transform: uppercase;
   line-height: 1.2;
   color: var(--text-secondary);
-  white-space: nowrap;
 }
 .killmyidea-verdict--build {
   color: var(--nordic-blue-light);
@@ -1145,6 +1144,11 @@ a.brand-link:hover {
   font-weight: 600;
   color: var(--text-primary);
 }
+.killmyidea-accordion summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: var(--sp-1);
+  border-radius: var(--radius-sm);
+}
 .killmyidea-accordion summary::-webkit-details-marker { display: none; }
 .killmyidea-accordion summary::after {
   content: "+";
@@ -1164,10 +1168,16 @@ a.brand-link:hover {
   line-height: 1.6;
 }
 
+.killmyidea-score-hero { position: relative; }
+.killmyidea-score-hero > :not(.killmyidea-score-glow) {
+  position: relative;
+  z-index: 1;
+}
+
 .killmyidea-score-glow {
   position: absolute;
-  width: 360px;
-  height: 360px;
+  width: clamp(220px, 40vw, 360px);
+  height: clamp(220px, 40vw, 360px);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(201, 165, 90, 0.18) 0%, transparent 70%);
   top: 50%;
