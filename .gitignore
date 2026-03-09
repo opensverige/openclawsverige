@@ -23,6 +23,7 @@ yarn-error.log*
 .vscode/
 .idea/
 cursor-rules/
+.worktrees/
 
 # OS
 .DS_Store
