@@ -50,6 +50,7 @@ export default function ScoreCelebrationCanvas({
   const sizeRef = useRef({ width: 0, height: 0 });
   const reducedMotionRef = useRef(false);
   const isActiveRef = useRef(isActive);
+  const isMountedRef = useRef(false);
 
   const stopAnimation = () => {
     if (rafIdRef.current !== null) {
@@ -61,13 +62,13 @@ export default function ScoreCelebrationCanvas({
   const clearCanvas = () => {
     const ctx = ctxRef.current;
     const { width, height } = sizeRef.current;
-    if (!ctx || width === 0 || height === 0) return;
+    if (!ctx || width <= 0 || height <= 0) return;
     ctx.clearRect(0, 0, width, height);
   };
 
   const createParticles = (count: number) => {
     const { width, height } = sizeRef.current;
-    if (width === 0 || height === 0) return [];
+    if (width <= 0 || height <= 0) return [];
     const originX = width * 0.5;
     const originY = height * 0.55;
     const colors = paletteRef.current;
@@ -99,12 +100,12 @@ export default function ScoreCelebrationCanvas({
   const animate = () => {
     const ctx = ctxRef.current;
     const { width, height } = sizeRef.current;
-    if (!ctx || width === 0 || height === 0) {
+    if (!ctx || width <= 0 || height <= 0) {
       stopAnimation();
       return;
     }
 
-    if (!isActiveRef.current || reducedMotionRef.current) {
+    if (!isActiveRef.current || reducedMotionRef.current || !isMountedRef.current) {
       stopAnimation();
       clearCanvas();
       return;
@@ -148,14 +149,20 @@ export default function ScoreCelebrationCanvas({
     }
 
     particlesRef.current = nextParticles;
-    rafIdRef.current = requestAnimationFrame(animate);
+    if (isMountedRef.current) {
+      rafIdRef.current = requestAnimationFrame(animate);
+    } else {
+      stopAnimation();
+    }
   };
 
   const startAnimation = () => {
+    if (!isMountedRef.current) return;
     if (rafIdRef.current !== null) return;
     const { width, height } = sizeRef.current;
-    if (width === 0 || height === 0) return;
+    if (width <= 0 || height <= 0) return;
     if (!isActiveRef.current || reducedMotionRef.current) return;
+    paletteRef.current = resolvePalette();
     particlesRef.current = createParticles(PARTICLE_COUNT);
     rafIdRef.current = requestAnimationFrame(animate);
   };
@@ -170,16 +177,17 @@ export default function ScoreCelebrationCanvas({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    isMountedRef.current = true;
     ctxRef.current = ctx;
     paletteRef.current = resolvePalette();
 
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
-      const width = Math.max(1, rect.width);
-      const height = Math.max(1, rect.height);
+      const width = Math.max(0, rect.width);
+      const height = Math.max(0, rect.height);
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
+      canvas.width = Math.max(0, Math.floor(width * dpr));
+      canvas.height = Math.max(0, Math.floor(height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       sizeRef.current = { width, height };
       if (!isActiveRef.current || reducedMotionRef.current) {
@@ -217,6 +225,7 @@ export default function ScoreCelebrationCanvas({
     }
 
     return () => {
+      isMountedRef.current = false;
       stopAnimation();
       if (resizeObserver) {
         resizeObserver.disconnect();
