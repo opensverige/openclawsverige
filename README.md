@@ -40,6 +40,19 @@ Du behöver INTE vara expert – vi lär oss tillsammans.
 
 - **Installera och bygg:** `npm install && npm run build`
 
+### Deploy på Vercel
+
+1. **Koppla rätt repo** – Vercel måste bygga från **det här repot**: [opensverige/openclawsverige](https://github.com/opensverige/openclawsverige).  
+   Vercel Dashboard → ditt projekt → **Settings** → **Git** → om det står ett annat repo (t.ex. `Baltsar/openclawsverige_public`), klicka **Disconnect** och koppla **opensverige/openclawsverige** istället.
+
+2. **Root Directory** – Låt stå tomt (projektets root är repots root).
+
+3. **Redeploy** – **Deployments** → **Redeploy** på senaste (gärna "Redeploy" med "Clear cache and redeploy").
+
+4. **Öppna sajten** – Använd **produktions-URL:en** (t.ex. `https://<projekt>.vercel.app` eller din egen domän), inte länken till en enskild deployment-sida. Knappen **Visit** vid en deployment öppnar rätt URL.
+
+Om deployment-sidan i Vercel visar 404 men bygget lyckats: öppna direkt **Visit**-länken eller produktions-URL:en – ofta fungerar sajten även då.
+
 ## Databas-konventioner
 
 - Nya tabeller ska alltid prefixas med `opensverige_`.

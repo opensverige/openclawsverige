@@ -1,4 +1,4 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import {
@@ -7,7 +7,7 @@ import {
   getPrevNext,
 } from "@/lib/blog";
 import { mdxRehypePlugins } from "@/lib/mdx-options";
-import { getHeadingId } from "@/lib/slugify";
+import { getHeadingId, sanitizePathSegment, sanitizeForDisplay } from "@/lib/slugify";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -271,21 +271,21 @@ rehypePlugins: mdxRehypePlugins,
                 >
                   {prev ? (
                     <Link
-                      href={`/blogg/${prev.slug}`}
+                      href={`/blogg/${sanitizePathSegment(prev.slug)}`}
                       className="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-[var(--gold)]"
                     >
                       <ChevronLeft className="h-4 w-4" aria-hidden />
-                      <span className="truncate">{prev.title}</span>
+                      <span className="truncate">{sanitizeForDisplay(prev.title)}</span>
                     </Link>
                   ) : (
                     <span />
                   )}
                   {next ? (
                     <Link
-                      href={`/blogg/${next.slug}`}
+                      href={`/blogg/${sanitizePathSegment(next.slug)}`}
                       className="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-[var(--gold)] sm:ml-auto"
                     >
-                      <span className="truncate">{next.title}</span>
+                      <span className="truncate">{sanitizeForDisplay(next.title)}</span>
                       <ChevronRight className="h-4 w-4" aria-hidden />
                     </Link>
                   ) : null}
