@@ -8,7 +8,9 @@ type StepsProps = {
 
 export function Steps({ children, className }: StepsProps) {
   const withIndex = Children.map(children, (child, i) =>
-    isValidElement(child) ? cloneElement(child, { stepNumber: i + 1 }) : child
+    isValidElement(child)
+      ? cloneElement(child, { stepNumber: i + 1 } as Partial<StepProps>)
+      : child
   );
   return (
     <div className={cn("my-8", className)} role="list">

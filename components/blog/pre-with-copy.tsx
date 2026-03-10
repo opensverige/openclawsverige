@@ -10,8 +10,9 @@ function getLangFromChildren(children: React.ReactNode): string {
   const code = Children.toArray(children).find(
     (c) => isValidElement(c) && (c.type as unknown as string) === "code"
   );
-  if (!isValidElement(code) || !code.props.className) return "code";
-  const match = String(code.props.className).match(/language-(\w+)/);
+  const props = isValidElement(code) ? (code.props as { className?: string }) : null;
+  if (!props?.className) return "code";
+  const match = String(props.className).match(/language-(\w+)/);
   return match ? match[1] : "code";
 }
 

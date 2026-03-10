@@ -17,7 +17,8 @@ function flattenChildren(node: React.ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
   if (Array.isArray(node)) return node.map(flattenChildren).join("");
   if (node && typeof node === "object" && "props" in node) {
-    return flattenChildren((node as React.ReactElement).props.children);
+    const el = node as React.ReactElement<{ children?: React.ReactNode }>;
+    return flattenChildren(el.props.children);
   }
   return "";
 }
