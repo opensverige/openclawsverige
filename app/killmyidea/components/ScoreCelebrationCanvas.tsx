@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 type ScoreCelebrationCanvasProps = {
   isActive: boolean;
@@ -97,7 +97,7 @@ export default function ScoreCelebrationCanvas({
     return particles;
   };
 
-  const animate = () => {
+  const animate = useCallback(() => {
     const ctx = ctxRef.current;
     const { width, height } = sizeRef.current;
     if (!ctx || width <= 0 || height <= 0) {
@@ -154,9 +154,9 @@ export default function ScoreCelebrationCanvas({
     } else {
       stopAnimation();
     }
-  };
+  }, []);
 
-  const startAnimation = () => {
+  const startAnimation = useCallback(() => {
     if (!isMountedRef.current) return;
     if (rafIdRef.current !== null) return;
     const { width, height } = sizeRef.current;
@@ -165,7 +165,7 @@ export default function ScoreCelebrationCanvas({
     paletteRef.current = resolvePalette();
     particlesRef.current = createParticles(PARTICLE_COUNT);
     rafIdRef.current = requestAnimationFrame(animate);
-  };
+  }, [animate]);
 
   useEffect(() => {
     isActiveRef.current = isActive;
@@ -242,7 +242,7 @@ export default function ScoreCelebrationCanvas({
         mediaQuery.removeListener(handleMotion);
       }
     };
-  }, []);
+  }, [startAnimation]);
 
   useEffect(() => {
     if (!isActive) {
@@ -255,7 +255,7 @@ export default function ScoreCelebrationCanvas({
       return;
     }
     startAnimation();
-  }, [isActive]);
+  }, [isActive, startAnimation]);
 
   return (
     <canvas

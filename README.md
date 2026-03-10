@@ -36,6 +36,12 @@ Du behöver INTE vara expert – vi lär oss tillsammans.
 
 ---
 
+## Utveckling & deploy
+
+- **Node 20+** krävs (Supabase/OpenAI). Använd `.nvmrc` eller `engines` i `package.json`.
+- **Installera och bygg:** `npm install && npm run build`
+- **Killmyidea** kräver i produktion: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (eller `NEXT_PUBLIC_ANON_KEY`) och för API: `OPENAI_API_KEY`, Supabase service-nyckel. Utan dessa kan `/killmyidea` ge fel eller 404 om builden misslyckas.
+
 ## Databas-konventioner
 
 - Nya tabeller ska alltid prefixas med `opensverige_` (t.ex. `opensverige_killmyidea_scores`).

@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+import Link from "next/link";
+import Image from "next/image";
 import { SiteNav } from "@/components/landing/site-nav";
 
 const DISCORD_URL = "https://discord.gg/CSphbTk8En";
@@ -27,7 +28,7 @@ export default function HomePage() {
             </div>
             <div className="site-hero-image">
               <div className="site-hero-glow" />
-              <img src="/assets/1200x_hand.png" alt="Kräfthanden" style={{ position: "relative", zIndex: 2 }} />
+              <Image src="/assets/1200x_hand.png" alt="Kräfthanden" width={1200} height={630} style={{ position: "relative", zIndex: 2 }} />
             </div>
           </div>
 
