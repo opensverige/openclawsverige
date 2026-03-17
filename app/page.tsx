@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { SiteNav } from "@/components/landing/site-nav";
 
 const DISCORD_URL = "https://discord.gg/CSphbTk8En";
@@ -8,8 +9,69 @@ const LINKEDIN_URL = "https://www.linkedin.com/groups/9544657/";
 const RADAR_URL = "/radar";
 
 export default function HomePage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Vad är opensverige?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "En öppen community för folk som bygger AI-agenter i Sverige. Vi delar kod, ses IRL, och hjälper varandra.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Vem kan gå med?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Alla. Nybörjare till experter. Hobby till jobb. Inga krav, inga avgifter.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Varför ett svenskt community?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Svenska integrationer (Fortnox, Bankgirot), svensk tidszon, IRL-träffar du faktiskt kan gå på.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Kostar det något?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Nej. Gratis. Öppen källkod. Ägt av ingen.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Hur startar jag en lokal nod?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Hitta en plats, sätt ett datum, posta i Discord. Tre personer räcker. Du behöver inte fråga om lov.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Vilka verktyg stödjer ni?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Alla. OpenClaw, CrewAI, AutoGen, LangGraph, MCP, egna lösningar. Verktygsagnostiskt.",
+        },
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen">
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="page">
         <div className="site-mockup">
           {/* 1. NAV — hamburger + Discord */}
@@ -18,7 +80,7 @@ export default function HomePage() {
           {/* 2. HERO — no stats-bar */}
           <div className="site-hero">
             <div className="site-hero-text">
-              <h2>Bygg AI-agenter.<br />Tillsammans.</h2>
+              <h1>opensverige – Sveriges community för AI-agenter</h1>
               <div className="site-tagline">Öppet för alla. Ägt av ingen.</div>
               <div className="site-sub">Discord + IRL i hela Sverige.</div>
               <div className="site-hero-cta">

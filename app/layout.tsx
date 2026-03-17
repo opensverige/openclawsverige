@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import {
@@ -96,11 +96,19 @@ const organizationSchema = {
   "@type": "Organization",
   name: SITE_NAME,
   url: SITE_URL,
+  logo: absoluteUrl("/icon.png"),
   description: "Sveriges community for AI-agenter",
   sameAs: [
     "https://discord.gg/CSphbTk8En",
     "https://www.facebook.com/groups/2097332881024571/",
     "https://www.linkedin.com/groups/9544657/",
+  ],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      email: "info@opensverige.se",
+      contactType: "Customer Service",
+    },
   ],
 };
 
