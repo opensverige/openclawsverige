@@ -1,7 +1,7 @@
-﻿import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteNav } from "@/components/landing/site-nav";
 import { buildPageMetadata } from "@/lib/seo";
+import { SITE_NAME, absoluteUrl } from "@/lib/seo";
 
 const DISCORD_URL = "https://discord.gg/CSphbTk8En";
 
@@ -12,18 +12,107 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function ManifestPage() {
+  const url = absoluteUrl("/manifest");
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Manifestet — opensverige",
+    description:
+      "Öppet för alla. Ägt av ingen. Bygg AI-agenter. Tillsammans.",
+    url,
+    datePublished: "2026-01-01",
+    dateModified: new Date().toISOString().slice(0, 10),
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: absoluteUrl("/"),
+    },
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: absoluteUrl("/"),
+    },
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Starta en nod — så kör du opensverige i din stad",
+    description:
+      "Hitta en plats, sätt ett datum, och kör formatet: Fika, bygg och show & tell.",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "Hitta en plats",
+        text: "Café, coworking, park eller bibliotek — vad som helst som funkar.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Sätt ett datum",
+        text: "Lägg upp datumet i Discord under din stads kanal.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Dyk upp (även om ni är tre)",
+        text: "Det räcker att ni är tre första gången — sen kör vi formatet.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Kör formatet",
+        text: "Fika, bygg, show & tell. Halvfärdigt är standard. Trasigt är välkommet.",
+      },
+      {
+        "@type": "HowToStep",
+        position: 5,
+        name: "Upprepa",
+        text: "När ni kört klart: kör igen och bygg momentum lokalt.",
+      },
+    ],
+  };
+
+  const breadcrumbsSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, item: { "@id": absoluteUrl("/"), name: "Hem" } },
+      { "@type": "ListItem", position: 2, item: { "@id": url, name: "Manifest" } },
+    ],
+  };
+
   return (
     <main className="min-h-screen">
       <div className="page">
         <SiteNav />
 
         <article className="manifest-doc">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(breadcrumbsSchema),
+            }}
+          />
           <header className="manifest-masthead">
             <div className="manifest-domain">opensverige.se</div>
             <h1>Manifest</h1>
           </header>
 
           <p>Vi är en öppen community för folk som bygger med AI i Sverige.</p>
+          <p style={{ color: "var(--text-secondary)" }}>
+            English: opensverige is an open community for people building AI agents in Sweden.
+            We share progress openly and meet offline to build together.
+          </p>
           <p>Inga titlar. Inga sponsorpitchar. Inga slides med företagsloggor.</p>
           <p>Bara människor som vill sitta ner, bygga saker, och dela med sig av vad de lär sig.</p>
 
@@ -140,6 +229,9 @@ export default function ManifestPage() {
           </section>
 
           <p className="manifest-signoff">Öppet för alla. Ägt av ingen. Byggt av oss.</p>
+          <p style={{ color: "var(--text-secondary)", marginTop: 6, fontSize: 14 }}>
+            Skapad av opensverige community.
+          </p>
           <div className="manifest-signoff-cta">
             <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: "var(--sp-2) var(--sp-5)", fontSize: "13px" }}>Gå med i Discord →</a>
           </div>

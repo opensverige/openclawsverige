@@ -1,0 +1,82 @@
+---
+title: "Vilket AI-agentramverk ska du välja 2026? CrewAI vs LangGraph vs OpenClaw"
+date: "2026-03-10"
+summary: "En praktisk jämförelse för builders: mognad, risk och när du bör välja vilket ramverk."
+author: "opensverige community"
+tags: ["AI-agenter", "CrewAI", "LangGraph", "OpenClaw", "Sverige"]
+image: "/assets/1200x_hand.png"
+---
+
+# Vilket AI-agentramverk ska du välja 2026?
+
+Det finns ett mönster vi ser om och om igen när svenska builders börjar med agenter: man vill börja snabbt, men man vill också att allt ska bli stabilt när man går från demo till produktion.
+
+Den här guiden hjälper dig välja mellan **CrewAI**, **LangGraph** och **OpenClaw** genom att utgå från hur ramverken brukar användas i verkliga workflows — och vad du riskerar om du väljer fel nivå för ditt projekt.
+
+## Snabb tumregel: välj utifrån din *stabilitetsprofil*
+
+Tänk dig att ett agentramverk måste klara tre saker:
+
+1. **Orkestrering** (hur stegen hänger ihop)
+2. **Återhämtning** (vad händer när något går fel)
+3. **Kontroll** (hur du styr retrieval, tools och output-format)
+
+Ramverk är inte “bra” eller “dåliga” generellt. De är “bra” för ett visst kontrollbehov.
+
+## CrewAI: när team och “roller” är kärnan
+
+**CrewAI** är ofta ett bra val när du vill modellera ett agentteam: roller, uppgifter och ett tydligt flöde där varje steg är en del av helheten.
+
+**Passar dig om:**
+- Du vill kunna beskriva en process som tydliga uppgifter.
+- Du vill komma igång snabbt med flöden som liknar “projektarbete”.
+- Du vill ha enkel mental modell för att lägga till fler roller.
+
+**Var du ska vara försiktig:**
+- Om du kräver fin kontroll över recovery och branching kan du behöva extra lager ovanpå.
+- När du börjar växa kan du behöva strama upp validering och output-format tidigt.
+
+## LangGraph: när du behöver *styrd* state-machine
+
+**LangGraph** är starkt när du vill jobba med en graf av tillstånd och steg. Det blir som en state machine för agenter.
+
+**Passar dig om:**
+- Du vill ha tydlig kontroll över state, transitions och retries.
+- Du jobbar med multi-agent där samarbetet kräver “regler för när”.
+- Du behöver robusthet: att agenten kan backa, fortsätta, eller byta strategi.
+
+**Var du ska vara försiktig:**
+- Det kan kännas mer “engineering” än “magisk prompt”.
+- Du behöver bestämma tidigt hur state ska representeras och valideras.
+
+## OpenClaw: när du vill ha brutal praktisk kontroll
+
+**OpenClaw** är ofta attraktivt för builders som vill ha en tydlig, praktisk väg från idé till fungerande system: verktyg, integrationer och komposition med bra ergonomi.
+
+**Passar dig om:**
+- Du vill bygga egna “agentkomponenter” och sätta ihop dem.
+- Du vill ha ett verktygsagnostiskt upplägg där du byter runtime/modeller utan att allt rasar.
+- Du vill att det ska bli lätt att producera stabila resultat med strukturerad output.
+
+**Var du ska vara försiktig:**
+- Om du bara vill ha en “quick answer” kan det kännas som overkill.
+- Planera input-validering och output-schema från början — det sparar tid.
+
+## Ett enkelt beslutsflöde
+
+Ställ dig frågorna nedan:
+
+1. Behöver du **fin kontroll över state och recovery**?
+   - Ja → ofta **LangGraph**
+2. Är kärnan **rollbaserad teamorkestrering**?
+   - Ja → ofta **CrewAI**
+3. Vill du bygga ett **system** (inte bara ett flöde) och ha verktygskomposition?
+   - Ja → ofta **OpenClaw**
+
+## Slutsats
+
+Om du bygger för produktion: välj inte ramverk bara för att det “låter häftigt”.
+Välj det ramverk vars modell matchar din stabilitetsprofil — och bygg med output-validering, logs och tydliga recoveryvägar.
+
+Vill du se fler jämförelser? Öppna **Agent Radar** och filtrera efter mognad och risk.
+

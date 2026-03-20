@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import { SiteNav } from "@/components/landing/site-nav";
+import { SITE_NAME, absoluteUrl } from "@/lib/seo";
 
 const DISCORD_URL = "https://discord.gg/CSphbTk8En";
 const FACEBOOK_URL = "https://www.facebook.com/groups/2097332881024571/";
@@ -64,6 +65,39 @@ export default function HomePage() {
     ],
   };
 
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: "IRL-sessioner — bygg ihop",
+    description:
+      "Fika, bygg och show & tell i fokus: inga föreläsningar, bara arbetstid och demos.",
+    startDate: "2026-01-01",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: "Sverige",
+    },
+    organizer: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: absoluteUrl("/"),
+    },
+    url: absoluteUrl("/"),
+    inLanguage: "sv",
+  };
+
+  const breadcrumbsSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: { "@id": absoluteUrl("/"), name: "Hem" },
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen">
       <Script
@@ -71,6 +105,20 @@ export default function HomePage() {
         type="application/ld+json"
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <Script
+        id="schema-event"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+      />
+      <Script
+        id="schema-breadcrumbs"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbsSchema),
+        }}
       />
       <div className="page">
         <div className="site-mockup">
@@ -82,6 +130,10 @@ export default function HomePage() {
             <div className="site-hero-text">
               <h1>opensverige – Sveriges community för AI-agenter</h1>
               <div className="site-tagline">Öppet för alla. Ägt av ingen.</div>
+              <p style={{ color: "var(--text-secondary)", marginTop: 10 }}>
+                English: OpenSverige is Sweden open community for AI agent builders.
+                We connect builders through Discord and offline sessions.
+              </p>
               <div className="site-sub">Discord + IRL i hela Sverige.</div>
               <div className="site-hero-cta">
                 <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Gå med i Discord →</a>

@@ -1,0 +1,73 @@
+---
+title: "Lokalt vs moln: riskbudget för agentflöden när latens och kostnad varierar"
+date: "2026-03-02"
+summary: "Hur du väljer mellan lokala och molnbaserade modeller med fokus på risk, kostnad och återhämtningsbarhet."
+author: "opensverige community"
+tags: ["LLM", "Risk", "Kostnad", "Agenter"]
+image: "/assets/1200x_hand.png"
+---
+
+# Lokalt vs moln: riskbudget i stället för magkänsla
+
+När du bygger agentflöden möter du nästan alltid tre begränsningar:
+
+- **Latency** (hur lång tid allt tar)
+- **Cost** (hur dyrt det blir per jobb)
+- **Risk** (hur allvarligt blir ett fel när det händer?)
+
+Många väljer lokalt eller moln utifrån vad som “känns” bäst. Det går — men du förlorar ofta kontroll när flödet växer.
+
+Den här artikeln föreslår en enkel riskbudget-modell för beslut.
+
+## Steg 1: Definiera jobbets “felkonsekvens”
+
+Ställ frågan: Om agenten gör fel, hur farligt är det?
+
+Exempel:
+
+- Fel i ett “utkast”-steg → låg risk
+- Fel i en integrationsoperation → hög risk
+
+Din riskklass styr hur strikt output du kräver och vilken recovery du bygger.
+
+## Steg 2: Matcha modellstrategi mot riskklass
+
+En vanlig design:
+
+- låg risk: snabbare modell, mer iterering
+- hög risk: strikt schema, färre fria formuleringar, tydlig repair
+
+Lokalt kan vara snabbare i vissa miljöer, men kräver att du hanterar:
+
+- stabilitet i runtime
+- latensvariation vid belastning
+- uppgraderingscykler för modeller
+
+Moln kan ge jämnare kvalitet men kan vara dyrare och mer beroende av tredjepartsstatus.
+
+## Steg 3: Bygg återhämtningssteg
+
+Oavsett var du kör:
+
+- Lägg in schema-validering
+- Om validering fallerar: repair-step
+- Spara input/output för audit
+
+Det gör att du kan fortsätta bygga när du upptäcker kantfall.
+
+## Steg 4: Ställ in kostnad och timeout som en del av designen
+
+Definiera:
+
+- max antal försök
+- max tokens
+- timeout per tool-step
+
+Det gör att agenten inte “äter” hela budgeten när det blir fel.
+
+## Slutsats
+
+Välj lokalt eller moln för att det matchar *riskklass* och *recoverydesign* — inte för att det är modernt.
+
+Om du vill ha en mall för riskbudget: skriv “riskbudget” i Discord så postar vi en checklista.
+

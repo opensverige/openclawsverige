@@ -2,7 +2,7 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { BlogEmptyState } from "@/components/blog/blog-empty-state";
 import { getPosts } from "@/lib/blog";
 import type { Metadata } from "next";
-import { buildPageMetadata } from "@/lib/seo";
+import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Blogg",
@@ -14,8 +14,31 @@ export const metadata: Metadata = buildPageMetadata({
 export default function BloggPage() {
   const posts = getPosts();
 
+  const breadcrumbsSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: { "@id": absoluteUrl("/"), name: "Hem" },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: { "@id": absoluteUrl("/blogg"), name: "Blogg" },
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbsSchema),
+        }}
+      />
           <section
             className="site-sections"
             aria-labelledby="blogg-heading"
@@ -28,6 +51,9 @@ export default function BloggPage() {
             </h1>
             <p style={{ fontFamily: "var(--font-body)", fontSize: 15, color: "var(--text-secondary)", marginBottom: "var(--sp-8)" }}>
               Tankar och guider om AI-agenter och communityt.
+            </p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: 14, color: "var(--text-secondary)", marginTop: -10, marginBottom: "var(--sp-8)" }}>
+              English: Articles and guides for AI agent builders, multi-agent systems, and the Swedish builder community.
             </p>
             {posts.length === 0 ? (
               <BlogEmptyState />

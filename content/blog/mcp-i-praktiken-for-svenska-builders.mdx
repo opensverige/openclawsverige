@@ -1,0 +1,81 @@
+---
+title: "MCP i praktiken för svenska builders: från idé till användbar tool"
+date: "2026-03-06"
+summary: "En praktisk guide till hur du kopplar agenter till verktyg med MCP, med tydliga kontrollpunkter."
+author: "opensverige community"
+tags: ["MCP", "AI-agenter", "Tools", "Sverige"]
+image: "/assets/1200x_hand.png"
+---
+
+# MCP i praktiken: från idé till tool
+
+MCP (Model Context Protocol) gör det enklare att koppla agenter till verktyg. I stället för att varje agentprojekt uppfinna sin egen “tool adapter” kan du skapa en konsekvent MCP-server som andra agenter kan återanvända.
+
+Den här guiden är skriven för svenska builders som vill göra MCP konkret: mindre teori, mer “vad ska jag bygga och vad ska jag logga?”.
+
+## Steg 1: Börja med ett verktyg som går att validera
+
+Välj ett verktyg som har:
+
+- Tydlig input (fält, format, gränser)
+- Tydlig output (struktur, felkoder, exempel)
+- Ett testbart “svar” som du kan jämföra
+
+Exempel (svenska kontexter):
+
+- Hämta data från en intern datakälla
+- Sammanfatta dokument
+- Skapa underlag (t.ex. textutkast) med validerade fält
+
+## Steg 2: Modellera tool-kontrakt tidigt
+
+Innan du kopplar agenten behöver du göra tool-kontraktet stabilt:
+
+1. Definiera inputfält (namn, typer, max-längder)
+2. Definiera outputfält (namn, typer, krav)
+3. Definiera felvägar (ex. “missing_param”, “rate_limited”, “not_found”)
+
+Det du vill undvika är att börja med “fritt textinput” och först senare upptäcka att du saknar validering.
+
+## Steg 3: Bygg servern så att den är observability-first
+
+När agenter felsöker är “varför gick det fel?” oftast viktigare än “att det gick fel”.
+
+Logga minst:
+
+- tool-version
+- request-id
+- vilka fält som togs emot (utan att logga secrets)
+- outputens schema-valideringsresultat
+- latens per step
+
+Det gör att du kan felsöka både din server och din agentstrategi.
+
+## Steg 4: Koppla agenten med strikt output-schema
+
+Agentens uppgift är att välja rätt tool och generera input. Men du måste låsa output.
+
+Praktiskt innebär det:
+
+- Du kräver att agentens output följer ett JSON-schema (eller motsvarande validering)
+- Du transformerar agentens output till tool-input
+- Du validerar tool-output innan du matar den vidare
+
+Om valideringen misslyckas: låt agenten göra en “repair” i stället för att fortsätta med skräpdata.
+
+## Steg 5: Sätt recovery-regler (inte bara retries)
+
+Retries löser sällan logiska fel. Recovery handlar om att agenten ska kunna välja annan strategi.
+
+Exempel:
+
+- Om tool-output saknar ett fält → be om “repair” med exakt vilka fält som saknas
+- Om tool-felkoden är rate-limited → vänta (med backoff) eller föreslå att du kör en enklare variant
+- Om tool-felkoden är not_found → låt agenten fråga användaren efter rätt input
+
+## Slutsats
+
+MCP blir värdefullt när tool-kontrakten är robusta, validering finns, och recovery är en del av designen.
+
+Vill du göra mer nästa steg? Lägg till ett andra tool som bygger på samma kontrakt-idéer, och återanvänd loggformat + validering.
+

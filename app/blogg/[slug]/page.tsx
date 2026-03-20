@@ -24,7 +24,12 @@ import { MdxImage } from "@/components/mdx/mdx-image";
 import { PreWithCopyBar } from "@/components/blog/pre-with-copy";
 import { TableOfContents } from "@/components/blog/table-of-contents";
 import { ArticleTocMobile } from "@/components/blog/article-toc-mobile";
-import { buildPageMetadata, DEFAULT_OG_IMAGE_PATH } from "@/lib/seo";
+import {
+  buildPageMetadata,
+  DEFAULT_OG_IMAGE_PATH,
+  SITE_NAME,
+  absoluteUrl,
+} from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -192,8 +197,67 @@ rehypePlugins: mdxRehypePlugins,
 
   const { prev, next } = getPrevNext(slug);
 
+  const pageUrl = absoluteUrl(`/blogg/${slug}`);
+  const breadcrumbsSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: { "@id": absoluteUrl("/"), name: "Hem" },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: { "@id": absoluteUrl("/blogg"), name: "Blogg" },
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        item: { "@id": pageUrl, name: post.frontmatter.title },
+      },
+    ],
+  };
+
+  const blogPostingSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.frontmatter.title,
+    description: post.frontmatter.summary,
+    datePublished: post.frontmatter.date,
+    dateModified: post.frontmatter.date,
+    inLanguage: "sv",
+    url: pageUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": pageUrl,
+    },
+    author: {
+      "@type": "Organization",
+      name: post.frontmatter.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: absoluteUrl("/"),
+    },
+  };
+
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbsSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostingSchema),
+        }}
+      />
           <article
             className="site-sections"
             aria-labelledby="post-title"

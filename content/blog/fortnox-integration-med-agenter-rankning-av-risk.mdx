@@ -1,0 +1,81 @@
+---
+title: "Fortnox + agenter: välj modell, hantera tokens och bygg säkert"
+date: "2026-03-04"
+summary: "Riskorienterad approach för svenska integrationer: tokenhantering, validering och audit-logg."
+author: "opensverige community"
+tags: ["Fortnox", "Integrations", "Säkerhet", "AI-agenter"]
+image: "/assets/1200x_hand.png"
+---
+
+# Fortnox + agenter: bygg säkert från dag 1
+
+När du kopplar agenter mot finansiella system (som Fortnox) behöver du tänka annorlunda än när du bara gör “en demo som funkar”.
+
+Det finns tre huvudrisker:
+
+1. **Tokens läcker** (loggar, felhantering, prompt-injektion)
+2. **Felaktiga anrop** (agenten gör fel operation i fel ordning)
+3. **Svag validering** (du sparar skräp data som senare skapar problem)
+
+I den här artikeln går vi igenom en praktisk byggväg som minskar risk utan att bromsa utveckling.
+
+## 1) Tokenhantering: behandla tokens som “engångsartefakter”
+
+Regler vi rekommenderar:
+
+- Logga aldrig tokens (varken i klientloggar eller serverloggar)
+- Separera “maskering” från “avvikelsehantering”
+- Använd kortlivade tokens där det går
+
+I agentflöden är det extra lätt att råka skicka tokens vidare eftersom agenter “vill” ha kontext. Men du ska hellre bygga:
+
+- en tool-funktion som tar token internt
+- en agent som bara får output och felkoder
+
+## 2) Validera varje tool-step
+
+Varje verktygsanrop bör ha:
+
+- input-validering (fält, format)
+- tool-output validering (schema/typer)
+- “opsekvenskontroll” (om ordningen är fel: stopp)
+
+Det minskar risken för att agenten “hittar på” data när den inte vet.
+
+## 3) Gör output till en auditbar händelse
+
+För integrationer vill du kunna svara på:
+
+- vilken input gav agenten?
+- vilket tool anropades?
+- vilka fält användes?
+- vad blev resultatet (inkl. fel)?
+
+Det gör både felsökning och säkerhetsgranskning mycket enklare.
+
+## 4) Modellval: byt strategi när risk ökar
+
+Hög risk = striktare regler, mindre kreativitet.
+
+Praktiskt:
+
+- använd lägre “temperature” i JSON-generation
+- kräva strikt schema för operations
+- lägg in repair-step om schema-validering misslyckas
+
+## 5) Recovery: återställ till ett säkert läge
+
+Om agenten gör ett fel:
+
+- stoppa flödet
+- returnera en tydlig felkod
+- låt agenten göra en repair eller be om rätt input
+
+Retries utan recovery ger ofta fler fel.
+
+## Slutsats
+
+Integrations-agenter kan vara riktigt kraftfulla. Men bygg dem som om de är en del av ett system — inte en chatbot.
+
+Vill du ha en nästa artikel? Skriv i Discord vilka tool-kontrakt du vill standardisera.
+

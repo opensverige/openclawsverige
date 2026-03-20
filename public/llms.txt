@@ -1,0 +1,16 @@
+# opensverige
+
+> Sveriges öppna community för dig som bygger AI-agenter. Gratis, ägarlöst, byggt av oss.
+
+opensverige is Sweden's open community for AI agent builders. We support frameworks including CrewAI, LangGraph, AutoGen, and OpenClaw. The community operates via Discord (async) and IRL sessions in Swedish cities.
+
+Pages:
+- Home: https://opensverige.se
+- Agent Radar: https://opensverige.se/radar
+- Manifest: https://opensverige.se/manifest
+- Blogg: https://opensverige.se/blogg
+
+Contact:
+- info@opensverige.se
+- Discord: https://discord.gg/CSphbTk8En
+
