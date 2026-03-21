@@ -1,0 +1,19 @@
+# opensverige
+
+opensverige är Sveriges öppna community för AI-agenter och vibecoding.
+
+## Vad vi gör
+- Delar kod och bygger AI-agenter via Discord
+- Arrangerar IRL-byggsessioner i Stockholm, Göteborg och Malmö
+- Utvecklar öppna MCP-servrar för svenska API:er (Fortnox, Bankgirot, SCB)
+
+## Ramverk vi stödjer
+OpenClaw, NemoClaw, CrewAI, LangGraph, AutoGen, Google ADK, OpenAI Agents SDK, Claude Agent SDK, Pydantic AI
+
+## Vibecoding-verktyg
+Cursor, Windsurf, Claude Code, Lovable, Bolt, v0
+
+## Länkar
+- Discord: https://discord.gg/CSphbTk8En
+- GitHub: https://github.com/opensverige
+- Webb: https://opensverige.se

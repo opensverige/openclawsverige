@@ -1,0 +1,40 @@
+---
+title: 'MCP vs REST — när ska du använda vad?'
+date: '2026-02-28'
+author: 'anonym'
+tags: ['mcp', 'arkitektur']
+---
+
+## Kort svar
+
+REST är för human-to-machine. MCP är för agent-to-tool.
+
+## REST
+
+REST-API:er är designade för programmerare att använda. Du vet exakt vilka endpoints som finns, vilka parametrar de tar och vad de returnerar.
+
+Problemet: din AI-agent vet inte det. Den måste gissa eller ha dokumentationen injektad i sin kontext.
+
+## MCP
+
+Model Context Protocol ger agenten ett standardiserat sätt att utforska och använda verktyg — utan att du behöver hårdkoda varje API-anrop.
+
+```json
+{
+  "tools": [
+    {
+      "name": "list_invoices",
+      "description": "Lista fakturor för ett företag",
+      "inputSchema": { "type": "object", "properties": { "status": { "type": "string" } } }
+    }
+  ]
+}
+```
+
+Agenten läser detta, förstår vad verktyget gör och anropar det korrekt — utan att du behöver skriva en rad extra kod.
+
+## Tumregel
+
+- Bygger du för en människa? Använd REST.
+- Bygger du för en agent? Använd MCP.
+- Har du REST redan och vill ge agenter tillgång? Bygg ett MCP-lager ovanpå.

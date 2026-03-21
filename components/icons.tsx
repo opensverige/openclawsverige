@@ -1,0 +1,9 @@
+export const IconShipped = () => <span aria-hidden="true">◆</span>
+export const IconOpen = () => <span aria-hidden="true">◇</span>
+export const IconNew = () => <span aria-hidden="true">▸</span>
+export const IconUp = () => <span aria-hidden="true">▲</span>
+export const IconTrend = () => <span aria-hidden="true">↗</span>
+export const IconOk = () => <span aria-hidden="true">✔</span>
+export const IconFail = () => <span aria-hidden="true">✗</span>
+export const IconRetry = () => <span aria-hidden="true">↻</span>
+export const IconArrow = () => <span aria-hidden="true">→</span>

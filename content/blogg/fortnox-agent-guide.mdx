@@ -1,0 +1,45 @@
+---
+title: 'Koppla Fortnox till din AI-agent'
+date: '2026-03-18'
+author: 'anonym'
+tags: ['guide', 'fortnox', 'openclaw']
+---
+
+## Vad du behöver
+
+Du behöver ett Fortnox-konto, en API-nyckel och OpenClaw installerat.
+
+## Installera fortnox-skill
+
+```bash
+$ openclaw install fortnox
+✔ skill installed: fortnox v2.1.0
+$ openclaw skills list
+◆ fortnox     — list invoices, search customers, create records
+```
+
+## Konfigurera API-åtkomst
+
+Lägg till din Fortnox-nyckel i `.env`:
+
+```bash
+FORTNOX_CLIENT_ID=xxx
+FORTNOX_CLIENT_SECRET=yyy
+FORTNOX_ACCESS_TOKEN=zzz
+```
+
+## Testa din agent
+
+Starta agenten och fråga via Discord eller Telegram:
+
+```
+> Lista mina obetalda fakturor
+→ Hittade 3 obetalda fakturor. Totalt: 45 000 kr.
+  #1042 — AB Byggarna — 18 000 kr — förfaller 2026-04-01
+  #1043 — Konsult AB — 12 000 kr — förfallen
+  #1044 — Tech Nord AB — 15 000 kr — förfaller 2026-04-15
+```
+
+## Nästa steg
+
+Kombinera med SCB-skill för automatisk branschanalys.
