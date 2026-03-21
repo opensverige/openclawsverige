@@ -15,5 +15,7 @@ Cursor, Windsurf, Claude Code, Lovable, Bolt, v0
 
 ## Länkar
 - Discord: https://discord.gg/CSphbTk8En
-- GitHub: https://github.com/opensverige
+- GitHub: https://github.com/orgs/opensverige
+- LinkedIn-grupp: https://www.linkedin.com/groups/9544657/
+- Facebook-grupp: https://www.facebook.com/groups/2097332881024571/
 - Webb: https://opensverige.se

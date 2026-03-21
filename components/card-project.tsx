@@ -22,6 +22,11 @@ const GLYPHS: Record<string, React.ReactNode> = {
       aria-hidden="true"
     />
   ),
+  faver: (
+    <span style={{ color: 'var(--gold-light)' }} aria-hidden="true">
+      ◎
+    </span>
+  ),
 }
 
 export function CardProject({ project }: CardProjectProps) {

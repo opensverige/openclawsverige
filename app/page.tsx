@@ -113,9 +113,9 @@ const orgJsonLd = {
   url: 'https://opensverige.se',
   sameAs: [
     'https://discord.gg/CSphbTk8En',
-    'https://github.com/opensverige',
-    'https://linkedin.com/company/opensverige',
-    'https://www.facebook.com/opensverige',
+    'https://github.com/orgs/opensverige',
+    'https://www.linkedin.com/groups/9544657/',
+    'https://www.facebook.com/groups/2097332881024571/',
   ],
   areaServed: 'SE',
 }

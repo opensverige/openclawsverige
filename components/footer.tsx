@@ -53,17 +53,17 @@ const SOCIAL = [
     Icon: IconDiscord,
   },
   {
-    href: 'https://github.com/opensverige',
+    href: 'https://github.com/orgs/opensverige',
     label: 'GitHub',
     Icon: IconGitHub,
   },
   {
-    href: 'https://linkedin.com/company/opensverige',
+    href: 'https://www.linkedin.com/groups/9544657/',
     label: 'LinkedIn',
     Icon: IconLinkedIn,
   },
   {
-    href: 'https://www.facebook.com/opensverige',
+    href: 'https://www.facebook.com/groups/2097332881024571/',
     label: 'Facebook',
     Icon: IconFacebook,
   },
@@ -73,7 +73,7 @@ export function Footer() {
   return (
     <footer className="footer">
       <p className="footer-copy">
-        © 2026 opensverige. Öppet för alla. Ägt av ingen.
+        © 2026 opensverige. Öppet för alla.
       </p>
 
       <nav className="footer-social" aria-label="Sociala kanaler">
