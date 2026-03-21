@@ -15,13 +15,6 @@ const GLYPHS: Record<string, React.ReactNode> = {
     />
   ),
   'fortnox-skill': <span style={{ color: 'var(--success)' }}>▸</span>,
-  'agent-radar': (
-    <span
-      className="g g-dots"
-      style={{ color: 'var(--status-wip)' }}
-      aria-hidden="true"
-    />
-  ),
   faver: (
     <span style={{ color: 'var(--gold-light)' }} aria-hidden="true">
       ◎
