@@ -77,6 +77,7 @@ export function GollumQuiz() {
 
       {view.screen === 'question' && (
         <QuizQuestion
+          key={view.index}
           question={QUESTIONS[view.index]}
           questionIndex={view.index}
           totalQuestions={QUESTIONS.length}
