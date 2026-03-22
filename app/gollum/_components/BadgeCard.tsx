@@ -26,7 +26,7 @@ export function BadgeCard({ result, lang }: BadgeCardProps) {
         }}
       >
         <img
-          src={`/gollum/${result.slug}.png`}
+          src={`/gollum/${result.slug}.jpg`}
           alt=""
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         />

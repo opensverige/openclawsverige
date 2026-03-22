@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
 
         {/* Result illustration */}
         <img
-          src={`${new URL(req.url).origin}/gollum/${slug}.png`}
+          src={`${new URL(req.url).origin}/gollum/${slug}.jpg`}
           width={size === 'square' ? 448 : 280}
           height={size === 'square' ? 448 : 280}
           style={{ borderRadius: 16, marginBottom: 32, objectFit: 'cover' }}

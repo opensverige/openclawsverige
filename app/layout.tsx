@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     siteName: 'opensverige',
     locale: 'sv_SE',
     type: 'website',
-    images: [{ url: '/og-image-opsv.png', width: 1200, height: 630 }],
+    images: [{ url: '/og-image-opsv.jpg', width: 1200, height: 630 }],
   },
   robots: { index: true, follow: true },
   metadataBase: new URL('https://opensverige.se'),

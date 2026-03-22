@@ -22,7 +22,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     description: 'Fem frågor. Brutalt ärliga svar. Ta reda på om du bygger — eller bara hoardar.',
   }
 
-  const ogImage = '/gollum/og-image-gollum.png'
+  const ogImage = '/gollum/og-image-gollum.jpg'
 
   return {
     title: meta.title,
