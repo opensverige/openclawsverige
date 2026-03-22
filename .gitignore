@@ -15,6 +15,9 @@ dist/
 .env.local
 .env*.local
 
+# Worktrees
+.worktrees/
+
 # Misc
 .DS_Store
 *.pem
