@@ -34,21 +34,28 @@ Confirm with: "Critic Mode activated. No more dopamine loop."`,
 }
 
 const COPY = {
-  heading:  { sv: 'Anti-Sycophancy',           en: 'Anti-Sycophancy' },
-  tooltip:  {
-    sv: 'AI-sycophancy — när din AI håller med om allt du säger istället för att utmana dig. Den bekräftar dina idéer och håller dig fast i dopaminloopen.',
-    en: 'AI sycophancy — when your AI agrees with everything instead of challenging you. It validates your ideas and keeps you stuck in the dopamine loop.',
+  heading: { sv: 'Anti-Sycophancy', en: 'Anti-Sycophancy' },
+  subheading: {
+    sv: 'Din AI är tränad att hålla dig nöjd — inte att utmana dig. Det kallas AI-sycophancy och det håller dig fast i dopaminloopen.',
+    en: 'Your AI is trained to keep you satisfied — not to challenge you. That\'s AI sycophancy, and it keeps you stuck in the dopamine loop.',
   },
-  desc:     {
-    sv: 'Din AI ljuger för dig. Inte med avsikt — men den är tränad att hålla dig nöjd. Klistra in den här prompten och bryt loopen.',
-    en: "Your AI is lying to you. Not on purpose — but it's trained to keep you satisfied. Paste this prompt and break the loop.",
+  desc: {
+    sv: 'Klistra in den här prompten och bryt loopen.',
+    en: 'Paste this prompt and break the loop.',
   },
   label:    { sv: 'Anti-Sycophancy Override v2026', en: 'Anti-Sycophancy Override v2026' },
-  copy:     { sv: '⎘ Kopiera',                      en: '⎘ Copy' },
-  copied:   { sv: '✓ Kopierat',                     en: '✓ Copied' },
-  showMore: { sv: 'Visa hela prompten',  en: 'Show full prompt' },
-  hide:     { sv: 'Dölj',               en: 'Hide' },
-  cta:      { sv: 'Gå med i Discord →', en: 'Continue on X →' },
+  copy:     { sv: '⎘ Kopiera',  en: '⎘ Copy' },
+  copied:   { sv: '✓ Kopierat', en: '✓ Copied' },
+  showMore: { sv: 'Visa hela prompten', en: 'Show full prompt' },
+  hide:     { sv: 'Dölj',              en: 'Hide' },
+  discordCta: {
+    sv: 'Gå med i Discord →',
+    en: 'Join Discord →',
+  },
+  discordSub: {
+    sv: null,
+    en: 'English speakers welcome — we build together in Sweden',
+  },
 }
 
 export function AntiSycophancy({ lang }: AntiSycophancyProps) {
@@ -71,38 +78,13 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
       }}
     >
       {/* Header */}
-      <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--crayfish-border)', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)', flex: 1 }}>
+      <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--crayfish-border)' }}>
+        <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)', margin: '0 0 6px' }}>
           {COPY.heading[lang]}
-        </span>
-        {/* ? tooltip */}
-        <div style={{ position: 'relative', display: 'inline-flex' }}>
-          <div
-            style={{ width: 20, height: 20, borderRadius: '50%', border: '1px solid #3a3a3a', background: '#1a1a1a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-dim)', cursor: 'default', userSelect: 'none' }}
-          >
-            ?
-          </div>
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 'calc(100% + 8px)',
-              right: 0,
-              width: 240,
-              background: '#1a1a1a',
-              border: '1px solid #2a2a2a',
-              borderRadius: 8,
-              padding: '12px 14px',
-              fontSize: 13,
-              color: 'var(--text-secondary)',
-              lineHeight: 1.5,
-              zIndex: 10,
-              pointerEvents: 'none',
-              opacity: 0,
-            }}
-          >
-            {COPY.tooltip[lang]}
-          </div>
-        </div>
+        </p>
+        <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
+          {COPY.subheading[lang]}
+        </p>
       </div>
 
       {/* Red-pill visual placeholder */}
@@ -132,7 +114,6 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
 
         {/* Prompt block */}
         <div style={{ background: '#060606', border: '1px solid #1e1e1e', borderRadius: 8, overflow: 'hidden' }}>
-          {/* Prompt header */}
           <div style={{ padding: '9px 14px', borderBottom: '1px solid #161616', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--text-dim)' }}>
               {COPY.label[lang]}
@@ -145,7 +126,6 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
             </button>
           </div>
 
-          {/* Prompt text with gradient fade */}
           <div style={{ position: 'relative' }}>
             <div
               style={{
@@ -167,7 +147,6 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
             )}
           </div>
 
-          {/* Show more toggle */}
           <button
             onClick={() => setExpanded((v) => !v)}
             style={{ width: '100%', padding: '10px 14px', background: 'transparent', border: 'none', borderTop: '1px solid #141414', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-dim)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
@@ -177,30 +156,25 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
           </button>
         </div>
 
-        {/* Deeper CTA — split by lang */}
-        {lang === 'sv' ? (
-          <a
-            href="https://discord.gg/CSphbTk8En"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'rgba(196,57,26,0.08)', border: '1px solid var(--crayfish-border)', borderRadius: 5, textDecoration: 'none' }}
-          >
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--crayfish-light)' }}>{COPY.cta[lang]}</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--crayfish-light)' }}>→</span>
-          </a>
-        ) : (
-          <a
-            href="https://x.com/opensverige"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#0f0f0f', border: '1px solid #2a2a2a', borderRadius: 5, textDecoration: 'none' }}
-          >
-            <div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-secondary)' }}>𝕏 {COPY.cta[lang]}</div>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9, color: 'var(--text-dim)', marginTop: 2 }}>@opensverige — builders, prompts, shipping</div>
+        {/* Discord CTA — both langs */}
+        <a
+          href="https://discord.gg/CSphbTk8En"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: 'rgba(196,57,26,0.08)', border: '1px solid var(--crayfish-border)', borderRadius: 5, textDecoration: 'none' }}
+        >
+          <div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--crayfish-light)' }}>
+              {COPY.discordCta[lang]}
             </div>
-          </a>
-        )}
+            {COPY.discordSub[lang] && (
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-dim)', marginTop: 3 }}>
+                {COPY.discordSub[lang]}
+              </div>
+            )}
+          </div>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--crayfish-light)' }}>→</span>
+        </a>
       </div>
     </div>
   )
