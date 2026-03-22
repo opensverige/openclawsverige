@@ -1,0 +1,96 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import type { Answer, Lang, QuizView, ResultSlug } from '../_lib/types'
+import { QUESTIONS } from '../_lib/quiz-data'
+import { calculateScores, getResult } from '../_lib/scoring'
+import { QuizHeader } from './QuizHeader'
+import { QuizLanding } from './QuizLanding'
+import { QuizQuestion } from './QuizQuestion'
+import { QuizResult } from './QuizResult'
+
+const VALID_SLUGS: ResultSlug[] = ['gollum', 'dreambuilder', 'speedrunner', 'shipper']
+
+export function GollumQuiz() {
+  const [lang, setLang] = useState<Lang>('sv')
+  const [view, setView] = useState<QuizView>({ screen: 'landing' })
+  const [answers, setAnswers] = useState<Answer[]>([])
+
+  // Restore result from ?r= param when sharing a result link
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const r = params.get('r')
+    if (r && VALID_SLUGS.includes(r as ResultSlug)) {
+      setView({ screen: 'result', slug: r as ResultSlug })
+    }
+  }, [])
+
+  function toggleLang() {
+    setLang((l) => (l === 'sv' ? 'en' : 'sv'))
+  }
+
+  function handleStart() {
+    setAnswers([])
+    setView({ screen: 'question', index: 0 })
+  }
+
+  function handleAnswer(answer: Answer) {
+    if (view.screen !== 'question') return
+    const newAnswers = [...answers, answer]
+    setAnswers(newAnswers)
+
+    if (view.index < QUESTIONS.length - 1) {
+      setView({ screen: 'question', index: view.index + 1 })
+    } else {
+      const scores = calculateScores(newAnswers)
+      const slug: ResultSlug = getResult(scores)
+      setView({ screen: 'result', slug })
+    }
+  }
+
+  function handleBack() {
+    if (view.screen === 'question') {
+      if (view.index === 0) {
+        setView({ screen: 'landing' })
+        setAnswers([])
+      } else {
+        setView({ screen: 'question', index: view.index - 1 })
+        setAnswers((prev) => prev.slice(0, -1))
+      }
+    }
+  }
+
+  return (
+    <div
+      style={{
+        minHeight: '100vh',
+        background: 'var(--bg-deep)',
+        display: 'flex',
+        flexDirection: 'column',
+        maxWidth: 480,
+        margin: '0 auto',
+      }}
+    >
+      <QuizHeader lang={lang} onToggleLang={toggleLang} />
+
+      {view.screen === 'landing' && (
+        <QuizLanding lang={lang} onStart={handleStart} />
+      )}
+
+      {view.screen === 'question' && (
+        <QuizQuestion
+          question={QUESTIONS[view.index]}
+          questionIndex={view.index}
+          totalQuestions={QUESTIONS.length}
+          lang={lang}
+          onAnswer={handleAnswer}
+          onBack={handleBack}
+        />
+      )}
+
+      {view.screen === 'result' && (
+        <QuizResult slug={view.slug} lang={lang} />
+      )}
+    </div>
+  )
+}
