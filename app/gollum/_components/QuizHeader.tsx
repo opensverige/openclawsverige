@@ -17,16 +17,19 @@ export function QuizHeader({ lang, onToggleLang }: QuizHeaderProps) {
         flexShrink: 0,
       }}
     >
-      <span
+      <a
+        href="https://opensverige.se"
         style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 18,
-          color: 'var(--gold)',
+          fontFamily: 'var(--font-body)',
+          fontSize: 16,
+          fontWeight: 700,
+          color: 'var(--text-primary)',
           letterSpacing: '-0.3px',
+          textDecoration: 'none',
         }}
       >
         opensverige
-      </span>
+      </a>
 
       <button
         onClick={onToggleLang}

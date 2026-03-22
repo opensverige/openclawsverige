@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
 import { RESULTS } from '../_lib/quiz-data'
-import type { ResultSlug } from '../_lib/types'
+import type { Lang, ResultSlug } from '../_lib/types'
 
 export const runtime = 'edge'
 
@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const slug = searchParams.get('r') as ResultSlug
   const size = searchParams.get('size') === 'square' ? 'square' : 'og'
+  const lang: Lang = searchParams.get('lang') === 'en' ? 'en' : 'sv'
 
   if (!VALID_SLUGS.includes(slug)) {
     return new Response('Invalid result slug', { status: 400 })
@@ -49,26 +50,26 @@ export async function GET(req: NextRequest) {
         {/* Result illustration */}
         <img
           src={`${new URL(req.url).origin}/gollum/${slug}.png`}
-          width={size === 'square' ? 320 : 200}
-          height={size === 'square' ? 320 : 200}
+          width={size === 'square' ? 448 : 280}
+          height={size === 'square' ? 448 : 280}
           style={{ borderRadius: 16, marginBottom: 32, objectFit: 'cover' }}
         />
 
         {/* Result name */}
-        <div style={{ fontSize: size === 'square' ? 72 : 56, color: '#e8e0d4', marginBottom: 16, display: 'flex' }}>
-          {result.name.sv}
+        <div style={{ fontSize: size === 'square' ? 96 : 72, color: '#e8e0d4', marginBottom: 16, display: 'flex' }}>
+          {result.name[lang]}
         </div>
 
         {/* Headline */}
         <div style={{
-          fontSize: 24,
+          fontSize: 32,
           color: '#b0a89e',
           textAlign: 'center',
           maxWidth: 700,
           lineHeight: 1.4,
           display: 'flex',
         }}>
-          {result.headline.sv}
+          {result.headline[lang]}
         </div>
       </div>
     ),

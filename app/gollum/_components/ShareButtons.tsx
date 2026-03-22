@@ -52,7 +52,7 @@ export function ShareButtons({ slug, lang }: ShareButtonsProps) {
   }
 
   async function handleDownload() {
-    const res = await fetch(`/gollum/og?r=${slug}&size=square`)
+    const res = await fetch(`/gollum/og?r=${slug}&size=square&lang=${lang}`)
     const blob = await res.blob()
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')

@@ -66,7 +66,7 @@ export function QuizResult({ slug, lang, scoringResult }: QuizResultProps) {
                 }}
               >
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--crayfish-red)', marginTop: 3, flexShrink: 0 }}>→</span>
-                <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
+                <p style={{ fontSize: 15, color: 'var(--text-primary)', lineHeight: 1.5, margin: 0 }}>
                   {mirror[lang]}
                 </p>
               </div>
@@ -91,7 +91,7 @@ export function QuizResult({ slug, lang, scoringResult }: QuizResultProps) {
                 borderRadius: 8,
               }}
             >
-              <p style={{ fontSize: 12, color: 'var(--text-dim)', lineHeight: 1.5, margin: 0 }}>
+              <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
                 {combo.callout[lang]}
               </p>
             </div>
