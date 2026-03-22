@@ -93,8 +93,8 @@ export const RESULTS: Record<ResultSlug, ResultData> = {
     emoji: '💭',
     name: { sv: 'Du är Drömbyggaren.', en: 'You are the Dream Builder.' },
     headline: {
-      sv: 'Du har idéer. Bra idéer, faktiskt.',
-      en: 'You have ideas. Good ones, actually.',
+      sv: 'Du har idéer. Ingen vet om de är bra — de har aldrig testats.',
+      en: 'You have ideas. Nobody knows if they\'re good — they\'ve never been tested.',
     },
     body: {
       sv: 'Du hoardar dem inte för att AI:n sa att de var bra — du hoardar dem för att du väntar på "rätt tillfälle." Det tillfället kommer aldrig. Du har skydd mot AI-sycophancy, men du saknar en deadline och en publik.',
