@@ -22,7 +22,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     description: 'Fem frågor. Brutalt ärliga svar. Ta reda på om du bygger — eller bara hoardar.',
   }
 
-  const ogUrl = `/gollum/og?r=${safeSlug ?? 'gollum'}`
+  const ogImage = '/gollum/og-image-gollum.png'
 
   return {
     title: meta.title,
@@ -31,13 +31,13 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
       title: meta.title,
       description: meta.description,
       url: safeSlug ? `https://opensverige.se/gollum?r=${safeSlug}` : 'https://opensverige.se/gollum',
-      images: [{ url: ogUrl, width: 1200, height: 630 }],
+      images: [{ url: ogImage, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title: meta.title,
       description: meta.description,
-      images: [ogUrl],
+      images: [ogImage],
     },
   }
 }
