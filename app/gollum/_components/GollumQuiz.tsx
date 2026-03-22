@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import type { Answer, Lang, QuizView, ResultSlug } from '../_lib/types'
 import { QUESTIONS, RESULTS } from '../_lib/quiz-data'
-import { calculateScores, getResult } from '../_lib/scoring'
+import { calculateScores } from '../_lib/scoring'
 import { QuizHeader } from './QuizHeader'
 import { QuizLanding } from './QuizLanding'
 import { QuizQuestion } from './QuizQuestion'
@@ -17,7 +17,7 @@ export function GollumQuiz() {
   const [lang, setLang] = useState<Lang>('sv')
   const [view, setView] = useState<QuizView>(() => {
     if (r && r in RESULTS) {
-      return { screen: 'result', slug: r as ResultSlug }
+      return { screen: 'result', slug: r as ResultSlug, scoringResult: null }
     }
     return { screen: 'landing' }
   })
@@ -40,9 +40,8 @@ export function GollumQuiz() {
     if (view.index < QUESTIONS.length - 1) {
       setView({ screen: 'question', index: view.index + 1 })
     } else {
-      const scores = calculateScores(newAnswers)
-      const slug: ResultSlug = getResult(scores)
-      setView({ screen: 'result', slug })
+      const scoringResult = calculateScores(newAnswers)
+      setView({ screen: 'result', slug: scoringResult.archetype, scoringResult })
     }
   }
 
@@ -88,7 +87,7 @@ export function GollumQuiz() {
       )}
 
       {view.screen === 'result' && (
-        <QuizResult slug={view.slug} lang={lang} />
+        <QuizResult slug={view.slug} lang={lang} scoringResult={view.scoringResult} />
       )}
     </div>
   )

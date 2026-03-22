@@ -2,10 +2,25 @@ export type Lang = 'sv' | 'en'
 
 export type ResultSlug = 'gollum' | 'dreambuilder' | 'speedrunner' | 'shipper'
 
+export interface TriggeredCombo {
+  id: string
+  callout: BilingualString
+}
+
+export interface ScoringResult {
+  ship: number
+  aiDep: number
+  baseShip: number
+  baseAiDep: number
+  archetype: ResultSlug
+  triggeredCombos: TriggeredCombo[]
+  mirrors: BilingualString[]
+}
+
 export type QuizView =
   | { screen: 'landing' }
   | { screen: 'question'; index: number }
-  | { screen: 'result'; slug: ResultSlug }
+  | { screen: 'result'; slug: ResultSlug; scoringResult: ScoringResult | null }
 
 export interface BilingualString {
   sv: string
@@ -29,16 +44,11 @@ export interface ResultData {
   slug: ResultSlug
   emoji: string
   name: BilingualString
-  /** First sentence shown in badge and as OG sub-copy */
+  /** Short punchy line shown in badge and OG image */
   headline: BilingualString
-  /** Full body copy shown below headline */
+  /** Full diagnosis body copy */
   body: BilingualString
+  /** Action recipe / red pill */
   recipe: BilingualString
-  /** Result type: affects recipe box color and whether AntiSycophancy or ShipperMentor is shown */
   type: 'gollum' | 'dreambuilder' | 'speedrunner' | 'shipper'
-}
-
-export interface Scores {
-  ship: number
-  aiDep: number
 }
