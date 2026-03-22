@@ -1,0 +1,74 @@
+import type { Lang, ResultData } from '../_lib/types'
+
+interface BadgeCardProps {
+  result: ResultData
+  lang: Lang
+}
+
+export function BadgeCard({ result, lang }: BadgeCardProps) {
+  return (
+    <div
+      style={{
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border)',
+        borderRadius: 16,
+        overflow: 'hidden',
+      }}
+    >
+      {/* Art area */}
+      <div
+        style={{
+          width: '100%',
+          aspectRatio: '1 / 1',
+          background: '#0d0a0a',
+          borderBottom: '1px solid #1a1a1a',
+          overflow: 'hidden',
+        }}
+      >
+        <img
+          src={`/gollum/${result.slug}.png`}
+          alt=""
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
+      </div>
+
+      {/* Text area */}
+      <div style={{ padding: '20px 22px 22px' }}>
+        <h2
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 44,
+            fontWeight: 400,
+            lineHeight: 1.05,
+            letterSpacing: '-1px',
+            color: 'var(--text-primary)',
+            margin: '0 0 10px',
+          }}
+        >
+          {result.name[lang]}
+        </h2>
+        <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+          {result.headline[lang]}
+        </p>
+      </div>
+
+      {/* Footer */}
+      <div
+        style={{
+          padding: '10px 22px',
+          borderTop: '1px solid #1a1a1a',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <span style={{ fontFamily: 'var(--font-display)', fontSize: 13, color: 'var(--gold)', opacity: 0.5 }}>
+          opensverige
+        </span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-dim)' }}>
+          opensverige.se/gollum
+        </span>
+      </div>
+    </div>
+  )
+}
