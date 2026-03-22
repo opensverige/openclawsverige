@@ -1,29 +1,27 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import type { Answer, Lang, QuizView, ResultSlug } from '../_lib/types'
-import { QUESTIONS } from '../_lib/quiz-data'
+import { QUESTIONS, RESULTS } from '../_lib/quiz-data'
 import { calculateScores, getResult } from '../_lib/scoring'
 import { QuizHeader } from './QuizHeader'
 import { QuizLanding } from './QuizLanding'
 import { QuizQuestion } from './QuizQuestion'
 import { QuizResult } from './QuizResult'
 
-const VALID_SLUGS: ResultSlug[] = ['gollum', 'dreambuilder', 'speedrunner', 'shipper']
-
 export function GollumQuiz() {
-  const [lang, setLang] = useState<Lang>('sv')
-  const [view, setView] = useState<QuizView>({ screen: 'landing' })
-  const [answers, setAnswers] = useState<Answer[]>([])
+  const searchParams = useSearchParams()
+  const r = searchParams.get('r')
 
-  // Restore result from ?r= param when sharing a result link
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const r = params.get('r')
-    if (r && VALID_SLUGS.includes(r as ResultSlug)) {
-      setView({ screen: 'result', slug: r as ResultSlug })
+  const [lang, setLang] = useState<Lang>('sv')
+  const [view, setView] = useState<QuizView>(() => {
+    if (r && r in RESULTS) {
+      return { screen: 'result', slug: r as ResultSlug }
     }
-  }, [])
+    return { screen: 'landing' }
+  })
+  const [answers, setAnswers] = useState<Answer[]>([])
 
   function toggleLang() {
     setLang((l) => (l === 'sv' ? 'en' : 'sv'))

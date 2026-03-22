@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { GollumQuiz } from './_components/GollumQuiz'
+import { RESULTS } from './_lib/quiz-data'
 
 interface Props {
   searchParams: Promise<{ r?: string }>
@@ -14,12 +16,13 @@ const RESULT_META: Record<string, { title: string; description: string }> = {
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const { r } = await searchParams
-  const meta = (r ? RESULT_META[r] : undefined) ?? {
+  const safeSlug = (r && r in RESULTS) ? r : null
+  const meta = (safeSlug ? RESULT_META[safeSlug] : undefined) ?? {
     title: 'Gollum-testet — Är du Gollum?',
     description: 'Fem frågor. Brutalt ärliga svar. Ta reda på om du bygger — eller bara hoardar.',
   }
 
-  const ogUrl = r ? `/gollum/og?r=${r}` : '/gollum/og?r=gollum'
+  const ogUrl = `/gollum/og?r=${safeSlug ?? 'gollum'}`
 
   return {
     title: meta.title,
@@ -27,7 +30,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: r ? `https://opensverige.se/gollum?r=${r}` : 'https://opensverige.se/gollum',
+      url: safeSlug ? `https://opensverige.se/gollum?r=${safeSlug}` : 'https://opensverige.se/gollum',
       images: [{ url: ogUrl, width: 1200, height: 630 }],
     },
     twitter: {
@@ -40,5 +43,9 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 }
 
 export default function GollumPage() {
-  return <GollumQuiz />
+  return (
+    <Suspense>
+      <GollumQuiz />
+    </Suspense>
+  )
 }
