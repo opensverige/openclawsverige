@@ -46,20 +46,13 @@ export async function GET(req: NextRequest) {
           opensverige.se/gollum
         </div>
 
-        {/* Image placeholder — solid rect until artwork is ready */}
-        <div style={{
-          width: size === 'square' ? 320 : 200,
-          height: size === 'square' ? 320 : 200,
-          background: '#1a1a1a',
-          borderRadius: 16,
-          marginBottom: 32,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 80,
-        }}>
-          {result.emoji}
-        </div>
+        {/* Result illustration */}
+        <img
+          src={`${new URL(req.url).origin}/gollum/${slug}.png`}
+          width={size === 'square' ? 320 : 200}
+          height={size === 'square' ? 320 : 200}
+          style={{ borderRadius: 16, marginBottom: 32, objectFit: 'cover' }}
+        />
 
         {/* Result name */}
         <div style={{ fontSize: size === 'square' ? 72 : 56, color: '#e8e0d4', marginBottom: 16, display: 'flex' }}>

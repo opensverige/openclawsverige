@@ -15,44 +15,21 @@ export function BadgeCard({ result, lang }: BadgeCardProps) {
         overflow: 'hidden',
       }}
     >
-      {/* Art area — placeholder until illustration is ready */}
+      {/* Art area */}
       <div
         style={{
           width: '100%',
           aspectRatio: '1 / 1',
           background: '#0d0a0a',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 10,
           borderBottom: '1px solid #1a1a1a',
-          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 12,
-          }}
-        >
-          <span style={{ fontSize: 52, opacity: 0.18 }}>{result.emoji}</span>
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 11,
-              textTransform: 'uppercase',
-              letterSpacing: 3,
-              color: 'rgba(196,57,26,0.3)',
-              textAlign: 'center',
-              lineHeight: 1.6,
-            }}
-          >
-            {result.slug}.gif<br />custom illustration
-          </span>
-        </div>
+        <img
+          src={`/gollum/${result.slug}.png`}
+          alt=""
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
       </div>
 
       {/* Text area */}
