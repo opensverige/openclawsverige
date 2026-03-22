@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import type { CSSProperties } from 'react'
 import type { Lang, ResultSlug } from '../_lib/types'
 import { RESULTS } from '../_lib/quiz-data'
 
@@ -10,40 +9,66 @@ interface ShareButtonsProps {
   lang: Lang
 }
 
-const TWEET_TEXT = {
-  sv: (name: string) => `Jag fick ${name} på Gollum-testet. Är du builder eller hoardar du? 🦞 opensverige.se/gollum`,
-  en: (name: string) => `I got ${name} on the Gollum Test. Are you a builder or a hoarder? 🦞 opensverige.se/gollum`,
+const SHARE_TEXT = {
+  sv: (name: string, url: string) => `Jag fick ${name} på Gollum-testet. Builder eller hoarder? 🦞 ${url}`,
+  en: (name: string, url: string) => `I got ${name} on the Gollum Test. Builder or hoarder? 🦞 ${url}`,
 }
 
 const LABELS = {
-  twitter: { sv: 'Dela på Twitter/X', en: 'Share on Twitter/X' },
-  copy:    { sv: 'Kopiera länk',       en: 'Copy link' },
-  copied:  { sv: 'Kopierat!',          en: 'Copied!' },
-  download:{ sv: 'Ladda ner badge',    en: 'Download badge' },
+  shareLabel: { sv: 'Dela', en: 'Share' },
+  copy:       { sv: '⎘ Kopiera länk',    en: '⎘ Copy link' },
+  copied:     { sv: '✓ Kopierat',         en: '✓ Copied' },
+  download:   { sv: 'Ladda ner badge',   en: 'Download badge' },
 }
 
-const BTN: CSSProperties = {
-  width: '100%',
-  padding: '16px 20px',
-  borderRadius: 10,
-  fontFamily: 'var(--font-body)',
-  fontSize: 16,
-  fontWeight: 600,
-  cursor: 'pointer',
-  border: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: 10,
-  transition: 'all var(--transition)',
+function IconX() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  )
+}
+
+function IconLinkedIn() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  )
+}
+
+function IconFacebook() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+    </svg>
+  )
+}
+
+function IconBluesky() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style={{ flexShrink: 0 }}>
+      <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z" />
+    </svg>
+  )
+}
+
+function IconDownload() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  )
 }
 
 export function ShareButtons({ slug, lang }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false)
   const result = RESULTS[slug]
   const resultName = result.name[lang].replace(/^Du är |^You are /, '')
-
   const shareUrl = `https://opensverige.se/gollum?r=${slug}`
+  const shareText = SHARE_TEXT[lang](resultName, shareUrl)
 
   async function handleCopy() {
     await navigator.clipboard.writeText(shareUrl)
@@ -62,38 +87,113 @@ export function ShareButtons({ slug, lang }: ShareButtonsProps) {
     URL.revokeObjectURL(url)
   }
 
-  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(TWEET_TEXT[lang](resultName))}`
+  const socials = [
+    {
+      name: 'X',
+      icon: <IconX />,
+      href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
+    },
+    {
+      name: 'LinkedIn',
+      icon: <IconLinkedIn />,
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+    },
+    {
+      name: 'Facebook',
+      icon: <IconFacebook />,
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+    },
+    {
+      name: 'Bluesky',
+      icon: <IconBluesky />,
+      href: `https://bsky.app/intent/compose?text=${encodeURIComponent(shareText)}`,
+    },
+  ]
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      {/* Twitter/X */}
-      <a
-        href={tweetUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ ...BTN, background: '#111', color: 'var(--text-primary)', border: '1px solid #2a2a2a', textDecoration: 'none' }}
-      >
-        <span style={{ fontSize: 18 }}>𝕏</span>
-        {LABELS.twitter[lang]}
-      </a>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {/* Label */}
+      <p style={{ fontFamily: 'var(--font-mono)', fontSize: 10, textTransform: 'uppercase', letterSpacing: 2, color: 'var(--text-dim)', margin: 0 }}>
+        {LABELS.shareLabel[lang]}
+      </p>
 
-      {/* Copy link */}
-      <button
-        onClick={handleCopy}
-        style={{ ...BTN, background: '#111', color: copied ? 'var(--success)' : 'var(--text-primary)', border: `1px solid ${copied ? 'var(--success-border)' : '#2a2a2a'}` }}
-      >
-        <span style={{ fontSize: 18 }}>⎘</span>
-        {copied ? LABELS.copied[lang] : LABELS.copy[lang]}
-      </button>
+      {/* Social 2×2 grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        {socials.map(({ name, icon, href }) => (
+          <a
+            key={name}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              padding: '11px 14px',
+              borderRadius: 8,
+              background: '#0e0e0e',
+              border: '1px solid #222',
+              color: 'var(--text-secondary)',
+              fontFamily: 'var(--font-body)',
+              fontSize: 13,
+              fontWeight: 500,
+              textDecoration: 'none',
+              transition: 'border-color 150ms var(--ease-out), color 150ms var(--ease-out)',
+            }}
+          >
+            {icon}
+            {name}
+          </a>
+        ))}
+      </div>
 
-      {/* Download */}
-      <button
-        onClick={handleDownload}
-        style={{ ...BTN, background: 'var(--gold-glow)', color: 'var(--gold)', border: '1px solid var(--gold-border)' }}
-      >
-        <span style={{ fontSize: 18 }}>↓</span>
-        {LABELS.download[lang]}
-      </button>
+      {/* Utility row */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+        <button
+          onClick={handleCopy}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
+            padding: '10px 12px',
+            borderRadius: 8,
+            background: 'transparent',
+            border: `1px solid ${copied ? 'var(--success-border)' : '#1e1e1e'}`,
+            color: copied ? 'var(--success)' : 'var(--text-dim)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            cursor: 'pointer',
+            transition: 'border-color 150ms, color 150ms',
+          }}
+        >
+          <span style={{ fontSize: 13 }}>⎘</span>
+          {copied ? LABELS.copied[lang] : LABELS.copy[lang]}
+        </button>
+
+        <button
+          onClick={handleDownload}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
+            padding: '10px 12px',
+            borderRadius: 8,
+            background: 'transparent',
+            border: '1px solid #1e1e1e',
+            color: 'var(--text-dim)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            cursor: 'pointer',
+            transition: 'border-color 150ms, color 150ms',
+          }}
+        >
+          <IconDownload />
+          {LABELS.download[lang]}
+        </button>
+      </div>
     </div>
   )
 }

@@ -48,14 +48,6 @@ const COPY = {
   copied:   { sv: '✓ Kopierat', en: '✓ Copied' },
   showMore: { sv: 'Visa hela prompten', en: 'Show full prompt' },
   hide:     { sv: 'Dölj',              en: 'Hide' },
-  discordCta: {
-    sv: 'Gå med i Discord →',
-    en: 'Join Discord →',
-  },
-  discordSub: {
-    sv: null,
-    en: 'English speakers welcome — we build together in Sweden',
-  },
 }
 
 export function AntiSycophancy({ lang }: AntiSycophancyProps) {
@@ -85,25 +77,6 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
         <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, margin: 0 }}>
           {COPY.subheading[lang]}
         </p>
-      </div>
-
-      {/* Red-pill visual placeholder */}
-      <div
-        style={{
-          width: '100%',
-          aspectRatio: '16 / 9',
-          background: '#090707',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderBottom: '1px solid var(--crayfish-border)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, textTransform: 'uppercase', letterSpacing: 4, color: 'rgba(196,57,26,0.25)' }}>
-          [ red-pill visual ]
-        </span>
       </div>
 
       {/* Body */}
@@ -156,25 +129,6 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
           </button>
         </div>
 
-        {/* Discord CTA — both langs */}
-        <a
-          href="https://discord.gg/CSphbTk8En"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: 'rgba(196,57,26,0.08)', border: '1px solid var(--crayfish-border)', borderRadius: 5, textDecoration: 'none' }}
-        >
-          <div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--crayfish-light)' }}>
-              {COPY.discordCta[lang]}
-            </div>
-            {COPY.discordSub[lang] && (
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-dim)', marginTop: 3 }}>
-                {COPY.discordSub[lang]}
-              </div>
-            )}
-          </div>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--crayfish-light)' }}>→</span>
-        </a>
       </div>
     </div>
   )
