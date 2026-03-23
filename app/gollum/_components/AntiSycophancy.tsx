@@ -108,7 +108,7 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
                 color: '#9a9a8a',
                 lineHeight: 1.85,
                 whiteSpace: 'pre-wrap',
-                maxHeight: expanded ? 'none' : 80,
+                maxHeight: expanded ? 800 : 80,
                 overflow: 'hidden',
                 transition: 'max-height 400ms cubic-bezier(0.16, 1, 0.3, 1)',
               }}
@@ -122,7 +122,8 @@ export function AntiSycophancy({ lang }: AntiSycophancyProps) {
 
           <button
             onClick={() => setExpanded((v) => !v)}
-            style={{ width: '100%', padding: '10px 14px', background: 'transparent', border: 'none', borderTop: '1px solid #141414', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-dim)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
+            aria-expanded={expanded}
+            style={{ width: '100%', padding: '10px 14px', minHeight: 44, background: 'transparent', border: 'none', borderTop: '1px solid #141414', fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-dim)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
           >
             {expanded ? COPY.hide[lang] : COPY.showMore[lang]}
             <span style={{ display: 'inline-block', transition: 'transform 300ms', transform: expanded ? 'rotate(180deg)' : 'none' }}>↓</span>

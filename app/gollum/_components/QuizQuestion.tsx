@@ -33,29 +33,11 @@ export function QuizQuestion({
 
   return (
     <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-      <style>{`
-        @keyframes card-select {
-          0%   { transform: scale(1); }
-          35%  { transform: scale(1.025); }
-          100% { transform: scale(1); }
-        }
-        @keyframes badge-confirm {
-          0%   { transform: scale(1);   opacity: 1; }
-          40%  { transform: scale(1.6); opacity: 0.7; }
-          100% { transform: scale(1);   opacity: 1; }
-        }
-        @keyframes progress-pulse {
-          0%   { opacity: 1; }
-          50%  { opacity: 0.5; }
-          100% { opacity: 1; }
-        }
-      `}</style>
-
       {/* Progress row */}
       <div style={{ padding: '12px 24px 0', display: 'flex', alignItems: 'center', gap: 12 }}>
         <button
           onClick={onBack}
-          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', fontSize: 12, padding: 0, flexShrink: 0 }}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', fontSize: 12, padding: '16px 4px', flexShrink: 0, minHeight: 44, display: 'flex', alignItems: 'center' }}
         >
           {lang === 'sv' ? '← tillbaka' : '← back'}
         </button>

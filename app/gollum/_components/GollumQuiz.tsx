@@ -59,6 +59,7 @@ export function GollumQuiz() {
 
   return (
     <div
+      className="gollum-quiz"
       style={{
         minHeight: '100vh',
         background: 'var(--bg-deep)',

@@ -1452,6 +1452,31 @@ body {
 .see-all a .aw { transition:transform var(--transition) }
 .see-all a:hover .aw { transform:translateX(3px) }
 
+/* ============ GOLLUM QUIZ ============ */
+
+@keyframes card-select {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+@keyframes badge-confirm {
+  0%   { transform: scale(1);   opacity: 1; }
+  40%  { transform: scale(1.6); opacity: 0.7; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+@keyframes progress-pulse {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.gollum-quiz button:focus-visible,
+.gollum-quiz a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* ============ RESPONSIVE ============ */
 
 @media (max-width: 1024px) {

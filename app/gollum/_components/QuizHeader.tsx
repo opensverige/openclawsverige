@@ -35,11 +35,13 @@ export function QuizHeader({ lang, onToggleLang }: QuizHeaderProps) {
         onClick={onToggleLang}
         style={{
           display: 'flex',
+          alignItems: 'center',
           gap: 4,
           background: 'none',
           border: 'none',
           cursor: 'pointer',
-          padding: 0,
+          padding: '10px 0',
+          minHeight: 44,
         }}
         aria-label="Toggle language"
       >
