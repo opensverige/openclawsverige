@@ -167,7 +167,7 @@ export default async function Home() {
 
       <Nav />
 
-      <main>
+      <main id="main-content">
         <Hero discord={discord} />
 
         <div className="divider">
@@ -183,7 +183,7 @@ export default async function Home() {
               <div className="card-glyph">
                 <Glyph variant="braille" style={{ color: 'var(--crayfish-light)' }} />
               </div>
-              <div className="card-title">Discord — varje dag</div>
+              <h3 className="card-title">Discord — varje dag</h3>
               <div className="card-body">
                 Vår Discord-server samlar svenska AI-byggare för daglig
                 problemlösning. Dela kod, felsök agenter, hitta folk att
@@ -194,7 +194,7 @@ export default async function Home() {
               <div className="card-glyph">
                 <Glyph variant="moon" style={{ color: 'var(--gold)' }} />
               </div>
-              <div className="card-title">IRL — Stockholm, Göteborg, Malmö</div>
+              <h3 className="card-title">IRL — Stockholm, Göteborg, Malmö</h3>
               <div className="card-body">
                 Vi kör kostnadsfria byggsessioner på 2,5 timmar. Inga
                 föreläsningar. Ta med laptop, bygg på plats, visa vad du gjort.

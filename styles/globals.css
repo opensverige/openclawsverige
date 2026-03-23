@@ -37,7 +37,7 @@
   --status-wip: #f59e0b;
   --status-wip-glow: rgba(245, 158, 11, 0.08);
 
-  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-display: var(--font-display-loaded), Georgia, serif;
   --font-body: 'DM Sans', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
@@ -54,6 +54,38 @@
   --transition-fast: 120ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition: 200ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============ SKIP LINK ============ */
+
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  padding: 10px 20px;
+  background: var(--gold);
+  color: #060606;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-md) 0;
+  z-index: 9999;
+  transition: top 120ms var(--ease-out);
+}
+.skip-link:focus {
+  top: 0;
+  outline: none;
+}
+
+/* ============ GLOBAL FOCUS VISIBLE ============ */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }
 
 /* ============ KEYFRAMES ============ */
@@ -828,14 +860,15 @@ body {
 .acc-item { border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: var(--sp-2); overflow: hidden }
 .acc-head {
   display:flex; align-items:center; gap: var(--sp-3);
+  width: 100%;
   padding: var(--sp-4) var(--sp-5);
   cursor: pointer;
-  font-family: var(--font-body); font-size: 15px;
+  font-family: var(--font-body); font-size: 15px; text-align: left;
   color: var(--text-primary);
   background: var(--bg-card);
+  border: none;
   transition: background var(--transition);
   user-select: none;
-  list-style: none;
 }
 .acc-head:hover { background: var(--bg-card-hover) }
 .acc-arrow { color: var(--crayfish-light); font-size: 11px; transition: transform var(--transition); flex-shrink:0 }
@@ -962,6 +995,18 @@ body {
 
 /* ============ HOW IT WORKS CARDS ============ */
 
+/* Ghost style: outline-only, no fill. Suits non-clickable info cards. */
+.how-cards .card {
+  background: transparent;
+  border-color: var(--border);
+}
+.how-cards .card::before { display: none }
+.how-cards .card:hover {
+  background: rgba(255,255,255,0.025);
+  border-color: var(--border-hover);
+  box-shadow: none;
+}
+
 .how-cards { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4); margin-top:var(--sp-8) }
 .what-cards { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4); margin-top:var(--sp-8) }
 .what-card-stack { display: flex; flex-direction: column; gap: var(--sp-2); }
@@ -1003,8 +1048,9 @@ body {
   align-items: center;
   gap: 6px;
   align-self: flex-start;
-  padding: 0;
+  padding: 10px 0;
   margin: 0;
+  min-height: 44px;
   border: none;
   background: none;
   cursor: pointer;

@@ -37,7 +37,7 @@ export function WhatWeBuildCard({ title, body }: WhatWeBuildCardProps) {
 
   return (
     <div className="card what-card">
-      <div className="card-title">{title}</div>
+      <h3 className="card-title">{title}</h3>
       <div className="what-card-stack">
         <div className="what-card-text-wrap">
           <div

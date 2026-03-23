@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { dmSans, jetbrainsMono } from '@/lib/fonts'
+import { dmSans, instrumentSerif, jetbrainsMono } from '@/lib/fonts'
 import '../styles/globals.css'
 
 export const metadata: Metadata = {
@@ -29,20 +29,11 @@ export default function RootLayout({
   return (
     <html
       lang="sv"
-      className={`${dmSans.variable} ${jetbrainsMono.variable}`}
+      className={`${dmSans.variable} ${jetbrainsMono.variable} ${instrumentSerif.variable}`}
       style={{ backgroundColor: '#060606' }}
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="preload" as="image" href="/crayfish.png" />
       </head>
       <body
         className={dmSans.className}
@@ -52,6 +43,7 @@ export default function RootLayout({
           minHeight: '100vh',
         }}
       >
+        <a href="#main-content" className="skip-link">Hoppa till innehåll</a>
         {children}
       </body>
     </html>

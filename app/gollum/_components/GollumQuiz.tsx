@@ -90,6 +90,41 @@ export function GollumQuiz() {
       {view.screen === 'result' && (
         <QuizResult slug={view.slug} lang={lang} scoringResult={view.scoringResult} />
       )}
+
+      <footer
+        style={{
+          marginTop: 'auto',
+          padding: '12px 24px',
+          borderTop: '1px solid #111',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 10,
+            color: 'var(--text-dim, #333)',
+            letterSpacing: '0.04em',
+          }}
+        >
+          gollum-testet v1.0
+        </span>
+        <a
+          href="/"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 10,
+            color: 'var(--text-dim, #333)',
+            textDecoration: 'none',
+            letterSpacing: '0.04em',
+          }}
+        >
+          vill du vara med och utveckla? →
+        </a>
+      </footer>
     </div>
   )
 }
