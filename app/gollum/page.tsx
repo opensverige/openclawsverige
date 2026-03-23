@@ -19,7 +19,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const safeSlug = (r && r in RESULTS) ? r : null
   const meta = (safeSlug ? RESULT_META[safeSlug] : undefined) ?? {
     title: 'Gollum-testet — Är du Gollum?',
-    description: 'Fem frågor. Brutalt ärliga svar. Ta reda på om du bygger — eller bara hoardar.',
+    description: 'Nio frågor. Brutalt ärliga svar. Ta reda på om du bygger — eller bara hoardar.',
   }
 
   const ogImage = '/gollum/og-image-gollum.jpg'

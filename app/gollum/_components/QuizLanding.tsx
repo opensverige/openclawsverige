@@ -8,8 +8,8 @@ interface QuizLandingProps {
 const COPY = {
   heading: { sv: 'Är du Gollum?', en: 'Are you Gollum?' },
   sub: {
-    sv: 'Fem frågor. Brutalt ärliga svar. Ta reda på om du bygger — eller bara hoardar.',
-    en: "Five questions. Brutally honest answers. Find out if you're building — or just hoarding.",
+    sv: 'Nio frågor. Brutalt ärliga svar. Ta reda på om du bygger — eller bara hoardar.',
+    en: "Nine questions. Brutally honest answers. Find out if you're building — or just hoarding.",
   },
   cta: { sv: 'Starta testet', en: 'Take the test' },
   fine: {
@@ -33,26 +33,18 @@ export function QuizLanding({ lang, onStart }: QuizLandingProps) {
         background: 'linear-gradient(180deg, rgba(196,57,26,0.04) 0%, transparent 60%)',
       }}
     >
-      {/* Hero illustration placeholder — swap src when artwork is ready */}
-      <div
+      {/* Hero illustration */}
+      <img
+        src="/gollum/precious.png"
+        alt=""
         style={{
-          width: 120,
-          height: 120,
+          width: 160,
+          height: 160,
           borderRadius: 16,
-          background: '#111',
-          border: '1px dashed #2a2a2a',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
+          objectFit: 'cover',
           marginBottom: 32,
-          gap: 6,
         }}
-      >
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 9, textTransform: 'uppercase', letterSpacing: 3, color: 'rgba(196,57,26,0.3)', textAlign: 'center', lineHeight: 1.6 }}>
-          gollum<br />illustration
-        </span>
-      </div>
+      />
 
       <h1
         style={{

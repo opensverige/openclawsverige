@@ -18,8 +18,10 @@ export async function GET(req: NextRequest) {
   }
 
   const result = RESULTS[slug]
-  const width  = size === 'square' ? 1080 : 1200
-  const height = size === 'square' ? 1080 :  630
+  const cardWidth  = size === 'square' ? 1080 : 1200
+  const cardHeight = size === 'square' ? 1350 :  630
+  const imageHeight = size === 'square' ? 810 : 370
+  const panelHeight = cardHeight - imageHeight
 
   return new ImageResponse(
     (
@@ -27,52 +29,54 @@ export async function GET(req: NextRequest) {
         style={{
           width: '100%',
           height: '100%',
-          background: '#060606',
+          background: '#0a0806',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '48px',
           fontFamily: 'serif',
-          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        {/* Logo top-left */}
-        <div style={{ position: 'absolute', top: 32, left: 48, fontSize: 20, color: '#c9a55a', display: 'flex' }}>
-          opensverige
-        </div>
-
-        {/* URL bottom-right */}
-        <div style={{ position: 'absolute', bottom: 32, right: 48, fontSize: 16, color: '#4a4540', display: 'flex', fontFamily: 'monospace' }}>
-          opensverige.se/gollum
-        </div>
-
-        {/* Result illustration */}
+        {/* Full-bleed image */}
         <img
           src={`${new URL(req.url).origin}/gollum/${slug}.jpg`}
-          width={size === 'square' ? 448 : 280}
-          height={size === 'square' ? 448 : 280}
-          style={{ borderRadius: 16, marginBottom: 32, objectFit: 'cover' }}
+          width={cardWidth}
+          height={imageHeight}
+          style={{ objectFit: 'cover', objectPosition: 'center top', display: 'block', flexShrink: 0 }}
         />
 
-        {/* Result name */}
-        <div style={{ fontSize: size === 'square' ? 96 : 72, color: '#e8e0d4', marginBottom: 16, display: 'flex' }}>
-          {result.name[lang]}
-        </div>
+        {/* Dark text panel */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            padding: size === 'square' ? '52px 60px 44px' : '28px 56px 32px',
+            height: panelHeight,
+            flexShrink: 0,
+          }}
+        >
+          {/* Title + headline */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: size === 'square' ? 18 : 10 }}>
+            <div style={{ fontSize: size === 'square' ? 88 : 52, color: '#e8e0d4', lineHeight: 1.05, display: 'flex' }}>
+              {result.name[lang]}
+            </div>
+            <div style={{ fontSize: size === 'square' ? 30 : 22, color: '#9a9188', lineHeight: 1.5, display: 'flex' }}>
+              {result.headline[lang]}
+            </div>
+          </div>
 
-        {/* Headline */}
-        <div style={{
-          fontSize: 32,
-          color: '#b0a89e',
-          textAlign: 'center',
-          maxWidth: 700,
-          lineHeight: 1.4,
-          display: 'flex',
-        }}>
-          {result.headline[lang]}
+          {/* Footer line */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ fontSize: size === 'square' ? 22 : 16, color: '#c9a55a', display: 'flex' }}>
+              opensverige
+            </div>
+            <div style={{ fontSize: size === 'square' ? 18 : 13, color: '#4a4540', display: 'flex', fontFamily: 'monospace' }}>
+              opensverige.se/gollum
+            </div>
+          </div>
         </div>
       </div>
     ),
-    { width, height }
+    { width: cardWidth, height: cardHeight }
   )
 }
