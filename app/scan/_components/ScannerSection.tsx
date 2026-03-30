@@ -81,13 +81,19 @@ export default function ScannerSection() {
 
   const startProgressAnim = useCallback((ms: number) => {
     const start = Date.now();
+    // Use a local frameId in the closure so concurrent calls don't interfere
+    let frameId = 0;
     const tick = () => {
       const p = Math.min(88, ((Date.now() - start) / ms) * 88);
       setProgress(p);
-      if (Date.now() - start < ms) rafRef.current = requestAnimationFrame(tick);
+      if (Date.now() - start < ms) {
+        frameId = requestAnimationFrame(tick);
+        rafRef.current = frameId;
+      }
     };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
+    frameId = requestAnimationFrame(tick);
+    rafRef.current = frameId;
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   async function runScan(rawInput: string) {
@@ -142,18 +148,25 @@ export default function ScannerSection() {
 
   function handleShare() {
     if (!result) return;
-    const text = `Är ${domain} redo för AI-agenter? Mitt resultat: ${
+    const shareText = `Är ${domain} redo för AI-agenter? Mitt resultat: ${
       BADGE[result.status].label
     }.\n\nTesta din sajt → opensverige.se/scan\n\n#opensverige #aiagenter`;
+    const shareUrl = "https://opensverige.se/scan";
     if (navigator.share) {
-      navigator.share({
-        title: `${domain} — AI-beredskap`,
-        text,
-        url: "https://opensverige.se/scan",
-      });
+      navigator.share({ title: `${domain} — AI-beredskap`, text: shareText, url: shareUrl })
+        .catch(() => {});
     } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(text);
-      setShared(true);
+      navigator.clipboard.writeText(shareText).then(() => setShared(true)).catch(() => {});
+    } else {
+      // Fallback for environments without clipboard API
+      const ta = document.createElement("textarea");
+      ta.value = shareText;
+      ta.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand("copy"); setShared(true); } catch {}
+      document.body.removeChild(ta);
     }
   }
 
@@ -256,6 +269,9 @@ export default function ScannerSection() {
                   e.key === "Enter" && canSubmit && runScan(url)
                 }
                 placeholder="dittforetag.se"
+                aria-label="Domännamn att scanna"
+                autoComplete="url"
+                spellCheck={false}
                 style={{
                   background: "none",
                   border: "none",
@@ -270,8 +286,10 @@ export default function ScannerSection() {
               />
             </div>
             <button
+              type="button"
               onClick={() => runScan(url)}
               disabled={!canSubmit}
+              aria-disabled={!canSubmit}
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 13,
@@ -312,7 +330,9 @@ export default function ScannerSection() {
             {DEMO_CHIPS.map((chip) => (
               <button
                 key={chip}
+                type="button"
                 onClick={() => runScan(chip)}
+                aria-label={`Scanna ${chip}`}
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 11,
@@ -350,6 +370,10 @@ export default function ScannerSection() {
     return (
       <div style={{ color: "#111", fontFamily: "'Libre Franklin', sans-serif" }}>
         <style>{CSS}</style>
+        {/* Screen reader announcement */}
+        <div role="status" aria-live="polite" aria-atomic="true" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
+          Skannar {domain}, vänta...
+        </div>
         <div
           style={{ padding: "64px 24px", maxWidth: 580, margin: "0 auto" }}
         >
@@ -439,6 +463,11 @@ export default function ScannerSection() {
           </div>
 
           <div
+            role="progressbar"
+            aria-valuenow={Math.round(progress)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Skannar"
             style={{
               height: 3,
               background: "#EDECE8",
@@ -467,6 +496,10 @@ export default function ScannerSection() {
   return (
     <div style={{ color: "#111", fontFamily: "'Libre Franklin', sans-serif" }}>
       <style>{CSS}</style>
+      {/* Screen reader announcement for result */}
+      <div role="status" aria-live="polite" aria-atomic="true" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
+        Skanning klar. {domain} är {cfg.label}. {result.summary}
+      </div>
       <div
         style={{
           padding: "40px 24px 48px",
@@ -568,7 +601,10 @@ export default function ScannerSection() {
         {/* Progressive disclosure — step 1 */}
         {state === "result_summary" && (
           <button
+            type="button"
             onClick={() => setState("result_full")}
+            aria-expanded={false}
+            aria-label="Visa detaljerade fynd och rekommendationer"
             style={{
               width: "100%",
               padding: "12px 14px",
@@ -724,6 +760,7 @@ export default function ScannerSection() {
             {/* CTAs */}
             <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
               <button
+                type="button"
                 onClick={handleShare}
                 style={{
                   flex: 1,
@@ -775,6 +812,7 @@ export default function ScannerSection() {
             </p>
 
             <button
+              type="button"
               onClick={handleReset}
               style={{
                 fontFamily: "'JetBrains Mono', monospace",

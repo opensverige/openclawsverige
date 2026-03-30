@@ -105,7 +105,10 @@ export default function IntegrationVote() {
           return (
             <button
               key={sys.id}
+              type="button"
               onClick={() => toggle(sys.id)}
+              aria-pressed={voted}
+              aria-label={`${voted ? "Ta bort röst för" : "Rösta för"} ${sys.name}`}
               style={{
                 display: "flex",
                 alignItems: "center",

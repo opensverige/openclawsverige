@@ -5,16 +5,23 @@ import { PixelBlock } from "./PixelBlock";
 
 export default function CTA() {
   function handleShare() {
+    const url = "https://opensverige.se/scan";
     const text =
       "Sveriges första öppna AI-readiness scanner för företag — agent.opensverige.se";
     if (navigator.share) {
-      navigator.share({
-        title: "agent.opensverige",
-        text,
-        url: "https://opensverige.se/scan",
-      });
+      navigator.share({ title: "agent.opensverige", text, url }).catch(() => {});
     } else if (navigator.clipboard) {
-      navigator.clipboard.writeText("https://opensverige.se/scan");
+      navigator.clipboard.writeText(url).catch(() => {});
+    } else {
+      // Fallback for environments without clipboard API
+      const ta = document.createElement("textarea");
+      ta.value = url;
+      ta.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand("copy"); } catch {}
+      document.body.removeChild(ta);
     }
   }
 
@@ -68,6 +75,7 @@ export default function CTA() {
       </a>
       <div style={{ marginTop: 16 }}>
         <button
+          type="button"
           onClick={handleShare}
           style={{
             fontFamily: "'JetBrains Mono', monospace",

@@ -20,6 +20,14 @@ export function PixelBlock({ size = 48 }: { size?: number }) {
     for (let i = 0; i < g * g; i++)
       cells.push(cols[Math.floor(Math.random() * cols.length)]);
 
+    // Draw initial frame regardless of motion preference
+    for (let j = 0; j < cells.length; j++) {
+      ctx.fillStyle = cells[j];
+      ctx.fillRect((j % g) * px, Math.floor(j / g) * px, px, px);
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     let f: number;
     function draw() {
       for (let j = 0; j < cells.length; j++) {
@@ -39,6 +47,7 @@ export function PixelBlock({ size = 48 }: { size?: number }) {
       ref={ref}
       width={size}
       height={size}
+      aria-hidden="true"
       style={{ imageRendering: "pixelated", borderRadius: 4, display: "block" }}
     />
   );
@@ -55,10 +64,13 @@ export function PixelDot({ size = 18 }: { size?: number }) {
     const px = size / g;
     const cols = ["#c4391a", "#d4543a", "#c9a55a", "#222"];
 
+    // Draw initial frame regardless of motion preference
     for (let i = 0; i < g * g; i++) {
       ctx.fillStyle = cols[Math.floor(Math.random() * cols.length)];
       ctx.fillRect((i % g) * px, Math.floor(i / g) * px, px, px);
     }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let f: number;
     function tick() {
@@ -79,6 +91,7 @@ export function PixelDot({ size = 18 }: { size?: number }) {
       ref={ref}
       width={size}
       height={size}
+      aria-hidden="true"
       style={{ imageRendering: "pixelated", borderRadius: 2, display: "block" }}
     />
   );
