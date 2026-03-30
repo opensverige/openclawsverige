@@ -122,8 +122,8 @@ export function complianceChecks(): [CheckResult, CheckResult, CheckResult] {
 // ── Builder (live probes) ──────────────────────────────────
 
 export function checkApiExists(probes: ProbeResult[]): CheckResult {
-  // 301/302 included as weak positive — caller must follow redirects so status reflects final hop
-  const hit = probes.find(p => [200, 301, 302].includes(p.status));
+  // fetchSafe uses redirect:follow, so final status is always the terminal hop (200 for live APIs)
+  const hit = probes.find(p => p.status === 200);
   let path: string | undefined;
   try { path = hit ? new URL(hit.url).pathname : undefined; } catch { path = undefined; }
   return {
