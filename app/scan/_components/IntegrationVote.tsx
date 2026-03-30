@@ -124,7 +124,7 @@ export default function IntegrationVote() {
                 cursor: "pointer",
                 textAlign: "left",
                 width: "100%",
-                transition: "border-color 0.2s",
+                transition: "border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
               {/* Background bar */}
@@ -136,7 +136,7 @@ export default function IntegrationVote() {
                   bottom: 0,
                   width: `${barW}%`,
                   background: voted ? "#c4391a08" : "#fafaf7",
-                  transition: "width 0.4s ease",
+                  transition: "width 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                   zIndex: 0,
                 }}
               />
@@ -150,7 +150,7 @@ export default function IntegrationVote() {
                   minWidth: 38,
                   zIndex: 1,
                   position: "relative",
-                  transition: "color 0.15s",
+                  transition: "color 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
                 <span style={{ fontSize: 9 }}>▲</span>

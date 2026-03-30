@@ -52,8 +52,30 @@ const CSS = `
   ::selection { background: #c4391a22; }
   @keyframes ss-spin { to { transform: rotate(360deg); } }
   @keyframes ss-fadeup {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ss-checkin {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .ss-btn {
+    transition: opacity 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ss-btn:hover { opacity: 0.82; }
+  .ss-btn:active { transform: scale(0.97); }
+  .ss-chip {
+    transition: border-color 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ss-chip:hover { border-color: #c4391a55 !important; color: #111 !important; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 `;
 
@@ -196,7 +218,6 @@ export default function ScannerSection() {
             padding: "56px 24px 64px",
             maxWidth: 580,
             margin: "0 auto",
-            animation: "ss-fadeup 0.5s ease both",
           }}
         >
           <div
@@ -207,6 +228,7 @@ export default function ScannerSection() {
               color: "#c4391a",
               letterSpacing: 3,
               marginBottom: 16,
+              animation: "ss-fadeup 0.5s cubic-bezier(0.16, 1, 0.3, 1) both",
             }}
           >
             AGENT READINESS SCANNER
@@ -220,6 +242,7 @@ export default function ScannerSection() {
               lineHeight: 1.08,
               letterSpacing: -1.5,
               marginBottom: 14,
+              animation: "ss-fadeup 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both",
             }}
           >
             Hur agent-redo
@@ -234,12 +257,13 @@ export default function ScannerSection() {
               lineHeight: 1.6,
               maxWidth: 420,
               marginBottom: 28,
+              animation: "ss-fadeup 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.10s both",
             }}
           >
             Vi scannar din sajt och visar vad AI-agenter ser. Gratis. Öppet.
           </p>
 
-          <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+          <div style={{ display: "flex", gap: 8, marginBottom: 8, animation: "ss-fadeup 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both" }}>
             <div
               style={{
                 display: "flex",
@@ -301,7 +325,7 @@ export default function ScannerSection() {
                 border: "none",
                 cursor: canSubmit ? "pointer" : "default",
                 whiteSpace: "nowrap",
-                transition: "background 0.2s",
+                transition: "background 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
               Scanna →
@@ -315,6 +339,7 @@ export default function ScannerSection() {
               gap: 6,
               marginBottom: 36,
               marginTop: 8,
+              animation: "ss-fadeup 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both",
             }}
           >
             <span
@@ -332,6 +357,7 @@ export default function ScannerSection() {
                 type="button"
                 onClick={() => runScan(chip)}
                 aria-label={`Scanna ${chip}`}
+                className="ss-chip"
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 11,
@@ -354,6 +380,7 @@ export default function ScannerSection() {
               color: "#666",
               lineHeight: 1.65,
               maxWidth: 460,
+              animation: "ss-fadeup 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both",
             }}
           >
             AI-agenter börjar interagera med företagssajter. GDPR, EU AI Act
@@ -374,7 +401,7 @@ export default function ScannerSection() {
           Skannar {domain}, vänta...
         </div>
         <div
-          style={{ padding: "64px 24px", maxWidth: 580, margin: "0 auto" }}
+          style={{ padding: "64px 24px", maxWidth: 580, margin: "0 auto", animation: "ss-fadeup 0.35s cubic-bezier(0.16, 1, 0.3, 1) both" }}
         >
           <div
             style={{
@@ -419,6 +446,7 @@ export default function ScannerSection() {
                         fontSize: 14,
                         color: "#16a34a",
                         fontWeight: 700,
+                        animation: "ss-checkin 0.2s cubic-bezier(0.16, 1, 0.3, 1) both",
                       }}
                     >
                       ✓
@@ -452,7 +480,7 @@ export default function ScannerSection() {
                     fontSize: 13,
                     color: i <= scanStep ? "#111" : "#706F6C",
                     fontWeight: i === scanStep ? 600 : 400,
-                    transition: "color 0.3s",
+                    transition: "color 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                   }}
                 >
                   {step}
@@ -479,7 +507,7 @@ export default function ScannerSection() {
                 height: "100%",
                 background: "#c4391a",
                 width: `${progress}%`,
-                transition: "width 0.2s ease",
+                transition: "width 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             />
           </div>
@@ -504,7 +532,7 @@ export default function ScannerSection() {
           padding: "40px 24px 48px",
           maxWidth: 580,
           margin: "0 auto",
-          animation: "ss-fadeup 0.4s ease both",
+          animation: "ss-fadeup 0.4s cubic-bezier(0.16, 1, 0.3, 1) both",
         }}
       >
         {/* DEMO banner */}
@@ -604,6 +632,7 @@ export default function ScannerSection() {
             onClick={() => setState("result_full")}
             aria-expanded={false}
             aria-label="Visa detaljerade fynd och rekommendationer"
+            className="ss-btn"
             style={{
               width: "100%",
               padding: "12px 14px",
@@ -627,7 +656,7 @@ export default function ScannerSection() {
 
         {/* Progressive disclosure — step 2 */}
         {state === "result_full" && (
-          <div style={{ animation: "ss-fadeup 0.3s ease both" }}>
+          <div style={{ animation: "ss-fadeup 0.35s cubic-bezier(0.16, 1, 0.3, 1) both" }}>
             {/* Findings */}
             <div
               style={{
@@ -636,6 +665,7 @@ export default function ScannerSection() {
                 borderRadius: 12,
                 padding: "16px 20px",
                 marginBottom: 12,
+                animation: "ss-fadeup 0.4s cubic-bezier(0.16, 1, 0.3, 1) both",
               }}
             >
               <div
@@ -700,6 +730,7 @@ export default function ScannerSection() {
                 borderRadius: 12,
                 padding: "16px 20px",
                 marginBottom: 20,
+                animation: "ss-fadeup 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.07s both",
               }}
             >
               <div
@@ -757,10 +788,11 @@ export default function ScannerSection() {
             </div>
 
             {/* CTAs */}
-            <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+            <div style={{ display: "flex", gap: 8, marginBottom: 16, animation: "ss-fadeup 0.3s cubic-bezier(0.16, 1, 0.3, 1) 0.13s both" }}>
               <button
                 type="button"
                 onClick={handleShare}
+                className="ss-btn"
                 style={{
                   flex: 1,
                   fontFamily: "'Libre Franklin', sans-serif",
@@ -779,6 +811,7 @@ export default function ScannerSection() {
               </button>
               <a
                 href="https://discord.gg/CSphbTk8En"
+                className="ss-btn"
                 style={{
                   flex: 1,
                   fontFamily: "'Libre Franklin', sans-serif",
@@ -813,6 +846,7 @@ export default function ScannerSection() {
             <button
               type="button"
               onClick={handleReset}
+              className="ss-btn"
               style={{
                 fontFamily: "'Libre Franklin', sans-serif",
                 fontSize: 12,
