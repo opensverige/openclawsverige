@@ -25,7 +25,7 @@ async function fetchSafe(
         "User-Agent":
           "OpenSverige-Scanner/1.0 (https://opensverige.se/scan)",
       },
-      redirect: "follow",
+      redirect: "manual",
       signal: AbortSignal.timeout(5_000),
     });
     const body = await res.text().then((t) => t.slice(0, 10_000));
@@ -37,20 +37,36 @@ async function fetchSafe(
 
 function parseRobots(body: string): boolean {
   const lines = body.toLowerCase().split("\n");
-  let currentUAs: string[] = [];
+  let groupUAs: string[] = [];
+  let inGroup = false;
 
   for (const raw of lines) {
     const line = raw.trim();
+
     if (line.startsWith("user-agent:")) {
-      currentUAs = [line.replace("user-agent:", "").trim()];
+      const ua = line.replace("user-agent:", "").trim();
+      if (!inGroup) {
+        // Starting a new group
+        groupUAs = [ua];
+        inGroup = true;
+      } else {
+        // Continuing the same group (consecutive UA lines)
+        groupUAs.push(ua);
+      }
     } else if (line.startsWith("disallow:")) {
       const path = line.replace("disallow:", "").trim();
       if (
         path === "/" &&
-        currentUAs.some((ua) => AI_AGENTS.includes(ua) || ua === "*")
+        groupUAs.some((ua) => AI_AGENTS.includes(ua) || ua === "*")
       ) {
         return false;
       }
+      // After a directive, next User-Agent starts a new group
+      inGroup = false;
+    } else if (line === "") {
+      // Blank line resets group
+      groupUAs = [];
+      inGroup = false;
     }
   }
   return true;
@@ -121,8 +137,15 @@ export async function POST(req: NextRequest) {
 
   if (
     !rawDomain ||
-    !/^[a-zA-Z0-9][a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$/.test(rawDomain)
+    rawDomain.length > 253 ||
+    !/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}$/.test(rawDomain)
   ) {
+    return Response.json({ error: "Ogiltig domän" }, { status: 400 });
+  }
+
+  // Block private/reserved hostnames that could pass the domain regex
+  const privateTLDs = [".local", ".internal", ".localdomain", ".localhost"];
+  if (privateTLDs.some((tld) => rawDomain.endsWith(tld))) {
     return Response.json({ error: "Ogiltig domän" }, { status: 400 });
   }
 
@@ -136,7 +159,7 @@ export async function POST(req: NextRequest) {
   if (!analysis) analysis = buildDemoAnalysis(rawDomain, checks);
 
   // Fire-and-forget — do not await
-  saveToSupabase(rawDomain, analysis, checks, isDemo);
+  saveToSupabase(rawDomain, analysis, checks, isDemo).catch(() => {});
 
   return Response.json({ ...analysis, isDemo, checks });
 }
