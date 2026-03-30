@@ -17,6 +17,12 @@ const BADGE_CFG: Record<ScanResult['badge'], { label: string; dot: string; bg: s
 
 const BADGE_EMOJI: Record<ScanResult['badge'], string> = { green: "🟢", yellow: "🟡", red: "🔴" };
 
+const SEVERITY_HEADING: Record<CheckSeverity, { one: string; many: string }> = {
+  critical:  { one: 'KRITISK BRIST',   many: 'KRITISKA BRISTER'  },
+  important: { one: 'VIKTIG BRIST',    many: 'VIKTIGA BRISTER'   },
+  info:      { one: 'INFO-PUNKT',      many: 'INFO-PUNKTER'      },
+};
+
 const SEVERITY_CFG: Record<CheckSeverity, { label: string; color: string; bg: string; border: string; icon: string; summaryText: string; summarySource: string }> = {
   critical: {
     label: "KRITISK", color: "#dc2626", bg: "#fef2f2", border: "#fecaca", icon: "⚠",
@@ -170,10 +176,9 @@ export default function ResultsPage({ domain, initialData }: { domain: string; i
     }
   }
 
-  async function handleDeepScan() {
-    if (!r.scan_id || deepSent) return;
+  function handleDeepScan() {
+    if (deepSent) return;
     setDeepSent(true);
-    try { await fetch(`/api/scan/${r.scan_id}`, { method: "PATCH" }); } catch {}
   }
 
   const W = { maxWidth: 580, margin: "0 auto", padding: "0 24px" };
@@ -249,7 +254,7 @@ export default function ResultsPage({ domain, initialData }: { domain: string; i
             {/* Summary box */}
             <div style={{ background: scfg.bg, border: `1.5px solid ${scfg.border}`, borderRadius: 12, padding: "14px 18px", marginBottom: 10 }}>
               <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 700, color: scfg.color, letterSpacing: 1, marginBottom: 6 }}>
-                {scfg.icon} {group.checks.length} {scfg.label}{group.checks.length !== 1 ? 'A BRISTER' : ' BRIST'}
+                {scfg.icon} {group.checks.length} {group.checks.length === 1 ? SEVERITY_HEADING[group.severity].one : SEVERITY_HEADING[group.severity].many}
               </div>
               <p style={{ fontSize: 13, color: "#555", lineHeight: 1.55, marginBottom: scfg.summarySource ? 6 : 0 }}>{scfg.summaryText}</p>
               {scfg.summarySource && <p style={{ fontSize: 11, color: "#706F6C", fontStyle: "italic" }}>Källa: {scfg.summarySource}</p>}
