@@ -7,6 +7,7 @@ export type CheckId =
   | 'mcp_server' | 'sandbox_available';
 
 export type CheckCategory = 'discovery' | 'compliance' | 'builder';
+export type CheckSeverity = 'critical' | 'important' | 'info';
 export type ScanBadge = 'green' | 'yellow' | 'red';
 
 export interface CheckResult {
@@ -16,6 +17,7 @@ export interface CheckResult {
   detail?: string;
   path?: string;
   category: CheckCategory;
+  severity: CheckSeverity;
   hardcoded?: boolean;
 }
 
@@ -61,6 +63,7 @@ export function checkRobots(allowed: boolean): CheckResult {
       ? 'Sajten tillåter AI-agenter (robots.txt)'
       : 'Sajten blockerar AI-agenter eller saknar robots.txt',
     category: 'discovery',
+    severity: 'important',
   };
 }
 
@@ -73,6 +76,7 @@ export function checkSitemap(status: number): CheckResult {
       ? 'Sitemap finns — agenter kan navigera'
       : 'Ingen sitemap — agenter kan inte navigera sajten',
     category: 'discovery',
+    severity: 'info',
   };
 }
 
@@ -85,6 +89,7 @@ export function checkLlms(status: number): CheckResult {
       ? 'llms.txt finns — agenter vet vad du erbjuder'
       : 'Ingen llms.txt — agenter vet inte vad du erbjuder',
     category: 'discovery',
+    severity: 'important',
   };
 }
 
@@ -98,6 +103,7 @@ export function complianceChecks(): [CheckResult, CheckResult, CheckResult] {
       label: 'Integritetspolicyn saknar info om automatiserad behandling',
       detail: 'GDPR Art. 22 — individer ska informeras om automatiserade beslut',
       category: 'compliance',
+      severity: 'critical',
       hardcoded: true,
     },
     {
@@ -106,6 +112,7 @@ export function complianceChecks(): [CheckResult, CheckResult, CheckResult] {
       label: 'Cookiehantering kräver mänsklig consent — blockerar agenter',
       detail: 'Consent-banners är byggda för människor, inte AI-agenter',
       category: 'compliance',
+      severity: 'critical',
       hardcoded: true,
     },
     {
@@ -114,6 +121,7 @@ export function complianceChecks(): [CheckResult, CheckResult, CheckResult] {
       label: 'AI-genererat innehåll inte märkt enligt EU AI Act',
       detail: 'EU AI Act Art. 50(2) — maskinläsbar märkning krävs från aug 2026',
       category: 'compliance',
+      severity: 'important',
       hardcoded: true,
     },
   ];
@@ -134,6 +142,7 @@ export function checkApiExists(probes: ProbeResult[]): CheckResult {
       : 'Inget publikt API hittat',
     path,
     category: 'builder',
+    severity: 'critical',
   };
 }
 
@@ -153,6 +162,7 @@ export function checkOpenApiSpec(probes: ProbeResult[]): CheckResult {
       ? 'OpenAPI-spec hittad — agenter kan mappa ditt API'
       : 'Ingen OpenAPI-spec — agenter kan inte mappa ditt API automatiskt',
     category: 'builder',
+    severity: 'important',
   };
 }
 
@@ -174,6 +184,7 @@ export function checkApiDocs(probes: ProbeResult[]): CheckResult {
       ? 'API-dokumentation tillgänglig'
       : 'Ingen API-dokumentation hittad',
     category: 'builder',
+    severity: 'info',
   };
 }
 
@@ -187,6 +198,7 @@ export function builderHardcoded(): [CheckResult, CheckResult] {
       label: 'Ingen MCP-server hittad',
       detail: 'MCP låter agenter koppla in sig direkt i ditt system',
       category: 'builder',
+      severity: 'important',
       hardcoded: true,
     },
     {
@@ -195,6 +207,7 @@ export function builderHardcoded(): [CheckResult, CheckResult] {
       label: 'Ingen sandbox/testmiljö identifierad',
       detail: 'Builders behöver testa utan att påverka produktionsdata',
       category: 'builder',
+      severity: 'info',
       hardcoded: true,
     },
   ];
@@ -206,6 +219,17 @@ export function calculateBadge(checks: AllChecks): { badge: ScanBadge; score: nu
   const score = Object.values(checks).filter(c => c.pass).length;
   const badge: ScanBadge = score >= 8 ? 'green' : score >= 4 ? 'yellow' : 'red';
   return { badge, score };
+}
+
+// ── Severity counts (failing checks only) ─────────────────
+
+export function computeSeverityCounts(checks: AllChecks): { critical: number; important: number; info: number } {
+  const failing = Object.values(checks).filter(c => !c.pass);
+  return {
+    critical: failing.filter(c => c.severity === 'critical').length,
+    important: failing.filter(c => c.severity === 'important').length,
+    info: failing.filter(c => c.severity === 'info').length,
+  };
 }
 
 // ── Top recommendations ───────────────────────────────────
@@ -236,3 +260,10 @@ export function getTopRecommendations(checks: AllChecks, count = 3): string[] {
     .slice(0, count)
     .map(id => RECOMMENDATION_MAP[id]);
 }
+
+// Fixed display order for Zeigarnik checklist
+export const CHECK_DISPLAY_ORDER: CheckId[] = [
+  'robots_ok', 'sitemap_exists', 'llms_txt',
+  'privacy_automation', 'cookie_bot_handling', 'ai_content_marking',
+  'api_exists', 'openapi_spec', 'api_docs', 'mcp_server', 'sandbox_available',
+];
