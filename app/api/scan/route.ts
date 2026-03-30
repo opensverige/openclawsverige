@@ -10,7 +10,7 @@ import {
   checkRobots, checkSitemap, checkLlms,
   complianceChecks, builderHardcoded,
   checkApiExists, checkOpenApiSpec, checkApiDocs,
-  calculateBadge, getTopRecommendations,
+  calculateBadge, getTopRecommendations, computeSeverityCounts,
   BUILDER_PATHS,
   type AllChecks, type ProbeResult,
 } from "@/lib/checks";
@@ -48,17 +48,31 @@ async function fetchSafe(url: string): Promise<{ status: number; body: string; c
   } catch { return null; }
 }
 
+async function fetchFirecrawlContent(domain: string, apiKey: string): Promise<string | null> {
+  try {
+    // Dynamic require — package may not be installed in all environments
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { default: FirecrawlApp } = await import("@mendable/firecrawl-js");
+    const app = new FirecrawlApp({ apiKey });
+    const result = await app.scrapeUrl(`https://${domain}`, {
+      formats: ["markdown"],
+      onlyMainContent: true,
+    });
+    if (result.success && result.markdown) {
+      return result.markdown.slice(0, 8000);
+    }
+    return null;
+  } catch { return null; }
+}
+
 async function runAllChecks(domain: string): Promise<{ checks: AllChecks; liveChecks: LiveChecks; builderData: BuilderProbeData }> {
   const base = `https://${domain}`;
-
-  // Build all probe URLs: 3 discovery + 12 builder paths + 2 subdomains = 17 total
   const builderUrls = [
     ...BUILDER_PATHS.map(p => `${base}${p}`),
     `https://developer.${domain}`,
     `https://api.${domain}`,
   ];
 
-  // Run all fetches in parallel
   const [robotsRes, sitemapRes, llmsRes, ...builderResults] = await Promise.all([
     fetchSafe(`${base}/robots.txt`),
     fetchSafe(`${base}/sitemap.xml`),
@@ -66,7 +80,6 @@ async function runAllChecks(domain: string): Promise<{ checks: AllChecks; liveCh
     ...builderUrls.map(url => fetchSafe(url).then(r => ({ url, ...r ?? { status: 0, body: "", contentType: null } } as ProbeResult))),
   ]);
 
-  // Discovery
   const robotsAllowed = robotsRes?.status === 200 ? parseRobots(robotsRes.body) : false;
   const liveChecks: LiveChecks = {
     robots: robotsAllowed,
@@ -74,10 +87,7 @@ async function runAllChecks(domain: string): Promise<{ checks: AllChecks; liveCh
     llms: llmsRes?.status === 200,
   };
 
-  // Compliance (hardcoded)
   const [privacyCheck, cookieCheck, aiMarkingCheck] = complianceChecks();
-
-  // Builder (live)
   const probeResults = builderResults as ProbeResult[];
   const apiExistsCheck = checkApiExists(probeResults);
   const openApiCheck = checkOpenApiSpec(probeResults);
@@ -98,9 +108,8 @@ async function runAllChecks(domain: string): Promise<{ checks: AllChecks; liveCh
     sandbox_available: sandboxCheck,
   };
 
-  // Builder probe summary for Claude
   const apiPathsFound = probeResults
-    .filter(p => [200, 301, 302].includes(p.status))
+    .filter(p => p.status === 200)
     .map(p => { try { return new URL(p.url).pathname; } catch { return p.url; } });
 
   let developerPortalUrl: string | undefined;
@@ -128,8 +137,7 @@ async function getIpHash(req: NextRequest): Promise<string> {
 async function checkRateLimit(ipHash: string): Promise<boolean> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return true; // No Supabase → allow
-
+  if (!url || !key) return true;
   try {
     const oneMinuteAgo = new Date(Date.now() - 60_000).toISOString();
     const res = await fetch(
@@ -138,7 +146,7 @@ async function checkRateLimit(ipHash: string): Promise<boolean> {
     );
     if (!res.ok) return true;
     const rows = await res.json() as unknown[];
-    return rows.length === 0; // true = allowed
+    return rows.length === 0;
   } catch { return true; }
 }
 
@@ -169,23 +177,15 @@ async function saveToSupabase(
         Prefer: "return=representation",
       },
       body: JSON.stringify({
-        domain,
-        badge,
-        checks_passed: score,
-        checks_total: 11,
+        domain, badge,
+        checks_passed: score, checks_total: 11,
         discovery_passed: discovery.filter(c => c.pass).length,
         compliance_passed: compliance.filter(c => c.pass).length,
         builder_passed: builder.filter(c => c.pass).length,
-        has_robots: checks.robots_ok.pass,
-        has_sitemap: checks.sitemap_exists.pass,
-        has_llms_txt: checks.llms_txt.pass,
-        has_api: checks.api_exists.pass,
-        has_openapi_spec: checks.openapi_spec.pass,
-        has_api_docs: checks.api_docs.pass,
-        checks_json: checks,
-        claude_summary: summary,
-        recommendations,
-        ip_hash: ipHash,
+        has_robots: checks.robots_ok.pass, has_sitemap: checks.sitemap_exists.pass,
+        has_llms_txt: checks.llms_txt.pass, has_api: checks.api_exists.pass,
+        has_openapi_spec: checks.openapi_spec.pass, has_api_docs: checks.api_docs.pass,
+        checks_json: checks, claude_summary: summary, recommendations, ip_hash: ipHash,
       }),
       signal: AbortSignal.timeout(5_000),
     });
@@ -219,13 +219,22 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "För många scanningar. Vänta en minut." }, { status: 429 });
   }
 
-  const { checks, liveChecks, builderData } = await runAllChecks(rawDomain);
+  // Run checks and Firecrawl in parallel
+  const [checkResult, firecrawlMarkdown] = await Promise.all([
+    runAllChecks(rawDomain),
+    process.env.FIRECRAWL_API_KEY
+      ? fetchFirecrawlContent(rawDomain, process.env.FIRECRAWL_API_KEY)
+      : Promise.resolve(null),
+  ]);
+
+  const { checks, liveChecks, builderData } = checkResult;
   const { badge, score } = calculateBadge(checks);
   const recommendations = getTopRecommendations(checks);
+  const severity_counts = computeSeverityCounts(checks);
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   let analysis = apiKey
-    ? await analyzeWithClaude(rawDomain, liveChecks, builderData, apiKey)
+    ? await analyzeWithClaude(rawDomain, liveChecks, builderData, apiKey, firecrawlMarkdown ?? undefined)
     : null;
   const isDemo = !analysis;
   if (!analysis) analysis = buildDemoAnalysis(rawDomain);
@@ -238,10 +247,12 @@ export async function POST(req: NextRequest) {
     company: analysis.company,
     industry: analysis.industry,
     summary: analysis.summary,
+    agent_suggestions: analysis.agent_suggestions,
     badge,
     score,
     checks,
     recommendations,
+    severity_counts,
     scan_id: scanId,
     isDemo,
   });
