@@ -15,8 +15,11 @@ function isValidPublicUrl(raw: string): boolean {
   let parsed: URL;
   try { parsed = new URL(raw); } catch { return false; }
   if (!["http:", "https:"].includes(parsed.protocol)) return false;
+  // Block non-standard numeric IP forms (decimal, hex, octal) that bypass dotted-octet check
+  // e.g. http://2130706433/ resolves to 127.0.0.1 on Node.js runtimes
+  if (/^(0x[\da-f]+|\d+)$/i.test(parsed.hostname)) return false;
   const host = parsed.hostname.toLowerCase();
-  if (["localhost", "127.0.0.1", "0.0.0.0", "::1", "[::1]"].includes(host)) return false;
+  if (["localhost", "127.0.0.1", "0.0.0.0", "::1"].includes(host)) return false;
   if (host.endsWith(".local") || host.endsWith(".internal")) return false;
   const parts = host.split(".");
   if (parts.length === 4 && parts.every(p => /^\d+$/.test(p))) {
