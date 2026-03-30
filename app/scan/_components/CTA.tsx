@@ -78,8 +78,8 @@ export default function CTA() {
           type="button"
           onClick={handleShare}
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 11,
+            fontFamily: "'Libre Franklin', sans-serif",
+            fontSize: 12,
             fontWeight: 600,
             color: "#c4391a",
             background: "none",

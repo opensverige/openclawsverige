@@ -291,7 +291,7 @@ export default function ScannerSection() {
               disabled={!canSubmit}
               aria-disabled={!canSubmit}
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Libre Franklin', sans-serif",
                 fontSize: 13,
                 fontWeight: 700,
                 color: canSubmit ? "#fff" : "#555",
@@ -319,8 +319,7 @@ export default function ScannerSection() {
           >
             <span
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 10,
+                fontSize: 11,
                 color: "#706F6C",
                 alignSelf: "center",
               }}
@@ -379,14 +378,14 @@ export default function ScannerSection() {
         >
           <div
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "'Libre Franklin', sans-serif",
               fontSize: 13,
               color: "#666",
               marginBottom: 32,
             }}
           >
             Kollar{" "}
-            <span style={{ color: "#111", fontWeight: 600 }}>{domain}</span>
+            <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "#111", fontWeight: 600 }}>{domain}</span>
             ...
           </div>
 
@@ -449,7 +448,7 @@ export default function ScannerSection() {
                 </div>
                 <span
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontFamily: "'Libre Franklin', sans-serif",
                     fontSize: 13,
                     color: i <= scanStep ? "#111" : "#706F6C",
                     fontWeight: i === scanStep ? 600 : 400,
@@ -544,14 +543,14 @@ export default function ScannerSection() {
 
         <div
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'Libre Franklin', sans-serif",
             fontSize: 12,
             color: "#666",
             marginBottom: 16,
           }}
         >
           Resultat för{" "}
-          <span style={{ color: "#111", fontWeight: 600 }}>{domain}</span>
+          <span style={{ fontFamily: "'JetBrains Mono', monospace", color: "#111", fontWeight: 600 }}>{domain}</span>
         </div>
 
         {/* Badge + summary — always visible */}
@@ -612,8 +611,8 @@ export default function ScannerSection() {
               border: "1.5px solid #EDECE8",
               borderRadius: 10,
               cursor: "pointer",
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 12,
+              fontFamily: "'Libre Franklin', sans-serif",
+              fontSize: 13,
               fontWeight: 600,
               color: "#111",
               display: "flex",
@@ -764,8 +763,8 @@ export default function ScannerSection() {
                 onClick={handleShare}
                 style={{
                   flex: 1,
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: 11,
+                  fontFamily: "'Libre Franklin', sans-serif",
+                  fontSize: 12,
                   fontWeight: 600,
                   color: "#fff",
                   background: "#111",
@@ -782,8 +781,8 @@ export default function ScannerSection() {
                 href="https://discord.gg/CSphbTk8En"
                 style={{
                   flex: 1,
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: 11,
+                  fontFamily: "'Libre Franklin', sans-serif",
+                  fontSize: 12,
                   fontWeight: 600,
                   color: "#fff",
                   background: "#c4391a",
@@ -815,9 +814,9 @@ export default function ScannerSection() {
               type="button"
               onClick={handleReset}
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 11,
-                fontWeight: 600,
+                fontFamily: "'Libre Franklin', sans-serif",
+                fontSize: 12,
+                fontWeight: 500,
                 color: "#666",
                 background: "#FDFCF9",
                 border: "1.5px solid #EDECE8",
