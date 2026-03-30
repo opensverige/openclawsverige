@@ -77,7 +77,7 @@ export default function IntegrationVote() {
           fontSize: 10,
           fontWeight: 700,
           color: "#c4391a",
-          letterSpacing: 2,
+          letterSpacing: 3,
           marginBottom: 6,
         }}
       >
@@ -117,7 +117,7 @@ export default function IntegrationVote() {
                 border: voted
                   ? "1.5px solid #c4391a44"
                   : "1.5px solid #EDECE8",
-                borderRadius: 10,
+                borderRadius: 12,
                 padding: "10px 14px",
                 position: "relative",
                 overflow: "hidden",
@@ -136,7 +136,7 @@ export default function IntegrationVote() {
                   top: 0,
                   bottom: 0,
                   width: `${barW}%`,
-                  background: voted ? "#c4391a08" : "#fafaf7",
+                  background: voted ? "#c4391a08" : "#F8F7F4",
                   transition: "width 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                   zIndex: 0,
                 }}

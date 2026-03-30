@@ -41,7 +41,7 @@ export default function Nav() {
           color: "#fff",
           background: "#111",
           padding: "0 16px",
-          borderRadius: 7,
+          borderRadius: 8,
           textDecoration: "none",
           display: "inline-flex",
           alignItems: "center",

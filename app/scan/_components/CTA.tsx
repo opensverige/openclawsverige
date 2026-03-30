@@ -66,7 +66,7 @@ export default function CTA() {
           color: "#fff",
           background: "#c4391a",
           padding: "14px 36px",
-          borderRadius: 10,
+          borderRadius: 12,
           textDecoration: "none",
           boxShadow: "0 4px 20px #c4391a18",
         }}
@@ -92,7 +92,7 @@ export default function CTA() {
             alignItems: "center",
           }}
         >
-          Dela med någon som behöver det här
+          Dela med någon som behöver det här →
         </button>
       </div>
     </section>

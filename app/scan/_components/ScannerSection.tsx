@@ -272,7 +272,7 @@ export default function ScannerSection() {
                 flex: 1,
                 background: "#FDFCF9",
                 border: "2px solid #ddd",
-                borderRadius: 10,
+                borderRadius: 12,
                 padding: "12px 14px",
               }}
             >
@@ -321,7 +321,7 @@ export default function ScannerSection() {
                 color: canSubmit ? "#fff" : "#555",
                 background: canSubmit ? "#c4391a" : "#ccc",
                 padding: "12px 22px",
-                borderRadius: 10,
+                borderRadius: 8,
                 border: "none",
                 cursor: canSubmit ? "pointer" : "default",
                 whiteSpace: "nowrap",
@@ -365,7 +365,7 @@ export default function ScannerSection() {
                   color: "#666",
                   background: "#FDFCF9",
                   border: "1.5px solid #EDECE8",
-                  borderRadius: 6,
+                  borderRadius: 8,
                   padding: "0 10px",
                   cursor: "pointer",
                   minHeight: 44,
@@ -566,7 +566,7 @@ export default function ScannerSection() {
             >
               DEMO
             </span>
-            <span style={{ fontSize: 12, color: "#78716c", lineHeight: 1.5 }}>
+            <span style={{ fontSize: 12, color: "#706F6C", lineHeight: 1.5 }}>
               Tekniska checks är riktiga. Analystexten är generisk tills{" "}
               <code>ANTHROPIC_API_KEY</code> läggs till i Vercel.
             </span>
@@ -642,7 +642,7 @@ export default function ScannerSection() {
               padding: "12px 14px",
               background: "#FDFCF9",
               border: "1.5px solid #EDECE8",
-              borderRadius: 10,
+              borderRadius: 12,
               cursor: "pointer",
               fontFamily: "'Libre Franklin', sans-serif",
               fontSize: 13,
