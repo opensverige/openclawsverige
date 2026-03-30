@@ -326,6 +326,7 @@ export default function ScannerSection() {
                 cursor: canSubmit ? "pointer" : "default",
                 whiteSpace: "nowrap",
                 transition: "background 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                minHeight: 44,
               }}
             >
               Scanna →
@@ -365,8 +366,11 @@ export default function ScannerSection() {
                   background: "#FDFCF9",
                   border: "1.5px solid #EDECE8",
                   borderRadius: 6,
-                  padding: "5px 10px",
+                  padding: "0 10px",
                   cursor: "pointer",
+                  minHeight: 44,
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
                 {chip}
@@ -647,6 +651,7 @@ export default function ScannerSection() {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              minHeight: 44,
             }}
           >
             <span>Visa detaljer</span>
@@ -805,6 +810,10 @@ export default function ScannerSection() {
                   padding: "11px",
                   cursor: "pointer",
                   textAlign: "center",
+                  minHeight: 44,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 {shared ? "Kopierat ✓" : "Dela resultat →"}
@@ -822,8 +831,10 @@ export default function ScannerSection() {
                   borderRadius: 8,
                   padding: "11px",
                   textDecoration: "none",
-                  display: "block",
-                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: 44,
                 }}
               >
                 Gå med i Discord →
@@ -857,6 +868,7 @@ export default function ScannerSection() {
                 borderRadius: 8,
                 padding: "10px 16px",
                 cursor: "pointer",
+                minHeight: 44,
               }}
             >
               ← Scanna en till

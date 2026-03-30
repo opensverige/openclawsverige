@@ -86,7 +86,10 @@ export default function CTA() {
             border: "none",
             cursor: "pointer",
             textDecoration: "underline",
-            padding: 0,
+            padding: "0",
+            minHeight: 44,
+            display: "inline-flex",
+            alignItems: "center",
           }}
         >
           Dela med någon som behöver det här

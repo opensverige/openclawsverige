@@ -125,6 +125,7 @@ export default function IntegrationVote() {
                 textAlign: "left",
                 width: "100%",
                 transition: "border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                minHeight: 44,
               }}
             >
               {/* Background bar */}

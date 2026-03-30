@@ -40,9 +40,12 @@ export default function Nav() {
           fontWeight: 700,
           color: "#fff",
           background: "#111",
-          padding: "7px 16px",
+          padding: "0 16px",
           borderRadius: 7,
           textDecoration: "none",
+          display: "inline-flex",
+          alignItems: "center",
+          minHeight: 44,
         }}
       >
         250+ builders →
