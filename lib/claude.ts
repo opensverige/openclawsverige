@@ -91,7 +91,11 @@ export async function analyzeWithClaude(
     const data = await res.json();
     const text: string = data.content?.[0]?.text ?? "";
     const cleaned = text.replace(/```json\n?/g, "").replace(/```/g, "").trim();
-    return JSON.parse(cleaned) as ScanAnalysis;
+    try {
+      return JSON.parse(cleaned) as ScanAnalysis;
+    } catch {
+      return null;
+    }
   } catch {
     return null;
   }
@@ -99,9 +103,11 @@ export async function analyzeWithClaude(
 
 export function buildDemoAnalysis(domain: string, checks: LiveChecks): ScanAnalysis {
   const passCount = [checks.robots, checks.sitemap, checks.llms].filter(Boolean).length;
+  // "REDO" is intentionally never assigned: compliance checks (GDPR Art. 22, EU AI Act Art. 50)
+  // always fail in demo mode, so max 3 of 7 checks can pass — insufficient for full readiness.
   const status: ScanStatus = passCount >= 2 ? "DELVIS_REDO" : "INTE_REDO";
 
-  const slug = domain.split(".")[0];
+  const slug = domain.split(".")[0] || domain;
   const company = slug.charAt(0).toUpperCase() + slug.slice(1).replace(/-/g, " ");
 
   const findings: Finding[] = [
