@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function ScanPage() {
   return (
-    <div style={{ minHeight: "100vh", background: "#F8F7F4" }}>
+    <div style={{ minHeight: "100vh", background: "#F8F7F4", color: "#111" }}>
       {/* Font loading: preconnect first, then stylesheet — hoisted to <head> by Next.js */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
