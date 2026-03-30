@@ -54,7 +54,7 @@ export default function CTA() {
         <br />
         Häng med.
       </h2>
-      <p style={{ fontSize: 14, color: "#999", marginBottom: 24 }}>
+      <p style={{ fontSize: 14, color: "#666", marginBottom: 24 }}>
         Öppen källkod. Stockholm, Göteborg, Malmö.
       </p>
       <a

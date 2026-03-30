@@ -230,7 +230,7 @@ export default function ScannerSection() {
           <p
             style={{
               fontSize: 16,
-              color: "#888",
+              color: "#666",
               lineHeight: 1.6,
               maxWidth: 420,
               marginBottom: 28,
@@ -246,7 +246,7 @@ export default function ScannerSection() {
                 alignItems: "center",
                 gap: 8,
                 flex: 1,
-                background: "#fff",
+                background: "#FDFCF9",
                 border: "2px solid #ddd",
                 borderRadius: 10,
                 padding: "12px 14px",
@@ -256,7 +256,7 @@ export default function ScannerSection() {
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 12,
-                  color: "#ccc",
+                  color: "#706F6C",
                   flexShrink: 0,
                 }}
               >
@@ -294,7 +294,7 @@ export default function ScannerSection() {
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 13,
                 fontWeight: 700,
-                color: "#fff",
+                color: canSubmit ? "#fff" : "#555",
                 background: canSubmit ? "#c4391a" : "#ccc",
                 padding: "12px 22px",
                 borderRadius: 10,
@@ -321,7 +321,7 @@ export default function ScannerSection() {
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 10,
-                color: "#ccc",
+                color: "#706F6C",
                 alignSelf: "center",
               }}
             >
@@ -336,8 +336,8 @@ export default function ScannerSection() {
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 11,
-                  color: "#888",
-                  background: "#fff",
+                  color: "#666",
+                  background: "#FDFCF9",
                   border: "1.5px solid #EDECE8",
                   borderRadius: 6,
                   padding: "5px 10px",
@@ -352,7 +352,7 @@ export default function ScannerSection() {
           <p
             style={{
               fontSize: 14,
-              color: "#aaa",
+              color: "#666",
               lineHeight: 1.65,
               maxWidth: 460,
             }}
@@ -381,7 +381,7 @@ export default function ScannerSection() {
             style={{
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: 13,
-              color: "#888",
+              color: "#666",
               marginBottom: 32,
             }}
           >
@@ -451,7 +451,7 @@ export default function ScannerSection() {
                   style={{
                     fontFamily: "'JetBrains Mono', monospace",
                     fontSize: 13,
-                    color: i <= scanStep ? "#111" : "#bbb",
+                    color: i <= scanStep ? "#111" : "#706F6C",
                     fontWeight: i === scanStep ? 600 : 400,
                     transition: "color 0.3s",
                   }}
@@ -546,7 +546,7 @@ export default function ScannerSection() {
           style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: 12,
-            color: "#888",
+            color: "#666",
             marginBottom: 16,
           }}
         >
@@ -608,7 +608,7 @@ export default function ScannerSection() {
             style={{
               width: "100%",
               padding: "12px 14px",
-              background: "#fff",
+              background: "#FDFCF9",
               border: "1.5px solid #EDECE8",
               borderRadius: 10,
               cursor: "pointer",
@@ -632,7 +632,7 @@ export default function ScannerSection() {
             {/* Findings */}
             <div
               style={{
-                background: "#fff",
+                background: "#FDFCF9",
                 border: "1.5px solid #EDECE8",
                 borderRadius: 12,
                 padding: "16px 20px",
@@ -644,7 +644,7 @@ export default function ScannerSection() {
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 10,
                   fontWeight: 700,
-                  color: "#bbb",
+                  color: "#706F6C",
                   letterSpacing: 1.5,
                   marginBottom: 12,
                 }}
@@ -696,7 +696,7 @@ export default function ScannerSection() {
             {/* Next steps */}
             <div
               style={{
-                background: "#fff",
+                background: "#FDFCF9",
                 border: "1.5px solid #EDECE8",
                 borderRadius: 12,
                 padding: "16px 20px",
@@ -708,7 +708,7 @@ export default function ScannerSection() {
                   fontFamily: "'JetBrains Mono', monospace",
                   fontSize: 10,
                   fontWeight: 700,
-                  color: "#bbb",
+                  color: "#706F6C",
                   letterSpacing: 1.5,
                   marginBottom: 12,
                 }}
@@ -801,7 +801,7 @@ export default function ScannerSection() {
             <p
               style={{
                 fontSize: 11,
-                color: "#bbb",
+                color: "#706F6C",
                 lineHeight: 1.65,
                 marginBottom: 16,
               }}
@@ -818,8 +818,8 @@ export default function ScannerSection() {
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: 11,
                 fontWeight: 600,
-                color: "#aaa",
-                background: "#fff",
+                color: "#666",
+                background: "#FDFCF9",
                 border: "1.5px solid #EDECE8",
                 borderRadius: 8,
                 padding: "10px 16px",

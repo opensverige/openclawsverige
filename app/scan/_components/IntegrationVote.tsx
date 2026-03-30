@@ -94,7 +94,7 @@ export default function IntegrationVote() {
       >
         Rösta. Builders bygger det som efterfrågas mest.
       </h2>
-      <p style={{ fontSize: 13, color: "#aaa", marginBottom: 20 }}>
+      <p style={{ fontSize: 13, color: "#666", marginBottom: 20 }}>
         Klicka på systemet du använder.
       </p>
 
@@ -113,7 +113,7 @@ export default function IntegrationVote() {
                 display: "flex",
                 alignItems: "center",
                 gap: 12,
-                background: "#fff",
+                background: "#FDFCF9",
                 border: voted
                   ? "1.5px solid #c4391a44"
                   : "1.5px solid #EDECE8",
@@ -146,7 +146,7 @@ export default function IntegrationVote() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  color: voted ? "#c4391a" : "#ccc",
+                  color: voted ? "#c4391a" : "#666",
                   minWidth: 38,
                   zIndex: 1,
                   position: "relative",
@@ -167,7 +167,7 @@ export default function IntegrationVote() {
               {/* Name + desc */}
               <div style={{ flex: 1, zIndex: 1, position: "relative" }}>
                 <div style={{ fontSize: 14, fontWeight: 700 }}>{sys.name}</div>
-                <div style={{ fontSize: 12, color: "#999" }}>{sys.desc}</div>
+                <div style={{ fontSize: 12, color: "#666" }}>{sys.desc}</div>
               </div>
             </button>
           );
