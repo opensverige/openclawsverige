@@ -31,10 +31,11 @@ export function PixelBlock({ size = 48 }: { size?: number }) {
     let f: number;
     function draw() {
       for (let j = 0; j < cells.length; j++) {
-        if (Math.random() < 0.012)
+        if (Math.random() < 0.012) {
           cells[j] = cols[Math.floor(Math.random() * cols.length)];
-        ctx.fillStyle = cells[j];
-        ctx.fillRect((j % g) * px, Math.floor(j / g) * px, px, px);
+          ctx.fillStyle = cells[j];
+          ctx.fillRect((j % g) * px, Math.floor(j / g) * px, px, px);
+        }
       }
       f = requestAnimationFrame(draw);
     }

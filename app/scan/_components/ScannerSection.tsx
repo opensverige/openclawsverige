@@ -46,8 +46,8 @@ const BADGE: Record<
   },
 };
 
+// Fonts loaded via <link> in page.tsx — hoisted to <head> by Next.js for optimal loading
 const CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Libre+Franklin:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   ::selection { background: #c4391a22; }
   @keyframes ss-spin { to { transform: rotate(360deg); } }
