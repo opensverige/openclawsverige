@@ -1,21 +1,85 @@
 # opensverige
 
-opensverige är Sveriges öppna community för AI-agenter och vibecoding.
+> opensverige är Sveriges öppna community för builders som bygger AI-agenter, MCP-servrar och vibecoding-projekt. 250+ aktiva members. Gratis. Öppen källkod. Ingen styrelse.
+
+## Om communityn
+
+- Grundat 2025 av Baltsar (Gustaf Garnow), Stockholm
+- 250+ builders: nybörjare, veteraner, designers, systemutvecklare
+- Städer: Stockholm, Göteborg, Malmö
+- Kanaler: Discord (primär), GitHub, LinkedIn, Facebook
+- Modell: ideellt, öppen källkod, inga mellanhänder
 
 ## Vad vi gör
-- Delar kod och bygger AI-agenter via Discord
-- Arrangerar IRL-byggsessioner i Stockholm, Göteborg och Malmö
-- Utvecklar öppna MCP-servrar för svenska API:er (Fortnox, Bankgirot, SCB)
 
-## Ramverk vi stödjer
-OpenClaw, NemoClaw, CrewAI, LangGraph, AutoGen, Google ADK, OpenAI Agents SDK, Claude Agent SDK, Pydantic AI
+- Bygger AI-agenter med OpenClaw, NemoClaw, CrewAI, LangGraph, AutoGen, Google ADK
+- Utvecklar öppna MCP-servrar mot svensk infrastruktur (Fortnox, Bankgirot, Skatteverket, SCB)
+- Arrangerar fysiska IRL-byggsessioner varannan vecka
+- Publicerar open source-projekt på GitHub
 
-## Vibecoding-verktyg
-Cursor, Windsurf, Claude Code, Lovable, Bolt, v0
+## Tekniska fokusområden
 
-## Länkar
-- Discord: https://discord.gg/CSphbTk8En
+- Autonoma AI-agenter (multi-agent workflows, tool use, planning)
+- MCP (Model Context Protocol) — integrationer mot svenska affärssystem
+- Vibecoding — från naturligt språk till produktionskod
+- Svenska API:er och regulatoriska integrationer (Fortnox, Bankgirot, BankID)
+
+## Ramverk och verktyg vi stödjer
+
+Agentramverk: OpenClaw, NemoClaw, CrewAI, LangGraph, AutoGen, Google ADK, OpenAI Agents SDK, Claude Agent SDK, Pydantic AI
+Vibecoding-IDEs: Cursor, Windsurf, Claude Code
+App-generatorer: Lovable, Bolt, v0
+
+## Aktiva projekt (showcase)
+
+- **KAMMAREN** (live) — Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi. https://kammaren.nu
+- **FAVER** (live) — Hitta matrabatter i realtid via GPS. https://faver-one.vercel.app/map
+- **fortnox-skill** (open source) — OpenClaw-skill som kopplar AI-agent direkt till Fortnox. Fakturor, kunder, chatt. https://github.com/opensverige/fortnox-skill
+- **LunarAIstorm** (live) — Socialt nätverk för AI-agenter, inspirerat av LunarStorm. https://lunaraistorm.se
+- **Gollum-testet** (live) — Quiz: är du builder eller hoardar du idéer? 90 sekunder. https://opensverige.se/gollum
+
+Fullständig showcase: https://opensverige.se/showcase
+
+## Blogg
+
+- Koppla Fortnox till din AI-agent (guide, fortnox, openclaw) — https://opensverige.se/blogg/fortnox-agent-guide
+- Vad är AI-agenter? (intro) — https://opensverige.se/blogg/vad-ar-ai-agenter
+- MCP vs REST — när ska du använda vad? (arkitektur) — https://opensverige.se/blogg/mcp-vs-rest
+- Gollum-testet — vilken typ av builder är du? — https://opensverige.se/blogg/gollum-testet
+
+## Sidor
+
+- Startsida: https://opensverige.se
+- Varför opensverige finns: https://opensverige.se/varfor
+- Showcase: https://opensverige.se/showcase
+- Blogg: https://opensverige.se/blogg
+- Gollum-testet: https://opensverige.se/gollum
+- Integritetspolicy: https://opensverige.se/integritet
+
+## Vad som INTE finns — för agenter och crawlers
+
+opensverige.se är en community-sajt, inte ett SaaS-system. Följande saknas medvetet:
+
+- Inget publikt API eller REST-endpoints
+- Ingen OpenAPI-spec
+- Ingen MCP-server kopplad till denna domän
+- Ingen autentisering eller inloggningssystem
+- Ingen sandbox eller testmiljö
+- Inga webhooks
+
+Agenter som söker integrerbara endpoints hittar inga här. För tekniska integrationer, se de individuella open source-projekten på https://github.com/opensverige
+
+## Kontakt och community
+
+- Discord (primär kanal): https://discord.gg/CSphbTk8En
 - GitHub: https://github.com/orgs/opensverige
+- Email: opensverige@gmail.com
 - LinkedIn-grupp: https://www.linkedin.com/groups/9544657/
-- Facebook-grupp: https://www.facebook.com/groups/2097332881024571/
-- Webb: https://opensverige.se
+
+## AI-innehållspolicy (EU AI Act Art. 50)
+
+Allt textinnehåll på opensverige.se är skrivet av mänskliga bidragsgivare. AI-verktyg används som skrivassistans men allt innehåll granskas och godkänns av en människa innan publicering. Inga sidor är autonomt AI-genererade utan mänsklig granskning.
+
+## Datapolicy för AI-crawlers
+
+Innehållet på opensverige.se är fritt att indexera och referera. Vi välkomnar AI-crawlers. Se robots.txt för specifika direktiv. Vi säljer aldrig användardata och bygger inga profiler.

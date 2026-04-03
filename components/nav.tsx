@@ -94,6 +94,9 @@ export function Nav() {
           <Link href="/showcase" className="nav-link" onClick={closeMenu}>
             Showcase <span className="aw">→</span>
           </Link>
+          <Link href="/varfor" className="nav-link" onClick={closeMenu}>
+            Varför <span className="aw">→</span>
+          </Link>
           <a
             href="https://discord.gg/CSphbTk8En"
             target="_blank"

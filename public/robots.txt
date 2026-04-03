@@ -1,13 +1,47 @@
 User-agent: *
 Allow: /
 
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
 User-agent: OAI-SearchBot
 Allow: /
 
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
-User-agent: Googlebot
+# Apple
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Meta
+User-agent: FacebookBot
 Allow: /
 
 Sitemap: https://opensverige.se/sitemap.xml

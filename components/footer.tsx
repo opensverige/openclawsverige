@@ -73,7 +73,10 @@ export function Footer() {
   return (
     <footer className="footer">
       <p className="footer-copy">
-        © 2026 opensverige. Öppet för alla.
+        © 2026 opensverige. Öppet för alla.{' '}
+        <a href="/integritet" style={{ color: 'var(--text-dim)', textDecoration: 'none' }}>
+          · Integritet
+        </a>
       </p>
 
       <nav className="footer-social" aria-label="Sociala kanaler">
