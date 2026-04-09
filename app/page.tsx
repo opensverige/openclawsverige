@@ -174,32 +174,31 @@ export default async function Home() {
           <div className="divider-line" />
         </div>
 
-        {/* 01 — Så funkar det */}
+        {/* 01 — Byggt av communityt */}
         <section className="site-section">
-          <SectionLabel num="01" text="så funkar det" />
-          <h2 className="section-h2">Så funkar det</h2>
-          <div className="how-cards">
-            <div className="card">
-              <div className="card-glyph">
-                <Glyph variant="braille" style={{ color: 'var(--crayfish-light)' }} />
-              </div>
-              <h3 className="card-title">Discord — varje dag</h3>
-              <div className="card-body">
-                Vår Discord-server samlar svenska AI-byggare för daglig
-                problemlösning. Dela kod, felsök agenter, hitta folk att
-                vibecoda med.
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-glyph">
-                <Glyph variant="moon" style={{ color: 'var(--gold)' }} />
-              </div>
-              <h3 className="card-title">IRL — Stockholm, Göteborg, Malmö</h3>
-              <div className="card-body">
-                Vi kör kostnadsfria byggsessioner på 2,5 timmar. Inga
-                föreläsningar. Ta med laptop, bygg på plats, visa vad du gjort.
-              </div>
-            </div>
+          <SectionLabel num="01" text="byggt av communityt" />
+          <h2 className="section-h2">Byggt av communityt</h2>
+          <p
+            style={{
+              color: 'var(--text-secondary)',
+              fontSize: 15,
+              maxWidth: 560,
+              lineHeight: 1.6,
+              marginBottom: 'var(--sp-8)',
+            }}
+          >
+            Builders behöver problem. Småföretagare har dem bland annat. Se vad
+            vi har byggt hittills.
+          </p>
+          <div className="project-cards project-cards--compact">
+            {featured.map((p) => (
+              <CardProject key={p.slug} project={p} />
+            ))}
+          </div>
+          <div className="see-all">
+            <Link href="/showcase">
+              Se alla projekt <span className="aw">→</span>
+            </Link>
           </div>
         </section>
 
@@ -226,31 +225,32 @@ export default async function Home() {
           <div className="divider-line" />
         </div>
 
-        {/* 03 — Byggt av communityt */}
+        {/* 03 — Så funkar det */}
         <section className="site-section">
-          <SectionLabel num="03" text="byggt av communityt" />
-          <h2 className="section-h2">Byggt av communityt</h2>
-          <p
-            style={{
-              color: 'var(--text-secondary)',
-              fontSize: 15,
-              maxWidth: 560,
-              lineHeight: 1.6,
-              marginBottom: 'var(--sp-8)',
-            }}
-          >
-            Builders behöver problem. Småföretagare har dem bland annat. Se vad
-            vi har byggt hittills.
-          </p>
-          <div className="project-cards project-cards--compact">
-            {featured.map((p) => (
-              <CardProject key={p.slug} project={p} />
-            ))}
-          </div>
-          <div className="see-all">
-            <Link href="/showcase">
-              Se alla projekt <span className="aw">→</span>
-            </Link>
+          <SectionLabel num="03" text="så funkar det" />
+          <h2 className="section-h2">Så funkar det</h2>
+          <div className="how-cards">
+            <div className="card">
+              <div className="card-glyph">
+                <Glyph variant="braille" style={{ color: 'var(--crayfish-light)' }} />
+              </div>
+              <h3 className="card-title">Discord — varje dag</h3>
+              <div className="card-body">
+                Vår Discord-server samlar svenska AI-byggare för daglig
+                problemlösning. Dela kod, felsök agenter, hitta folk att
+                vibecoda med.
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-glyph">
+                <Glyph variant="moon" style={{ color: 'var(--gold)' }} />
+              </div>
+              <h3 className="card-title">IRL — Stockholm, Göteborg, Malmö</h3>
+              <div className="card-body">
+                Vi kör kostnadsfria byggsessioner på 2,5 timmar. Inga
+                föreläsningar. Ta med laptop, bygg på plats, visa vad du gjort.
+              </div>
+            </div>
           </div>
         </section>
 
