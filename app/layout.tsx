@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { dmSans, instrumentSerif, jetbrainsMono } from '@/lib/fonts'
+import { Analytics } from '@vercel/analytics/next'
 import '../styles/globals.css'
 
 export const metadata: Metadata = {
@@ -45,6 +46,7 @@ export default function RootLayout({
       >
         <a href="#main-content" className="skip-link">Hoppa till innehåll</a>
         {children}
+        <Analytics />
       </body>
     </html>
   )
