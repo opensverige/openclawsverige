@@ -1,4 +1,5 @@
 import type { SVGProps } from 'react'
+import { GollumCounter } from './gollum-counter'
 
 function IconDiscord(props: SVGProps<SVGSVGElement>) {
   return (
@@ -95,6 +96,10 @@ export function Footer() {
       </nav>
 
       <p className="footer-cities">Stockholm · Göteborg · Malmö</p>
+
+      <div className="footer-gollum-row">
+        <GollumCounter />
+      </div>
     </footer>
   )
 }

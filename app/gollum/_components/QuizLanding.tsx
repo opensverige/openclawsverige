@@ -1,8 +1,12 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import type { Lang } from '../_lib/types'
 
 interface QuizLandingProps {
   lang: Lang
   onStart: () => void
+  completions: number | null
 }
 
 const COPY = {
@@ -18,7 +22,29 @@ const COPY = {
   },
 }
 
-export function QuizLanding({ lang, onStart }: QuizLandingProps) {
+function CountUp({ target }: { target: number }) {
+  const elRef = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    if (!elRef.current) return
+    const duration = 900
+    const start = performance.now()
+    const from = Math.max(0, target - 60)
+
+    function step(now: number) {
+      const progress = Math.min((now - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      const current = Math.round(from + (target - from) * eased)
+      if (elRef.current) elRef.current.textContent = String(current)
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [target])
+
+  return <span ref={elRef}>{target}</span>
+}
+
+export function QuizLanding({ lang, onStart, completions }: QuizLandingProps) {
   return (
     <main
       style={{
@@ -66,11 +92,21 @@ export function QuizLanding({ lang, onStart }: QuizLandingProps) {
           color: 'var(--text-secondary)',
           lineHeight: 1.5,
           maxWidth: 320,
-          margin: '0 0 40px',
+          margin: '0 0 32px',
         }}
       >
         {COPY.sub[lang]}
       </p>
+
+      {completions !== null && completions > 0 && (
+        <div className="quiz-counter">
+          <span className="quiz-counter-dot" aria-hidden="true" />
+          <span className="quiz-counter-num">
+            <CountUp target={completions} />
+          </span>
+          <span className="quiz-counter-label">genomförda</span>
+        </div>
+      )}
 
       <button
         onClick={onStart}

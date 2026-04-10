@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import type { Answer, Lang, QuizView, ResultSlug } from '../_lib/types'
 import { QUESTIONS, RESULTS } from '../_lib/quiz-data'
@@ -22,6 +22,14 @@ export function GollumQuiz() {
     return { screen: 'landing' }
   })
   const [answers, setAnswers] = useState<Answer[]>([])
+  const [completions, setCompletions] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetch('/api/gollum-count')
+      .then((res) => res.json())
+      .then((data) => setCompletions(data.count))
+      .catch(() => {})
+  }, [])
 
   function toggleLang() {
     setLang((l) => (l === 'sv' ? 'en' : 'sv'))
@@ -42,6 +50,10 @@ export function GollumQuiz() {
     } else {
       const scoringResult = calculateScores(newAnswers)
       setView({ screen: 'result', slug: scoringResult.archetype, scoringResult })
+      fetch('/api/gollum-count', { method: 'POST' })
+        .then((res) => res.json())
+        .then((data) => setCompletions(data.count))
+        .catch(() => {})
     }
   }
 
@@ -72,7 +84,7 @@ export function GollumQuiz() {
       <QuizHeader lang={lang} onToggleLang={toggleLang} />
 
       {view.screen === 'landing' && (
-        <QuizLanding lang={lang} onStart={handleStart} />
+        <QuizLanding lang={lang} onStart={handleStart} completions={completions} />
       )}
 
       {view.screen === 'question' && (
@@ -110,7 +122,7 @@ export function GollumQuiz() {
             letterSpacing: '0.04em',
           }}
         >
-          gollum-testet v1.0
+          {completions !== null ? `${completions} genomförda` : 'gollum-testet v1.0'}
         </span>
         <a
           href="/"

@@ -909,6 +909,95 @@ body {
 .cta-body { font-size: 15px; color: var(--text-secondary); max-width: 480px; margin: 0 auto var(--sp-8) }
 .cta-btns { display:flex; gap:var(--sp-3); justify-content:center; flex-wrap:wrap }
 
+/* ============ GOLLUM COUNTER ============ */
+
+/* Landing page counter */
+.quiz-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 28px;
+  padding: 16px 32px;
+  border: 1px solid var(--crayfish-border);
+  border-radius: 12px;
+  background: var(--crayfish-glow);
+  position: relative;
+}
+.quiz-counter-dot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--crayfish-light);
+  animation: counter-pulse 2s ease-in-out infinite;
+}
+@keyframes counter-pulse {
+  0%, 100% { opacity: 1; transform: scale(1) }
+  50% { opacity: 0.4; transform: scale(0.7) }
+}
+.quiz-counter-num {
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.quiz-counter-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--crayfish-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Footer counter widget */
+.footer-gollum-row {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--border);
+  padding-top: var(--sp-5);
+  display: flex;
+  justify-content: center;
+}
+.footer-gollum {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.footer-gollum:hover {
+  border-color: var(--crayfish-border);
+  background: var(--crayfish-glow);
+}
+.footer-gollum-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.footer-gollum-count {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.footer-gollum-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
 /* ============ FOOTER ============ */
 
 .footer {

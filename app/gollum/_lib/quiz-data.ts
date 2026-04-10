@@ -118,6 +118,19 @@ export const QUESTIONS: Question[] = [
       { id: 'D', shipDelta:  0, aiDepDelta:  0, text: { sv: 'När jag äntligen fick featuren att fungera',                   en: 'When I finally got the feature to work' } },
     ],
   },
+  {
+    id: 10,
+    text: {
+      sv: 'Du har precis vibe-codat en hel feature på 2 timmar. AI:n genererade 95% av koden. Vad gör du?',
+      en: 'You just vibe-coded an entire feature in 2 hours. The AI generated 95% of the code. What do you do?',
+    },
+    answers: [
+      { id: 'A', shipDelta: -2, aiDepDelta: +1, text: { sv: 'Pushar direkt och postar i Discord för att få feedback',              en: 'Push immediately and post in Discord to get feedback' } },
+      { id: 'B', shipDelta:  0, aiDepDelta: -1, text: { sv: 'Går igenom koden noggrant för att förstå vad AI:n skrev',             en: 'Read through the code carefully to understand what the AI wrote' } },
+      { id: 'C', shipDelta:  0, aiDepDelta: +2, text: { sv: 'Frågar AI:n om koden håller för produktion innan jag pushar',         en: 'Ask the AI if the code is production-ready before pushing' } },
+      { id: 'D', shipDelta: +1, aiDepDelta: +1, text: { sv: 'Sparar det som "TODO: förstå detta sen" och fortsätter bygga',        en: 'Save it as "TODO: understand this later" and keep building' } },
+    ],
+  },
 ]
 
 // Ranges: ship -10..+10, aiDep -7..+14
@@ -253,12 +266,18 @@ export const MIRROR_MAP: Record<number, Record<string, BilingualString>> = {
     C: { sv: 'Bästa momentet: löste problem själv. Intern kompetens-dopamin.', en: 'Best moment: solved the problem yourself. Internal competence dopamine.' },
     D: { sv: 'Bästa momentet: featuren funkade. Craft-dopamin — inget fel med det.', en: 'Best moment: the feature worked. Craft dopamine — nothing wrong with that.' },
   },
+  10: {
+    A: { sv: 'Pushade och postade — fast AI:n skrev 95%. Du shippar, men vet du vad du shippade?', en: 'Pushed and posted — but the AI wrote 95%. You ship, but do you know what you shipped?' },
+    B: { sv: 'Läste igenom koden. Du vägrar ta emot kod utan att förstå den. Autonomi.', en: 'Read through the code. You refuse to accept code without understanding it. Autonomy.' },
+    C: { sv: 'Frågade AI:n om produktionskvalitet. Sista grinden: AI bestämmer om din kod är redo.', en: 'Asked the AI about production quality. Last gate: AI decides if your code is ready.' },
+    D: { sv: '"TODO: förstå detta sen." Det TODOt är fortfarande kvar om 6 månader.', en: '"TODO: understand this later." That TODO will still be there in 6 months.' },
+  },
 }
 
 // Priority order per archetype — which questions reveal the most (1-based)
 export const PRIORITY_ORDER: Record<ResultSlug, number[]> = {
-  gollum:      [1, 4, 8, 6, 3, 9, 7, 2, 5],
-  dreambuilder:[1, 2, 5, 9, 4, 6, 7, 3, 8],
-  speedrunner: [3, 5, 7, 8, 4, 1, 9, 2, 6],
-  shipper:     [2, 5, 6, 7, 9, 1, 4, 3, 8],
+  gollum:      [1, 4, 8, 6, 3, 9, 10, 7, 2, 5],
+  dreambuilder:[1, 2, 5, 9, 4, 6,  7, 3, 8, 10],
+  speedrunner: [10, 3, 5, 7, 8, 4, 1, 9, 2, 6],
+  shipper:     [2, 5, 6, 7, 9, 1, 4, 3, 8, 10],
 }

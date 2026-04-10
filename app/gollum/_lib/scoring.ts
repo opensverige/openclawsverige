@@ -104,9 +104,9 @@ const COMBOS: ComboDefinition[] = [
 ]
 
 function classify(ship: number, aiDep: number): ResultSlug {
-  if (ship >= 3 && aiDep >= 4) return 'gollum'
-  if (ship >= 3 && aiDep <  4) return 'dreambuilder'
-  if (ship <  3 && aiDep >= 4) return 'speedrunner'
+  if (ship >= 0 && aiDep >= 2) return 'gollum'
+  if (ship >= 0 && aiDep <  2) return 'dreambuilder'
+  if (ship <  0 && aiDep >= 2) return 'speedrunner'
   return 'shipper'
 }
 
