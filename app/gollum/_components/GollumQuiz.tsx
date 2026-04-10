@@ -118,7 +118,7 @@ export function GollumQuiz() {
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 10,
-            color: 'var(--text-dim, #333)',
+            color: 'var(--text-muted)',
             letterSpacing: '0.04em',
           }}
         >
@@ -129,7 +129,7 @@ export function GollumQuiz() {
           style={{
             fontFamily: 'var(--font-mono)',
             fontSize: 10,
-            color: 'var(--text-dim, #333)',
+            color: 'var(--text-muted)',
             textDecoration: 'none',
             letterSpacing: '0.04em',
           }}

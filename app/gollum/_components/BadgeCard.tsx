@@ -62,10 +62,10 @@ export function BadgeCard({ result, lang }: BadgeCardProps) {
           justifyContent: 'space-between',
         }}
       >
-        <span style={{ fontFamily: 'var(--font-display)', fontSize: 13, color: 'var(--gold)', opacity: 0.5 }}>
+        <span style={{ fontFamily: 'var(--font-display)', fontSize: 13, color: 'var(--text-muted)' }}>
           opensverige
         </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-dim)' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)' }}>
           opensverige.se/gollum
         </span>
       </div>

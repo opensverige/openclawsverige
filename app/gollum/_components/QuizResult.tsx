@@ -78,7 +78,7 @@ export function QuizResult({ slug, lang, scoringResult }: QuizResultProps) {
       {/* Combo callouts — subtle, only when triggered */}
       {scoringResult && scoringResult.triggeredCombos.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: 10, textTransform: 'uppercase', letterSpacing: 2, color: 'rgba(196,57,26,0.5)', margin: 0 }}>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: 10, textTransform: 'uppercase', letterSpacing: 2, color: 'var(--crayfish-light)', margin: 0 }}>
             {COPY.comboLabel[lang]}
           </p>
           {scoringResult.triggeredCombos.map((combo) => (
