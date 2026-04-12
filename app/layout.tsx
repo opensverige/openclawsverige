@@ -35,6 +35,7 @@ export default function RootLayout({
     >
       <head>
         <link rel="preload" as="image" href="/crayfish.png" />
+        <link rel="api" href="/openapi.json" type="application/json" />
       </head>
       <body
         className={dmSans.className}

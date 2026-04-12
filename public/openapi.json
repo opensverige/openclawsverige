@@ -1,0 +1,139 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "opensverige API",
+    "description": "Publikt API för opensverige — Sveriges öppna community för AI-agenter.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "opensverige",
+      "url": "https://opensverige.se",
+      "email": "opensverige@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/opensverige"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://opensverige.se",
+      "description": "Produktion"
+    }
+  ],
+  "paths": {
+    "/api/community": {
+      "get": {
+        "summary": "Hämta community-information",
+        "description": "Returnerar metadata om opensverige-communityn: beskrivning, stats och aktiva projekt.",
+        "operationId": "getCommunity",
+        "tags": ["community"],
+        "responses": {
+          "200": {
+            "description": "Community-data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Community"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Community": {
+        "type": "object",
+        "required": ["name", "description", "url", "discord", "github", "stats", "showcase"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "opensverige"
+          },
+          "description": {
+            "type": "string",
+            "example": "Sveriges öppna community för AI-agenter"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://opensverige.se"
+          },
+          "discord": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://discord.gg/CSphbTk8En"
+          },
+          "github": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://github.com/opensverige"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/Stats"
+          },
+          "showcase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShowcaseProject"
+            }
+          }
+        }
+      },
+      "Stats": {
+        "type": "object",
+        "required": ["members", "projects", "cities", "founded"],
+        "properties": {
+          "members": {
+            "type": "integer",
+            "example": 250
+          },
+          "projects": {
+            "type": "integer",
+            "example": 5
+          },
+          "cities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["Stockholm", "Göteborg", "Malmö"]
+          },
+          "founded": {
+            "type": "string",
+            "example": "2026-01"
+          }
+        }
+      },
+      "ShowcaseProject": {
+        "type": "object",
+        "required": ["name", "status", "url", "tags"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "FAVER"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["live", "open-source", "wip"],
+            "example": "live"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://faver-one.vercel.app/map"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["matpris", "gps", "realtime"]
+          }
+        }
+      }
+    }
+  }
+}

@@ -56,18 +56,15 @@ Fullständig showcase: https://opensverige.se/showcase
 - Gollum-testet: https://opensverige.se/gollum
 - Integritetspolicy: https://opensverige.se/integritet
 
-## Vad som INTE finns — för agenter och crawlers
+## API och maskinläsbar data
 
-opensverige.se är en community-sajt, inte ett SaaS-system. Följande saknas medvetet:
+opensverige.se erbjuder ett publikt REST API för agenter och crawlers:
 
-- Inget publikt API eller REST-endpoints
-- Ingen OpenAPI-spec
-- Ingen MCP-server kopplad till denna domän
-- Ingen autentisering eller inloggningssystem
-- Ingen sandbox eller testmiljö
-- Inga webhooks
+- **Community API**: GET https://opensverige.se/api/community — returnerar JSON med community-info, stats och aktiva projekt
+- **OpenAPI-spec**: https://opensverige.se/openapi.json — fullständig OpenAPI 3.0-dokumentation för alla endpoints
+- **llms.txt**: https://opensverige.se/llms.txt — denna fil, maskinläsbar community-info
 
-Agenter som söker integrerbara endpoints hittar inga här. För tekniska integrationer, se de individuella open source-projekten på https://github.com/opensverige
+Inga API-nycklar krävs. Endpoints är öppna och cachade. CORS tillåtet från alla origins.
 
 ## Kontakt och community
 
