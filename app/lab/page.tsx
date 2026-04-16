@@ -1,25 +1,20 @@
 import type { Metadata } from 'next';
 import { Nav } from '@/components/nav';
-import { ProjectCard } from './ProjectCard';
-import { PROJECTS } from './projects';
 import styles from './lab.module.css';
 
 export const metadata: Metadata = {
   title: 'Lab — OpenSverige',
   description:
-    'Öppna experiment från OpenSverige-communityn. Scanners, MCP-servrar, agenter. Byggs live, i öppen kod.',
+    'Vad svenska AI-builders faktiskt bygger. Scanners, MCP-servrar, agenter — i öppen kod, utan agenda. Grassroots AI från opensverige-communityn.',
   openGraph: {
-    title: 'Lab',
+    title: 'opensverige lab.',
     description:
-      'Öppna experiment från OpenSverige-communityn. Scanners, MCP-servrar, agenter. Byggs live, i öppen kod.',
-    images: [{ url: '/og-lab.png', width: 1200, height: 630 }],
+      'Vad svenska AI-builders faktiskt bygger. Scanners, MCP-servrar, agenter — i öppen kod, utan agenda.',
+    images: [{ url: '/og-image-opsv.jpg', width: 1200, height: 630 }],
   },
 };
 
 export default function LabPage() {
-  const liveCount = PROJECTS.filter((p) => p.status === 'live').length;
-  const wipCount = PROJECTS.filter((p) => p.status === 'wip').length;
-
   return (
     <>
       <Nav />
@@ -46,70 +41,59 @@ export default function LabPage() {
             <p className={styles.labLabel}>opensverige · lab</p>
 
             <h1 className={styles.labH1}>
-              Byggt i öppen kod.
+              opensverige <em>lab.</em>
               <br />
-              <em>Av communityt.</em>
+              <span className={styles.labH1Sub}>Bygg med oss.</span>
             </h1>
 
             <p className={styles.labLede}>
-              Experiment, verktyg och agenter skapade av opensverige-builders.
-              Ingen VC-funding. Ingen roadmap. Bara folk som skeppar.
+              Öppna experiment. Verktyg och agenter byggda av communityt,
+              för communityt. I öppen kod, utan agenda.
             </p>
-
-            <div className={styles.labHeroMeta}>
-              <span>{liveCount} live</span>
-              <span className={styles.labHeroMetaSep}>·</span>
-              <span>{wipCount} under arbete</span>
-              <span className={styles.labHeroMetaSep}>·</span>
-              <span>{PROJECTS.length} projekt totalt</span>
-            </div>
           </div>
         </section>
 
         {/* Main content */}
         <div className={styles.labMain}>
-          {/* Legend */}
-          <div className={styles.legend} aria-label="Statusförklaring">
-            <div className={styles.legendItem}>
-              <span className={`${styles.legendDot} ${styles.legendDotLive}`} aria-hidden="true" />
-              live — i produktion
+          {/* Empty state */}
+          <div className={styles.emptyState}>
+            <div className={styles.emptyGrid}>
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className={styles.emptyCard} aria-hidden="true">
+                  <span className={styles.emptyPlus}>+</span>
+                </div>
+              ))}
             </div>
-            <div className={styles.legendItem}>
-              <span className={`${styles.legendDot} ${styles.legendDotWip}`} aria-hidden="true" />
-              wip — under aktiv utveckling
-            </div>
-            <div className={styles.legendItem}>
-              <span className={`${styles.legendDot} ${styles.legendDotIdea}`} aria-hidden="true" />
-              idé — konceptstadiet
-            </div>
-          </div>
 
-          {/* Grid */}
-          <div className={styles.grid}>
-            {PROJECTS.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
-
-          {/* Contribute callout */}
-          <div className={styles.contribute}>
-            <div className={styles.contributeText}>
-              <p className={styles.contributeLabel}>bidra</p>
-              <h2 className={styles.contributeH2}>Har du byggt något? Lägg till det.</h2>
-              <p className={styles.contributePara}>
-                Allt på den här sidan är community-bidrag. Inga krav på polering —
-                ett fungerande repo och en kort beskrivning räcker. Öppna ett issue
-                på GitHub eller pinga i #lab på Discord.
+            <div className={styles.emptyCallout}>
+              <p className={styles.emptyCalloutLabel}>opensverige · lab</p>
+              <h2 className={styles.emptyCalloutH2}>
+                Första projekten är på väg.
+              </h2>
+              <p className={styles.emptyCalloutPara}>
+                Lab är där opensverige-builders postar vad de faktiskt skeppar —
+                scanners, MCP-servrar, agenter. Inga krav på polering.
+                Ett fungerande repo och en ärlig beskrivning räcker.
               </p>
+              <div className={styles.emptyCalloutActions}>
+                <a
+                  href="https://discord.gg/CSphbTk8En"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.emptyCalloutBtn} ${styles.emptyCalloutBtnPrimary}`}
+                >
+                  Gå med i Discord <span>→</span>
+                </a>
+                <a
+                  href="https://github.com/opensverige"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.emptyCalloutBtn} ${styles.emptyCalloutBtnSecondary}`}
+                >
+                  GitHub →
+                </a>
+              </div>
             </div>
-            <a
-              href="https://github.com/opensverige"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.contributeLink}
-            >
-              GitHub →
-            </a>
           </div>
 
           {/* Footer */}
