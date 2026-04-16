@@ -1,58 +1,88 @@
-# Bygg AI-agenter. Tillsammans med andra svenskar.
+# OpenSverige
 
-**Open Claw Sverige** är det svenska OpenClaw-communityt där vi experimenterar, delar kod och bygger AI-lösningar – på svenska, för svenskar.
+Grassroots-community för svenska AI-builders.
 
----
-
-## Varför ett svenskt OpenClaw-community?
-
-- **Samarbeta på svenska** – Inget språkbarriär. Diskutera, felsök och innovera på ditt modersmål med folk i samma tidszon.
-- **Hands-on, inte fluff** – Vi delar faktisk kod, verkliga use cases och konkreta lösningar. Mindre teori, mer action.
-- **Early adopter-fördel** – OpenClaw exploderar globalt. Bli en av de första i Norden som behärskar tekniken.
-- **Open source first** – Vi tror på FOSS-filosofin. Allt vi bygger delas öppet. Alla kan bidra, alla får tillgång.
+[opensverige.se](https://opensverige.se) · [Discord](https://discord.gg/CSphbTk8En)
 
 ---
 
-## Vad får du?
+## Vad det här är
 
-✅ Tillgång till svenskt OpenClaw-community  
-✅ Direktkanal till andra svenska utvecklare  
-✅ Delad kodbank och resurser  
-✅ Hjälp när du kör fast  
-✅ Möjlighet att påverka svensk AI-utveckling  
-✅ Nätverk med likasinnade tech-entusiaster  
+OpenSverige är där svenska utvecklare bygger med AI – agenter, multi-agent-system, self-hosted modeller, MCP-servrar. Tool-agnostisk. Ägd av ingen.
+
+Det etablerade Sverige har AI Sweden. Grassroots-Sverige har oss.
+
+~350 medlemmar på Discord. 5-20 aktiva varje vecka. Fler builders än talare.
+
+## Fokus
+
+- **AI-agenter och multi-agent-system** – CrewAI, AutoGen, LangGraph, MCP, egna ramverk.
+- **Svenska integrationer** – Fortnox, BankID, Skatteverket, Swish, SIE, ISO 20022.
+- **Self-hosted och open source** – Inga vendor lock-ins, inga black boxes.
+- **Praktiskt > teoretiskt** – Vi shippar. Sen skriver vi om det.
+
+## Vad som händer
+
+- **Onsdagar kl 20** – Podcast. Live-recording, öppet för alla.
+- **Söndagar** – IRL-hack i Stockholm. Ta med laptop.
+- **Löpande** – Rapporter och experiment på [opensverige.se/lab](https://opensverige.se/lab).
+
+## Pågående projekt
+
+- **[agent.opensverige.se](https://agent.opensverige.se)** – AI agent readiness scanner för svenska bolag.
+- **Gollum-testet** – Diagnostik: hoardar du eller shippar du?
+- **NäckenGuard** – PII-maskering för Fortnox via MCP.
+- **SideDoor** – MCP för dolda jobbmöjligheter på svenska arbetsmarknaden.
+- **OpenSverige Lab** – Delade API-nycklar för builders som behöver testa.
+
+## /lab
+
+[opensverige.se/lab](https://opensverige.se/lab) är community-experimentsidan. Den visar vad vi faktiskt bygger, inte vad vi planerar att bygga.
+
+**Vad som kvalificerar:**
+- Fungerande repo (eller deployad app)
+- En kort, ärlig beskrivning av vad det gör och varför
+- Öppen källkod (eller tydlig förklaring till varför inte)
+
+**Hur du lägger till ett projekt:**
+1. Öppna ett issue på [opensverige/openclawsverige](https://github.com/opensverige/openclawsverige) med title `[lab] Projektnamn`
+2. Fyll i: slug, status (live/wip/idé), tagline, tags, stackbeskrivning, länk till repo/live
+3. En maintainer granskar och lägger till det
+
+Eller pinga direkt i `#lab` på Discord.
+
+## Principer
+
+Bygga > snacka. Öppet > gated. Svenska villkor > generiska lösningar. Grassroots > topdown.
+
+## Kom igång
+
+Joina Discorden. Säg hej. Berätta vad du bygger.
+
+[discord.gg/CSphbTk8En](https://discord.gg/CSphbTk8En)
 
 ---
 
-## Redo att börja bygga?
+## Utveckling
 
-**Gratis. Öppen källkod. Inga krav.**
+```bash
+npm install
+npm run dev
+```
 
-👉 [**Gå med i Discord**](https://discord.gg/CSphbTk8En)  
-👉 [**Facebook-gruppen**](https://www.facebook.com/groups/2097332881024571/)  
-👉 [**LinkedIn-gruppen**](https://www.linkedin.com/groups/9544657/)
+### Deploy (Vercel)
 
-Du behöver INTE vara expert – vi lär oss tillsammans.
+1. Repo: `opensverige/openclawsverige`
+2. Root directory: lämna tomt
+3. Deployments → Redeploy → "Clear cache and redeploy"
+4. Använd produktions-URL, inte deployment-länk
 
----
+Om deployment-sidan visar 404 men bygget gick igenom – öppna produktions-URL direkt.
 
-## Utveckling & deploy
+### Databas
 
-- **Installera och bygg:** `npm install && npm run build`
+Nya tabeller prefixas `opensverige_`.
 
-### Deploy på Vercel
+## Licens
 
-1. **Koppla rätt repo** – Vercel måste bygga från **det här repot**: [opensverige/openclawsverige](https://github.com/opensverige/openclawsverige).  
-   Vercel Dashboard → ditt projekt → **Settings** → **Git** → om det står ett annat repo (t.ex. `Baltsar/openclawsverige_public`), klicka **Disconnect** och koppla **opensverige/openclawsverige** istället.
-
-2. **Root Directory** – Låt stå tomt (projektets root är repots root).
-
-3. **Redeploy** – **Deployments** → **Redeploy** på senaste (gärna "Redeploy" med "Clear cache and redeploy").
-
-4. **Öppna sajten** – Använd **produktions-URL:en** (t.ex. `https://<projekt>.vercel.app` eller din egen domän), inte länken till en enskild deployment-sida. Knappen **Visit** vid en deployment öppnar rätt URL.
-
-Om deployment-sidan i Vercel visar 404 men bygget lyckats: öppna direkt **Visit**-länken eller produktions-URL:en – ofta fungerar sajten även då.
-
-## Databas-konventioner
-
-- Nya tabeller ska alltid prefixas med `opensverige_`.
+MIT.
