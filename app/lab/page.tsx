@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: 'opensverige lab.',
     description:
       'Vad svenska AI-builders faktiskt bygger. Scanners, MCP-servrar, agenter — i öppen kod, utan agenda.',
-    images: [{ url: '/og-image-opsv.jpg', width: 1200, height: 630 }],
+    images: [{ url: '/opensverige.lab.og-image.png', width: 1200, height: 630 }],
   },
 };
 
