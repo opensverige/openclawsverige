@@ -69,14 +69,6 @@ export default function LabPage() {
 
           {/* Empty state — upcoming projects */}
           <div className={styles.emptyState}>
-            <div className={styles.emptyGrid}>
-              {[0, 1, 2, 3].map((i) => (
-                <div key={i} className={styles.emptyCard} aria-hidden="true">
-                  <span className={styles.emptyPlus}>+</span>
-                </div>
-              ))}
-            </div>
-
             <div className={styles.emptyCallout}>
               <p className={styles.emptyCalloutLabel}>opensverige · lab</p>
               <h2 className={styles.emptyCalloutH2}>
