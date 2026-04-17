@@ -653,3 +653,231 @@
     gap: 12px;
   }
 }
+
+/* ============ MIROFISH CARD ============ */
+
+.mfSection {
+  margin-bottom: 64px;
+}
+
+.mfSectionLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mfSectionLabel::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Card base — confidence variants via border */
+.mfCard {
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  max-width: 540px;
+  overflow: hidden;
+}
+
+.mfCardHög  { border: 1px solid var(--crayfish-border); }
+.mfCardMedel { border: 1px solid var(--gold-border); }
+.mfCardLåg  { border: 1px dashed var(--border); }
+
+/* Top strip */
+.mfCardTop {
+  padding: 18px 22px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mfCardTitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.mfCardSubtitle {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+
+.mfStatusPill {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  color: var(--status-wip);
+  border: 1px solid rgba(245,158,11,0.25);
+  background: var(--status-wip-glow);
+}
+
+.mfStatusVerified {
+  color: var(--success);
+  border-color: var(--success-border);
+  background: var(--success-glow);
+}
+
+.mfStatusFel {
+  color: var(--fail-red);
+  border-color: var(--fail-red-border);
+  background: var(--fail-red-glow);
+}
+
+.mfTags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.mfTag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: var(--crayfish-light);
+  padding: 2px 7px;
+  border: 1px solid var(--crayfish-border);
+  border-radius: var(--radius-sm);
+  background: rgba(196,57,26,0.04);
+}
+
+/* Middle: big number */
+.mfCardMiddle {
+  padding: 24px 22px 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mfHeadline {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  letter-spacing: -0.2px;
+}
+
+.mfBigNumber {
+  font-family: var(--font-mono);
+  font-size: clamp(52px, 9vw, 76px);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+}
+
+.mfContext {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  letter-spacing: 0.1px;
+}
+
+.mfVerdict {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  padding: 10px 14px;
+  border-left: 2px solid var(--crayfish-border);
+  background: rgba(196,57,26,0.03);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 16px;
+}
+
+.mfCountdown {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.mfCountdownNum {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+/* Bottom: meta + links */
+.mfCardBottom {
+  padding: 16px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mfMetaRow {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.mfMetaLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  min-width: 76px;
+  flex-shrink: 0;
+}
+
+.mfMetaValue {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.mfLinks {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.mfLinkBtn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--crayfish-light);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid var(--crayfish-border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition), background var(--transition);
+  white-space: nowrap;
+}
+
+.mfLinkBtn:hover {
+  border-color: var(--crayfish-light);
+  background: rgba(232,81,45,0.06);
+}
+
+.mfLinkBtnSecondary {
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+.mfLinkBtnSecondary:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  background: none;
+}
