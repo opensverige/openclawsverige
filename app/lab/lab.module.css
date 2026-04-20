@@ -1,7 +1,11 @@
 /* ============ LAB HERO ============ */
 
 .labHero {
-  min-height: 100vh;
+  /* Kort hero så lab-innehåll (t.ex. prediktioner) syns utan helskärms-scroll */
+  min-height: clamp(18rem, 44svh, 30rem);
+  padding-top: clamp(4.25rem, 9svh, 5.25rem);
+  padding-bottom: clamp(1rem, 3svh, 1.75rem);
+  box-sizing: border-box;
   position: relative;
   display: flex;
   align-items: center;
@@ -67,7 +71,7 @@
 
 .labHeroContent {
   position: relative; z-index: 10;
-  padding: 100px 0 56px 64px;
+  padding: 0 0 0 64px;
   max-width: 560px;
 }
 
@@ -77,18 +81,18 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--crayfish-light);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   animation: fade-right 0.8s var(--ease-out) 0.5s both;
 }
 
 .labH1 {
   font-family: var(--font-display);
-  font-size: clamp(44px, 7vw, 80px);
+  font-size: clamp(40px, 6vw, 72px);
   font-weight: 400;
   color: var(--text-primary);
   line-height: 0.95;
   letter-spacing: -1.5px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   animation: fade-right 0.8s var(--ease-out) 0.7s both;
 }
 
@@ -109,7 +113,7 @@
   color: var(--text-secondary);
   line-height: 1.5;
   max-width: 420px;
-  margin-bottom: 28px;
+  margin-bottom: 0;
   animation: fade-right 0.8s var(--ease-out) 0.9s both;
 }
 
@@ -136,7 +140,8 @@
 
 .labMain {
   background: var(--bg-deep);
-  padding: 80px 64px 0;
+  padding: clamp(32px, 5vw, 56px) 64px 0;
+  scroll-margin-top: 5rem;
 }
 
 /* ============ LEGEND ============ */
@@ -629,9 +634,12 @@
   }
 
   .labHero {
+    min-height: clamp(20rem, 48svh, 26rem);
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
+    padding-top: clamp(3.75rem, 14svh, 4.5rem);
+    padding-bottom: clamp(1rem, 4svh, 1.5rem);
   }
 
   .labMain {
