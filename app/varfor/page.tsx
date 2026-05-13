@@ -4,10 +4,71 @@ import { Nav } from '@/components/nav'
 import { Footer } from '@/components/footer'
 import { StatusBadge } from '@/components/status-badge'
 
+const VARFOR_URL = 'https://opensverige.se/varfor'
+const VARFOR_DESC =
+  'Grundaren Baltsar om varför opensverige finns. 250 svenska builders som slutade vänta. Verkstad, inte konferens. Halvfärdigt är standard.'
+
 export const metadata: Metadata = {
-  title: 'Varför | opensverige',
+  title: 'Varför',
+  description: VARFOR_DESC,
+  alternates: { canonical: VARFOR_URL },
+  openGraph: {
+    type: 'article',
+    url: VARFOR_URL,
+    title: 'Varför opensverige finns',
+    description: VARFOR_DESC,
+    siteName: 'opensverige',
+    locale: 'sv_SE',
+    images: [
+      {
+        url: '/og-image-opsv.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Varför opensverige finns — grundaren Baltsar',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Varför opensverige finns',
+    description: VARFOR_DESC,
+    images: ['/og-image-opsv.jpg'],
+    site: '@opensverige',
+  },
+}
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://opensverige.se/varfor#baltsar',
+  name: 'Baltsar',
+  alternateName: 'Gustaf Garnow',
+  jobTitle: 'Grundare, opensverige',
   description:
-    'Grundaren om varför opensverige finns — och vad som händer härnäst.',
+    'Creative technologist. Grundade opensverige 2025. Bygger Kammaren — en AI-assistent för svenska småföretagare.',
+  url: VARFOR_URL,
+  worksFor: { '@id': 'https://opensverige.se/#organization' },
+  knowsAbout: [
+    'AI agents',
+    'Vibecoding',
+    'Model Context Protocol',
+    'OpenClaw',
+    'Swedish small business automation',
+  ],
+}
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Start',
+      item: 'https://opensverige.se',
+    },
+    { '@type': 'ListItem', position: 2, name: 'Varför', item: VARFOR_URL },
+  ],
 }
 
 type Status = 'live' | 'wip' | 'oss'
@@ -59,6 +120,14 @@ const PROJECTS: {
 export default function VarforPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Nav />
       <main id="main-content">
         <div className="varfor-page">

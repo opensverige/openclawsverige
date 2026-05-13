@@ -109,25 +109,126 @@ const FAQ = [
 const orgJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': 'https://opensverige.se/#organization',
   name: 'opensverige',
+  alternateName: ['Open Sverige', 'OpenSverige', 'open sverige', 'open-sverige'],
   url: 'https://opensverige.se',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://opensverige.se/og-image-opsv.jpg',
+    width: 1200,
+    height: 630,
+  },
+  image: 'https://opensverige.se/og-image-opsv.jpg',
+  description:
+    'Sveriges öppna community för AI-agenter, MCP-servrar och vibecoding. 250+ aktiva builders, gratis, öppen källkod, ingen styrelse.',
+  slogan: 'Bygg AI-agenter. Tillsammans.',
+  foundingDate: '2025',
+  founder: {
+    '@type': 'Person',
+    name: 'Baltsar',
+    alternateName: 'Gustaf Garnow',
+    url: 'https://opensverige.se/varfor',
+  },
+  areaServed: [
+    { '@type': 'Country', name: 'Sweden' },
+    { '@type': 'City', name: 'Stockholm' },
+    { '@type': 'City', name: 'Göteborg' },
+    { '@type': 'City', name: 'Malmö' },
+  ],
+  knowsAbout: [
+    'AI agents',
+    'Autonomous agents',
+    'Multi-agent systems',
+    'Model Context Protocol',
+    'MCP servers',
+    'Vibecoding',
+    'OpenClaw',
+    'NemoClaw',
+    'CrewAI',
+    'LangGraph',
+    'AutoGen',
+    'Google ADK',
+    'OpenAI Agents SDK',
+    'Claude Agent SDK',
+    'Pydantic AI',
+    'Cursor IDE',
+    'Claude Code',
+    'Lovable',
+    'Bolt',
+    'v0',
+    'Fortnox integration',
+    'Bankgirot',
+    'SCB API',
+    'Skatteverket',
+    'BankID',
+    'Open source AI',
+    'Swedish AI development',
+  ],
+  knowsLanguage: ['Swedish', 'English'],
   sameAs: [
     'https://discord.gg/CSphbTk8En',
     'https://github.com/orgs/opensverige',
     'https://www.linkedin.com/groups/9544657/',
     'https://www.facebook.com/groups/2097332881024571/',
   ],
-  areaServed: 'SE',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'opensverige@gmail.com',
+    contactType: 'community support',
+    availableLanguage: ['sv', 'en'],
+  },
+  location: [
+    {
+      '@type': 'Place',
+      name: 'Stockholm',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Stockholm',
+        addressRegion: 'Stockholms län',
+        addressCountry: 'SE',
+      },
+    },
+    {
+      '@type': 'Place',
+      name: 'Göteborg',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Göteborg',
+        addressRegion: 'Västra Götalands län',
+        addressCountry: 'SE',
+      },
+    },
+    {
+      '@type': 'Place',
+      name: 'Malmö',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Malmö',
+        addressRegion: 'Skåne län',
+        addressCountry: 'SE',
+      },
+    },
+  ],
 }
 
 const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': 'https://opensverige.se/#website',
   name: 'opensverige',
+  alternateName: 'opensverige.se',
   url: 'https://opensverige.se',
+  inLanguage: 'sv-SE',
+  description:
+    'Sveriges öppna community för AI-agenter och vibecoding. Bygg med OpenClaw, NemoClaw, CrewAI och MCP.',
+  publisher: { '@id': 'https://opensverige.se/#organization' },
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://opensverige.se/showcase?q={search_term_string}',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: 'https://opensverige.se/showcase?q={search_term_string}',
+    },
     'query-input': 'required name=search_term_string',
   },
 }
@@ -135,10 +236,17 @@ const websiteJsonLd = {
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
+  '@id': 'https://opensverige.se/#faq',
+  inLanguage: 'sv-SE',
+  about: { '@id': 'https://opensverige.se/#organization' },
   mainEntity: FAQ.map((item) => ({
     '@type': 'Question',
     name: item.q,
-    acceptedAnswer: { '@type': 'Answer', text: item.a },
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+      inLanguage: 'sv-SE',
+    },
   })),
 }
 

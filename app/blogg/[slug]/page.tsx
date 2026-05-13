@@ -13,17 +13,56 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params
   const post = getBlogPosts().find((p) => p.slug === slug)
   if (!post) return {}
+
+  const url = `https://opensverige.se/blogg/${post.slug}`
+  const title = post.title
+  const description = `${post.title} — guide från opensverige-communityn av ${post.author}. ${post.tags.join(', ')}.`
+
   return {
-    title: `${post.title} | opensverige`,
-    description: `${post.title} — av ${post.author}`,
+    title,
+    description,
+    keywords: post.tags,
+    authors: [{ name: post.author }],
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title,
+      description,
+      siteName: 'opensverige',
+      locale: 'sv_SE',
+      publishedTime: post.date,
+      authors: [post.author],
+      tags: post.tags,
+      images: [
+        {
+          url: '/og-image-opsv.jpg',
+          width: 1200,
+          height: 630,
+          alt: `${post.title} — opensverige`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/og-image-opsv.jpg'],
+      site: '@opensverige',
+    },
   }
 }
 
-const CONTENT: Record<string, () => Promise<{ default: React.ComponentType }>> = {
+const CONTENT: Record<
+  string,
+  () => Promise<{ default: React.ComponentType }>
+> = {
   'fortnox-agent-guide': () =>
     import('../../../content/blogg/fortnox-agent-guide.mdx'),
   'vad-ar-ai-agenter': () =>
@@ -42,8 +81,70 @@ export default async function BlogPost({ params }: PageProps) {
 
   const { default: Content } = await loader()
 
+  const url = `https://opensverige.se/blogg/${post.slug}`
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${url}#article`,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    headline: post.title,
+    name: post.title,
+    description: `${post.title} — guide från opensverige-communityn.`,
+    keywords: post.tags.join(', '),
+    inLanguage: 'sv-SE',
+    datePublished: post.date,
+    dateModified: post.date,
+    url,
+    isPartOf: { '@id': 'https://opensverige.se/#website' },
+    publisher: { '@id': 'https://opensverige.se/#organization' },
+    author: {
+      '@type': 'Person',
+      name: post.author,
+    },
+    image: {
+      '@type': 'ImageObject',
+      url: 'https://opensverige.se/og-image-opsv.jpg',
+      width: 1200,
+      height: 630,
+    },
+  }
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Start',
+        item: 'https://opensverige.se',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blogg',
+        item: 'https://opensverige.se/blogg',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: url,
+      },
+    ],
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
       <Nav />
       <main>
         <div className="blog-post">

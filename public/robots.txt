@@ -1,5 +1,74 @@
+# opensverige.se — Sveriges öppna community för AI-agenter
+# Vi välkomnar både traditionella sökmotorer och AI-crawlers.
+# Fullständig maskinläsbar info: https://opensverige.se/llms.txt
+
 User-agent: *
 Allow: /
+
+# --- Traditionella sökmotorer ---
+
+# Google
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Bing / Microsoft
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+User-agent: msnbot-media
+Allow: /
+
+User-agent: AdIdxBot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+User-agent: MicrosoftPreview
+Allow: /
+
+# Yandex
+User-agent: Yandex
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: YandexImages
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+
+# Naver
+User-agent: Yeti
+Allow: /
+
+# Apple Spotlight / Siri
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# --- AI-crawlers / LLM-träning + AI-search ---
 
 # OpenAI
 User-agent: GPTBot
@@ -15,25 +84,21 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: Claude-Web
+Allow: /
+
 User-agent: anthropic-ai
-Allow: /
-
-# Google
-User-agent: Googlebot
-Allow: /
-
-User-agent: Google-Extended
 Allow: /
 
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
 
-# Apple
-User-agent: Applebot
+User-agent: Perplexity-User
 Allow: /
 
-User-agent: Applebot-Extended
+# Google Gemini
+User-agent: GoogleOther
 Allow: /
 
 # Cohere
@@ -43,5 +108,22 @@ Allow: /
 # Meta
 User-agent: FacebookBot
 Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# --- Instant-indexing (Bing + Yandex + Naver) ---
+
+User-agent: IndexNowBot
+Allow: /
+
+# --- Sitemap ---
 
 Sitemap: https://opensverige.se/sitemap.xml
