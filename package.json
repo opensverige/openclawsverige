@@ -8,14 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:map": "tsx scripts/build-sweden-map.ts",
-    "prebuild": "tsx scripts/build-sweden-map.ts",
     "seo:indexnow": "tsx scripts/indexnow-ping.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
-    "cobe": "^2.0.1",
-    "dotted-map": "^3.1.0",
     "next": "^15.5.15",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
