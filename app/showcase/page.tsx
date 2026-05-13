@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { Footer } from '@/components/footer'
 import { Nav } from '@/components/nav'
-import { SwedenMap } from '@/components/sweden-map'
-import { RegionChips } from '@/components/sweden-map/region-chips'
 import { getShowcaseProjects } from '@/lib/mdx'
 import { ShowcaseClient } from './showcase-client'
 
@@ -40,28 +37,11 @@ export const metadata: Metadata = {
   },
 }
 
-interface PageProps {
-  searchParams: Promise<{ region?: string }>
-}
-
-export default async function ShowcasePage({ searchParams }: PageProps) {
+export default function ShowcasePage() {
   const projects = getShowcaseProjects()
   const allTags = Array.from(new Set(projects.flatMap((p) => p.tags))).sort(
     (a, b) => a.localeCompare(b, 'sv'),
   )
-
-  const regionCounts = projects.reduce<Record<string, number>>((acc, p) => {
-    const key = p.region ?? 'Övrigt'
-    acc[key] = (acc[key] ?? 0) + 1
-    return acc
-  }, {})
-
-  const params = await searchParams
-  const activeRegion = params.region ?? null
-
-  const filteredByRegion = activeRegion
-    ? projects.filter((p) => (p.region ?? 'Övrigt') === activeRegion)
-    : projects
 
   const collectionJsonLd = {
     '@context': 'https://schema.org',
@@ -122,49 +102,7 @@ export default async function ShowcasePage({ searchParams }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Nav />
-      <main>
-        <div className="showcase-header">
-          <Link href="/" className="showcase-back">
-            <span className="showcase-back-aw" aria-hidden="true">
-              ←
-            </span>
-            Startsida
-          </Link>
-          <h1
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(28px, 4vw, 40px)',
-              fontWeight: 400,
-              letterSpacing: '-0.5px',
-              color: 'var(--text-primary)',
-              marginBottom: 'var(--sp-3)',
-            }}
-          >
-            Showcase
-          </h1>
-          <p
-            style={{
-              color: 'var(--text-secondary)',
-              fontSize: 15,
-              marginBottom: 'var(--sp-6)',
-            }}
-          >
-            Projekt byggt av communityn.
-          </p>
-          <div className="showcase-map-wrap">
-            <SwedenMap
-              projects={filteredByRegion}
-              interactive
-              totalCount={projects.length}
-              activeRegion={activeRegion}
-            />
-          </div>
-          <div className="showcase-region-chips">
-            <RegionChips counts={regionCounts} totalCount={projects.length} />
-          </div>
-        </div>
-        <ShowcaseClient projects={filteredByRegion} allTags={allTags} />
-      </main>
+      <ShowcaseClient projects={projects} allTags={allTags} />
       <Footer />
     </>
   )
