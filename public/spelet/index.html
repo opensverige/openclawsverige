@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="/spelet/" />
+    <title>Splat Studio</title>
+    <link rel="stylesheet" href="./styles.css?v=101" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="stage" aria-label="3D-visare">
+        <canvas id="viewerCanvas"></canvas>
+        <canvas id="qualityCanvas" class="quality-canvas" aria-hidden="true"></canvas>
+        <canvas id="defenseOverlay" class="defense-overlay" aria-hidden="true"></canvas>
+        <div id="gameOverScreen" class="game-over-screen" aria-live="polite">
+          <strong>GAME OVER</strong>
+          <span id="gameOverSummary">Keynote Defense</span>
+        </div>
+        <div class="game-hud" aria-label="Spelstatus">
+          <div>
+            <p>OpenSverige</p>
+            <h1>Keynote Defense</h1>
+          </div>
+          <div class="game-score">
+            <span class="score-label">Poäng</span>
+            <strong id="defenseScore">0</strong>
+            <div class="game-score-meta" aria-label="Nivå, liv och tid">
+              <small id="defenseLevel">LEVEL 1</small>
+              <small id="defenseLives">LIV 3</small>
+              <small id="defenseTimer">TID 1:00</small>
+            </div>
+          </div>
+          <div id="defenseMessage" class="game-message" aria-live="polite"></div>
+          <div class="game-controls">
+            <button id="defenseGameStartButton" type="button">Starta</button>
+            <button id="musicToggleButton" class="sound-toggle" type="button" aria-label="Musik på" title="Musik på">
+              <span class="sound-toggle-icon music-icon" aria-hidden="true">♪</span>
+            </button>
+            <button id="effectsToggleButton" class="sound-toggle" type="button" aria-label="FX på" title="FX på">
+              <span class="sound-toggle-icon speaker-icon" data-icon="speaker" aria-hidden="true">
+                <svg viewBox="0 0 48 36" focusable="false">
+                  <path d="M5 14h8l12-10v28L13 22H5z" />
+                  <path d="M31 11c3 3 3 11 0 14" />
+                  <path d="M37 6c7 6 7 20 0 26" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="game-hint">Sikta på plattityderna. Tryck <kbd>Space</kbd> för att skjuta mot siktet.</div>
+        <div class="game-signature">softiq</div>
+        <div id="calibrationPanel" class="calibration-panel" aria-label="3D-kalibrering"></div>
+        <div id="hitboxEditor" class="hitbox-editor" aria-label="Datorträff-volymer"></div>
+        <div id="dropZone" class="drop-zone">
+          <p>Ladda datorn som SPZ</p>
+          <small>Centrum.spz autoladdas i kvalitetsrenderaren. Dra i scenen för att rotera.</small>
+        </div>
+        <div class="viewport-hud">
+          <span id="modelBadge">Ingen modell</span>
+          <span id="pointBadge">0 punkter</span>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="Editor">
+        <div>
+          <p class="eyebrow">Steg 1</p>
+          <h1>Splat Studio</h1>
+        </div>
+
+        <div class="button-row">
+          <button id="loadLocalButton" type="button">Ladda Centrum</button>
+          <label class="file-button">
+            <input id="modelInput" type="file" accept=".ply,.spz" />
+            <span>Välj modell</span>
+          </label>
+          <button id="resetButton" type="button">Nollställ</button>
+        </div>
+
+        <div class="status-grid">
+          <div>
+            <span>Fil</span>
+            <strong id="modelStatus">Ingen</strong>
+          </div>
+          <div>
+            <span>Visas</span>
+            <strong id="visibleStatus">0</strong>
+          </div>
+          <div>
+            <span>Format</span>
+            <strong id="formatStatus">-</strong>
+          </div>
+          <div>
+            <span>Läge</span>
+            <strong id="modeStatus">Original</strong>
+          </div>
+        </div>
+
+        <div class="preset-row" role="group" aria-label="Vy">
+          <button type="button" data-view="photo">Foto</button>
+          <button type="button" data-view="front">Front</button>
+          <button type="button" data-view="top">Topp</button>
+          <button type="button" data-view="side">Sida</button>
+        </div>
+
+        <div class="section-title">Kamera</div>
+        <div class="control-stack">
+          <label>
+            <span>Vrid</span>
+            <input id="cameraAlphaControl" type="range" min="-12.57" max="12.57" value="-2.4489" step="0.01" />
+          </label>
+          <label>
+            <span>Luta</span>
+            <input id="cameraBetaControl" type="range" min="-12.57" max="12.57" value="4.2771" step="0.01" />
+          </label>
+        </div>
+
+        <div class="control-stack">
+          <label>
+            <span>Punktstorlek</span>
+            <input id="pointSizeControl" type="range" min="0.2" max="7" value="1.1" step="0.1" />
+          </label>
+          <label>
+            <span>Ljusstyrka</span>
+            <input id="brightnessControl" type="range" min="0.4" max="2.6" value="1.15" step="0.05" />
+          </label>
+          <label>
+            <span>Brusfilter</span>
+            <input id="opacityControl" type="range" min="0" max="0.9" value="0.18" step="0.01" />
+          </label>
+          <label>
+            <span>Zoom</span>
+            <input id="zoomControl" type="range" min="0.25" max="5" value="0.95" step="0.05" />
+          </label>
+        </div>
+
+        <div class="section-title">Fokuspunkt</div>
+        <div class="crop-grid">
+          <label>
+            <span>X</span>
+            <input id="focusXControl" type="range" min="-1" max="1" value="0" step="0.01" />
+          </label>
+          <label>
+            <span>Y</span>
+            <input id="focusYControl" type="range" min="-1" max="1" value="0" step="0.01" />
+          </label>
+          <label>
+            <span>Z</span>
+            <input id="focusZControl" type="range" min="-1" max="1" value="0" step="0.01" />
+          </label>
+          <button id="focusResetButton" type="button">Centrera</button>
+        </div>
+
+        <div class="section-title">Beskär scenen</div>
+        <div class="crop-grid">
+          <label>
+            <span>Vänster</span>
+            <input id="cropXMin" type="range" min="-1.2" max="0.9" value="-1.2" step="0.01" />
+          </label>
+          <label>
+            <span>Höger</span>
+            <input id="cropXMax" type="range" min="-0.9" max="1.2" value="1.2" step="0.01" />
+          </label>
+          <label>
+            <span>Botten</span>
+            <input id="cropYMin" type="range" min="-1.2" max="0.9" value="-1.2" step="0.01" />
+          </label>
+          <label>
+            <span>Topp</span>
+            <input id="cropYMax" type="range" min="-0.9" max="1.2" value="1.2" step="0.01" />
+          </label>
+          <label>
+            <span>Bak</span>
+            <input id="cropZMin" type="range" min="-1.2" max="0.9" value="-1.2" step="0.01" />
+          </label>
+          <label>
+            <span>Fram</span>
+            <input id="cropZMax" type="range" min="-0.9" max="1.2" value="1.2" step="0.01" />
+          </label>
+        </div>
+
+        <div class="mode-row" role="group" aria-label="Färg">
+          <button class="mode-button is-active" type="button" data-mode="original">Original</button>
+          <button class="mode-button" type="button" data-mode="height">Höjd</button>
+          <button class="mode-button" type="button" data-mode="depth">Djup</button>
+        </div>
+
+        <div class="section-title">Keynote defense</div>
+        <div class="defense-row" role="group" aria-label="Keynote defense">
+          <button id="defenseStartButton" type="button">Starta</button>
+          <button id="defenseHitButton" type="button">Skjut</button>
+          <button id="defenseMotionButton" type="button">3D-rörelse</button>
+          <button id="defenseResetButton" type="button">Rensa</button>
+        </div>
+
+        <div class="help-panel">
+          <p>Dra för att rotera. Scrolla för zoom. Håll <kbd>Shift</kbd> och dra för att panorera. Tryck <kbd>Space</kbd> för en träff.</p>
+          <button id="copyButton" type="button">Kopiera editor-JSON</button>
+        </div>
+      </aside>
+    </main>
+
+    <script src="./vendor/babylon.js"></script>
+    <script src="./vendor/babylonjs.loaders.min.js"></script>
+    <script src="./app.js?v=85"></script>
+    <script src="./babylon-viewer.js?v=142"></script>
+  </body>
+</html>

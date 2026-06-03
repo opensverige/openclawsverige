@@ -46,6 +46,14 @@ const withMDX = createMDX({
 
 const config: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  // Serve the static "Keynote Defense" game (public/spelet/) at the clean
+  // /spelet URL. Assets resolve via <base href="/spelet/"> in its index.html.
+  async rewrites() {
+    return [
+      { source: '/spelet', destination: '/spelet/index.html' },
+      { source: '/spelet/', destination: '/spelet/index.html' },
+    ]
+  },
 }
 
 export default withMDX(config)
