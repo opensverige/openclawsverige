@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { pixelDisplay, vt323 } from './fonts'
+import { pixelDisplay, bodyMono } from './fonts'
 import styles from './hackathon.module.css'
 
 const OG_IMAGE = {
@@ -36,7 +36,7 @@ export default function HackathonLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className={`${pixelDisplay.variable} ${vt323.variable} ${styles.shell}`}>
+    <div className={`${pixelDisplay.variable} ${bodyMono.variable} ${styles.shell}`}>
       {children}
     </div>
   )

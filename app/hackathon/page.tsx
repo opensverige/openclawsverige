@@ -1,6 +1,7 @@
 import { Countdown } from './Countdown'
 import {
   HACKATHON,
+  PARTICIPATION_LEAD,
   REQUIREMENTS,
   SUPPORT_NOTE,
   FACTS,
@@ -68,6 +69,7 @@ export default function HackathonPage() {
             <AccIcon />
           </summary>
           <div className={styles.accBody}>
+            <p className={styles.reqLead}>{PARTICIPATION_LEAD}</p>
             <ol className={styles.reqList}>
               {REQUIREMENTS.map((r, i) => (
                 <li className={styles.reqItem} key={r.title}>

@@ -9,13 +9,17 @@ export const HACKATHON = {
   // Deadline styr nedräkningen. ISO med svensk tidszon (+02:00 sommartid).
   // WIP-platshållare — sätt rätt årtal när det är spikat.
   deadlineISO: '2026-06-14T00:00:00+02:00',
-  deadlineLabel: '14 juni · 00:00',
+  deadlineLabel: 'Söndag 14 juni kl 00:00',
   discordChannel: '#hackathon-spel',
   discordUrl: 'https://discord.gg/CSphbTk8En',
   githubUrl: 'https://github.com/opensverige',
   wipNote:
     'Hackathonet pågår nu. Öppen källkod väger extra, alla nivåer är välkomna — kom med din idé.',
 } as const
+
+// Bygg på egen hand, lämna in på Discord.
+export const PARTICIPATION_LEAD =
+  'Bygg ditt spel på egen hand — var, när och hur du vill. Du lämnar bara in det i vår Discord, där community + jury bedömer.'
 
 export type Requirement = { title: string; body: string }
 
@@ -42,7 +46,7 @@ export const FACTS: Fact[] = [
   { label: 'Tema', value: 'Skapa ett litet spel' },
   { label: 'Teknik', value: 'Valfri genre & engine — Godot, Unity, Pygame, web…' },
   { label: 'Krav', value: 'Spelbart: minst en loop eller nivå. Inget krav på storlek eller grafik.' },
-  { label: 'Inlämning', value: 'Senast 14 juni 00:00 i #hackathon-spel' },
+  { label: 'Inlämning', value: 'Senast söndag 14 juni kl 00:00 i #hackathon-spel' },
 ]
 
 export type SubmitItem = { text: string; bonus?: boolean }

@@ -1,7 +1,6 @@
-import { Pixelify_Sans, VT323 } from 'next/font/google'
+import { Pixelify_Sans, JetBrains_Mono } from 'next/font/google'
 
-// Pixel display-font — rubriker, etiketter, knappar. Pixelify Sans är klart
-// pixel/8-bit men byggd för läsbarhet (till skillnad från Press Start 2P).
+// Pixel display-font — korta etiketter, accordion-rubriker, siffror.
 export const pixelDisplay = Pixelify_Sans({
   subsets: ['latin'],
   variable: '--font-pixel',
@@ -9,10 +8,10 @@ export const pixelDisplay = Pixelify_Sans({
   display: 'swap',
 })
 
-// Readable terminal/pixel-font — brödtext, tips, beskrivningar.
-export const vt323 = VT323({
+// Brödtext — JetBrains Mono. Tydligt läsbar monospace för all löpande text.
+export const bodyMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-terminal',
-  weight: '400',
+  weight: ['400', '500', '600'],
   display: 'swap',
 })
