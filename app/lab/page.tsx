@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Nav } from '@/components/nav';
 import { MiroFishCard } from './MiroFishCard';
+import { HackathonCard } from './HackathonCard';
 import { MIROFISH_PREDICTIONS } from './mirofish-data';
 import styles from './lab.module.css';
 
@@ -54,6 +55,12 @@ export default function LabPage() {
 
         {/* Main content */}
         <div className={styles.labMain}>
+
+          {/* Event — Spel-Hackathon */}
+          <section className={styles.mfSection} aria-label="Event">
+            <p className={styles.mfSectionLabel}>event · pågående</p>
+            <HackathonCard />
+          </section>
 
           {/* Prediktioner */}
           <section className={styles.mfSection} aria-label="Prediktioner">

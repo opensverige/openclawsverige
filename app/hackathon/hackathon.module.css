@@ -1,0 +1,787 @@
+/* ============================================================
+   /hackathon — egen pixel/8-bit-stilguide. Allt scopas till .shell.
+   Palett: mörk arkadbotten + guld (titel) + elektrisk blå (kräfta)
+   = svenska flaggans färger. Brygga mellan brand och arkad.
+   ============================================================ */
+
+.shell {
+  --bg: #0b0b16;
+  --bg-2: #14141f;
+  --bg-3: #1d1d2b;
+  --ink: #f5f1e6;
+  --muted: #a7a2b8;
+  --dim: #6f6a82;
+  --gold: #f4b53a;
+  --gold-light: #ffcf6b;
+  --gold-deep: #b9821a;
+  --gold-ink: #1a1206;
+  --blue: #3a9bf4;
+  --blue-deep: #1c63c4;
+  --line: #2c2c40;
+  --line-2: #3a3a52;
+  --black: #05050b;
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-terminal), 'JetBrains Mono', monospace;
+  overflow-x: hidden;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+}
+
+/* CRT-scanlines över hela sidan */
+.shell::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 2px,
+    rgba(0, 0, 0, 0.16) 2px 4px
+  );
+  opacity: 0.5;
+}
+
+/* ============ HERO ============ */
+
+.hero {
+  position: relative;
+  min-height: clamp(34rem, 92svh, 52rem);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  background: url('/crayfish.png') center center / cover no-repeat;
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 8, 16, 0.97) 0%,
+      rgba(8, 8, 16, 0.88) 32%,
+      rgba(8, 8, 16, 0.45) 62%,
+      rgba(8, 8, 16, 0.2) 100%
+    ),
+    linear-gradient(0deg, var(--bg) 0%, transparent 32%),
+    linear-gradient(180deg, rgba(8, 8, 16, 0.7) 0%, transparent 26%);
+}
+
+.heroGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(58, 155, 244, 0.07) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(58, 155, 244, 0.07) 2px, transparent 2px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 90% 80% at 35% 50%, black 25%, transparent 75%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 760px;
+  padding: 0 clamp(20px, 5vw, 64px);
+}
+
+.eyebrow {
+  font-family: var(--font-pixel);
+  font-size: clamp(9px, 1.6vw, 12px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0 0 24px;
+}
+
+.title {
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 10vw, 7.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  margin: 0;
+  text-shadow:
+    3px 3px 0 var(--gold-deep),
+    6px 6px 0 rgba(0, 0, 0, 0.55),
+    0 0 30px rgba(244, 181, 58, 0.25);
+}
+
+.subtitle {
+  font-family: var(--font-terminal);
+  font-size: clamp(22px, 3.6vw, 34px);
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 24px 0 26px;
+  display: flex;
+  align-items: center;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.25em;
+  background: var(--gold);
+  transform: translateY(0.08em);
+  animation: hk-blink 1s steps(2, jump-none) infinite;
+}
+
+.heroCtas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+/* ============ KNAPPAR ============ */
+
+.btnPrimary,
+.btnGhost {
+  font-family: var(--font-pixel);
+  font-size: clamp(9px, 1.4vw, 12px);
+  line-height: 1.5;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 18px;
+  border: 3px solid var(--black);
+  cursor: pointer;
+  transition:
+    transform 80ms steps(2, jump-none),
+    box-shadow 80ms steps(2, jump-none),
+    background 120ms,
+    color 120ms,
+    border-color 120ms;
+}
+
+.btnPrimary {
+  background: var(--gold);
+  color: var(--gold-ink);
+  box-shadow: 5px 5px 0 var(--black);
+}
+.btnPrimary:hover {
+  background: var(--gold-light);
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--black);
+}
+.btnPrimary:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--black);
+}
+
+.btnGhost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-2);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+.btnGhost:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+.btnGhost:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ============ NEDRÄKNING ============ */
+
+.countdown {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 6px 0 2px;
+}
+
+.countdownUnit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 66px;
+  padding: 12px 14px;
+  background: var(--bg-2);
+  border: 3px solid var(--line-2);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.countdownNum {
+  font-family: var(--font-pixel);
+  font-size: clamp(18px, 3.4vw, 28px);
+  color: var(--ink);
+}
+
+.countdownLabel {
+  font-family: var(--font-terminal);
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.countdownClosed {
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  color: var(--gold);
+}
+
+/* ============ TICKER ============ */
+
+.ticker {
+  position: relative;
+  z-index: 5;
+  background: var(--gold);
+  color: var(--gold-ink);
+  border-top: 3px solid var(--black);
+  border-bottom: 3px solid var(--black);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tickerTrack {
+  display: inline-flex;
+  animation: hk-marquee 26s linear infinite;
+}
+
+.tickerGroup {
+  display: inline-flex;
+}
+
+.tickerItem {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  padding: 12px 0;
+  margin-right: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.tickerSep {
+  opacity: 0.55;
+}
+
+/* ============ LAYOUT ============ */
+
+.wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: clamp(40px, 7vw, 72px) clamp(20px, 5vw, 40px) 0;
+}
+
+.section {
+  margin-bottom: clamp(48px, 8vw, 80px);
+  scroll-margin-top: 24px;
+}
+
+.sectionLabel {
+  font-family: var(--font-pixel);
+  font-size: clamp(13px, 2.2vw, 18px);
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin: 0 0 24px;
+}
+
+/* ============ BRIEF / FAKTA ============ */
+
+.factGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.factCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 20px;
+  background: var(--bg-2);
+  border: 3px solid var(--line);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45);
+}
+
+.factCard:last-child {
+  grid-column: 1 / -1;
+}
+
+.factLabel {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--blue);
+}
+
+.factValue {
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+/* ============ PANEL ============ */
+
+.panel {
+  padding: clamp(20px, 4vw, 32px);
+  background: var(--bg-2);
+  border: 3px solid var(--line);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
+}
+
+.panelIntro {
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+.panelIntro strong {
+  color: var(--gold);
+}
+
+/* ============ CHECKLISTA ============ */
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.checkItem {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.checkBox {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-3);
+  border: 3px solid var(--blue);
+  color: var(--blue);
+  font-size: 18px;
+}
+
+.bonusTag {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  padding: 2px 5px;
+  margin-right: 9px;
+}
+
+/* ============ SÅ DELTAR DU (KRAV) ============ */
+
+.reqCallout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(20px, 4vw, 32px);
+  background: linear-gradient(180deg, rgba(244, 181, 58, 0.07), transparent 60%),
+    var(--bg-2);
+  border: 3px solid var(--gold);
+  box-shadow: 6px 6px 0 rgba(244, 181, 58, 0.25);
+}
+
+.reqBadge {
+  align-self: flex-start;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--gold-ink);
+  background: var(--gold);
+  padding: 6px 9px;
+}
+
+.reqList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reqItem {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.reqNum {
+  flex-shrink: 0;
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--gold);
+  background: var(--bg-3);
+  border: 3px solid var(--gold);
+  padding: 9px 10px;
+}
+
+.reqText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reqTitle {
+  font-family: var(--font-pixel);
+  font-size: clamp(12px, 2vw, 15px);
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.reqBody {
+  font-family: var(--font-terminal);
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--muted);
+  margin: 0;
+}
+
+.reqActions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.reqSupport {
+  max-width: 420px;
+  margin: 0;
+  font-family: var(--font-terminal);
+  font-size: 19px;
+  line-height: 1.3;
+  color: var(--dim);
+}
+
+/* ============ HUR MAN VINNER ============ */
+
+.winLead {
+  font-family: var(--font-pixel);
+  font-size: clamp(13px, 2.4vw, 17px);
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0 0 22px;
+}
+
+.winList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.winList li {
+  position: relative;
+  padding-left: 24px;
+}
+.winList li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+.winList strong {
+  color: var(--ink);
+}
+
+/* ============ KRITERIER ============ */
+
+.criteriaList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.criterion {
+  padding: 20px 22px;
+  background: var(--bg-2);
+  border: 3px solid var(--line);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45);
+}
+
+.criterionExtra {
+  border-color: var(--blue);
+  box-shadow: 5px 5px 0 rgba(28, 99, 196, 0.4);
+}
+
+.criterionHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.criterionNo {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--blue);
+}
+
+.criterionName {
+  font-family: var(--font-pixel);
+  font-size: clamp(12px, 2vw, 15px);
+  color: var(--ink);
+}
+
+.extraBadge {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--gold-ink);
+  background: var(--gold);
+  padding: 4px 7px;
+}
+
+.criterionBody {
+  font-family: var(--font-terminal);
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+.meter {
+  display: flex;
+  gap: 4px;
+}
+
+.seg {
+  width: 26px;
+  height: 14px;
+  background: var(--bg-3);
+  border: 2px solid var(--black);
+}
+.segOn {
+  background: var(--gold);
+}
+.segExtra {
+  background: var(--blue);
+}
+
+/* ============ PRISER ============ */
+
+.prizeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.prizeCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 20px;
+  background: var(--bg-2);
+  border: 3px solid var(--line);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45);
+}
+
+.prizeFeatured {
+  border-color: var(--gold);
+  box-shadow: 5px 5px 0 rgba(244, 181, 58, 0.3);
+}
+
+.prizeRank {
+  font-family: var(--font-pixel);
+  font-size: clamp(18px, 3vw, 26px);
+  color: var(--gold);
+}
+
+.prizeTitle {
+  font-family: var(--font-terminal);
+  font-size: 19px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.prizeItems {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-terminal);
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.prizeItems li {
+  position: relative;
+  padding-left: 18px;
+}
+.prizeItems li::before {
+  content: '+';
+  position: absolute;
+  left: 0;
+  color: var(--blue);
+}
+
+/* ============ TIPS ============ */
+
+.tipsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tipItem {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 14px 18px;
+  background: var(--bg-2);
+  border-left: 3px solid var(--gold);
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.tipNum {
+  flex-shrink: 0;
+  padding-top: 3px;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--gold);
+}
+
+/* ============ FOOTER ============ */
+
+.footer {
+  border-top: 3px solid var(--line);
+  padding: 40px 0 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.wipNote {
+  max-width: 620px;
+  margin: 0;
+  font-family: var(--font-terminal);
+  font-size: 19px;
+  line-height: 1.4;
+  color: var(--dim);
+}
+
+.footerCtas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.footerNav {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-family: var(--font-terminal);
+  font-size: 18px;
+}
+.footerNav a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 120ms;
+}
+.footerNav a:hover {
+  color: var(--gold);
+}
+
+/* ============ KEYFRAMES ============ */
+
+@keyframes hk-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes hk-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============ RESPONSIVE ============ */
+
+@media (max-width: 768px) {
+  .heroScrim {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(8, 8, 16, 0.55) 0%,
+        rgba(8, 8, 16, 0.75) 45%,
+        rgba(8, 8, 16, 0.95) 100%
+      ),
+      linear-gradient(0deg, var(--bg) 0%, transparent 40%);
+  }
+  .hero {
+    min-height: clamp(30rem, 86svh, 40rem);
+  }
+  .factGrid,
+  .prizeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ REDUCED MOTION ============ */
+
+@media (prefers-reduced-motion: reduce) {
+  .tickerTrack {
+    animation: none;
+  }
+  .cursor {
+    animation: none;
+    opacity: 1;
+  }
+  .btnPrimary,
+  .btnGhost {
+    transition: background 120ms, color 120ms, border-color 120ms;
+  }
+}

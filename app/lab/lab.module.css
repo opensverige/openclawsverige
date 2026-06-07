@@ -964,3 +964,141 @@
   color: var(--text-primary);
   background: none;
 }
+
+/* ============ HACKATHON TEASER CARD ============ */
+
+.hackCard {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  overflow: hidden;
+  text-decoration: none;
+  position: relative;
+  max-width: 720px;
+  transition: border-color var(--transition), transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.hackCard:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(244, 181, 58, 0.1);
+}
+
+.hackCardMedia {
+  position: relative;
+  min-height: 158px;
+  background: url('/crayfish.png') 45% 25% / cover no-repeat;
+  border-right: 1px solid var(--border);
+}
+
+/* CRT-scanlines — pixel-teaser för destinationen */
+.hackCardMedia::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 2px,
+    rgba(0, 0, 0, 0.28) 2px 4px
+  );
+}
+
+/* Blå anstrykning + fade in mot kortet */
+.hackCardMedia::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 48% 42%, rgba(46, 74, 98, 0.28), transparent 68%),
+    linear-gradient(90deg, transparent 58%, var(--bg-card) 100%);
+}
+
+.hackCardBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 22px 26px;
+}
+
+.hackCardTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hackCardPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.hackDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  animation: glow-breathe 2.4s ease-in-out infinite;
+}
+
+.hackCardDates {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.hackCardTitle {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  line-height: 1.05;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.hackCardDesc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: 440px;
+  margin: 0;
+}
+
+.hackCardCta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gold-light);
+  margin-top: 4px;
+  transition: letter-spacing var(--transition);
+}
+
+.hackCard:hover .hackCardCta {
+  letter-spacing: 0.4px;
+}
+
+@media (max-width: 768px) {
+  .hackCard {
+    grid-template-columns: 1fr;
+  }
+
+  .hackCardMedia {
+    min-height: 130px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
