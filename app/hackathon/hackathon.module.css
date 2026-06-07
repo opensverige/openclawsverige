@@ -1,7 +1,7 @@
 /* ============================================================
    /hackathon — egen pixel/8-bit-stilguide. Allt scopas till .shell.
-   Palett: mörk arkadbotten + guld (titel) + elektrisk blå (kräfta)
-   = svenska flaggans färger. Brygga mellan brand och arkad.
+   Enkel default-vy: og-bild-hero + nedräkning, resten i accordions.
+   Palett: mörk arkadbotten + guld + elektrisk blå = flaggans färger.
    ============================================================ */
 
 .shell {
@@ -49,106 +49,44 @@
 /* ============ HERO ============ */
 
 .hero {
-  position: relative;
-  min-height: clamp(34rem, 92svh, 52rem);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  text-align: center;
+  gap: 18px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(24px, 5vw, 52px) clamp(16px, 4vw, 32px) clamp(20px, 4vw, 36px);
 }
 
-.heroMedia {
-  position: absolute;
-  inset: 0;
-  background: url('/crayfish.png') center center / cover no-repeat;
-}
-
-.heroScrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(8, 8, 16, 0.97) 0%,
-      rgba(8, 8, 16, 0.88) 32%,
-      rgba(8, 8, 16, 0.45) 62%,
-      rgba(8, 8, 16, 0.2) 100%
-    ),
-    linear-gradient(0deg, var(--bg) 0%, transparent 32%),
-    linear-gradient(180deg, rgba(8, 8, 16, 0.7) 0%, transparent 26%);
-}
-
-.heroGrid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(58, 155, 244, 0.07) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(58, 155, 244, 0.07) 2px, transparent 2px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(ellipse 90% 80% at 35% 50%, black 25%, transparent 75%);
-}
-
-.heroInner {
-  position: relative;
-  z-index: 5;
+.heroImg {
+  display: block;
   width: 100%;
-  max-width: 760px;
-  padding: 0 clamp(20px, 5vw, 64px);
+  max-width: 900px;
+  height: auto;
+  border: 3px solid var(--line-2);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
-.eyebrow {
-  font-family: var(--font-pixel);
-  font-size: clamp(9px, 1.6vw, 12px);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin: 0 0 24px;
+.tagline {
+  font-family: var(--font-terminal);
+  font-size: clamp(20px, 3.2vw, 30px);
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 6px 0 0;
 }
 
-.title {
+.heroMeta {
   font-family: var(--font-pixel);
-  font-weight: 700;
-  font-size: clamp(2.2rem, 10vw, 7.5rem);
-  line-height: 1;
-  letter-spacing: 0.02em;
+  font-size: clamp(10px, 1.6vw, 12px);
+  letter-spacing: 1px;
   color: var(--gold);
   margin: 0;
-  text-shadow:
-    3px 3px 0 var(--gold-deep),
-    6px 6px 0 rgba(0, 0, 0, 0.55),
-    0 0 30px rgba(244, 181, 58, 0.25);
-}
-
-.subtitle {
-  font-family: var(--font-terminal);
-  font-size: clamp(22px, 3.6vw, 34px);
-  line-height: 1.2;
-  color: var(--ink);
-  margin: 24px 0 26px;
-  display: flex;
-  align-items: center;
-}
-
-.cursor {
-  display: inline-block;
-  width: 0.55em;
-  height: 1em;
-  margin-left: 0.25em;
-  background: var(--gold);
-  transform: translateY(0.08em);
-  animation: hk-blink 1s steps(2, jump-none) infinite;
-}
-
-.heroCtas {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 30px;
 }
 
 /* ============ KNAPPAR ============ */
 
-.btnPrimary,
-.btnGhost {
+.btnPrimary {
   font-family: var(--font-pixel);
   font-size: clamp(9px, 1.4vw, 12px);
   line-height: 1.5;
@@ -159,18 +97,13 @@
   padding: 15px 18px;
   border: 3px solid var(--black);
   cursor: pointer;
-  transition:
-    transform 80ms steps(2, jump-none),
-    box-shadow 80ms steps(2, jump-none),
-    background 120ms,
-    color 120ms,
-    border-color 120ms;
-}
-
-.btnPrimary {
   background: var(--gold);
   color: var(--gold-ink);
   box-shadow: 5px 5px 0 var(--black);
+  transition:
+    transform 80ms steps(2, jump-none),
+    box-shadow 80ms steps(2, jump-none),
+    background 120ms;
 }
 .btnPrimary:hover {
   background: var(--gold-light);
@@ -182,30 +115,14 @@
   box-shadow: 0 0 0 var(--black);
 }
 
-.btnGhost {
-  background: transparent;
-  color: var(--ink);
-  border-color: var(--line-2);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
-}
-.btnGhost:hover {
-  color: var(--blue);
-  border-color: var(--blue);
-  transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
-}
-.btnGhost:active {
-  transform: translate(5px, 5px);
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
-}
-
 /* ============ NEDRÄKNING ============ */
 
 .countdown {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  margin: 6px 0 2px;
+  justify-content: center;
+  margin: 0;
 }
 
 .countdownUnit {
@@ -222,7 +139,7 @@
 
 .countdownNum {
   font-family: var(--font-pixel);
-  font-size: clamp(18px, 3.4vw, 28px);
+  font-size: clamp(18px, 3.4vw, 26px);
   color: var(--ink);
 }
 
@@ -240,187 +157,77 @@
   color: var(--gold);
 }
 
-/* ============ TICKER ============ */
-
-.ticker {
-  position: relative;
-  z-index: 5;
-  background: var(--gold);
-  color: var(--gold-ink);
-  border-top: 3px solid var(--black);
-  border-bottom: 3px solid var(--black);
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.tickerTrack {
-  display: inline-flex;
-  animation: hk-marquee 26s linear infinite;
-}
-
-.tickerGroup {
-  display: inline-flex;
-}
-
-.tickerItem {
-  font-family: var(--font-pixel);
-  font-size: 11px;
-  padding: 12px 0;
-  margin-right: 28px;
-  display: inline-flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.tickerSep {
-  opacity: 0.55;
-}
-
 /* ============ LAYOUT ============ */
 
 .wrap {
-  max-width: 920px;
+  max-width: 820px;
   margin: 0 auto;
-  padding: clamp(40px, 7vw, 72px) clamp(20px, 5vw, 40px) 0;
+  padding: clamp(8px, 2vw, 20px) clamp(16px, 4vw, 32px) 0;
 }
 
-.section {
-  margin-bottom: clamp(48px, 8vw, 80px);
-  scroll-margin-top: 24px;
-}
+/* ============ ACCORDION ============ */
 
-.sectionLabel {
-  font-family: var(--font-pixel);
-  font-size: clamp(13px, 2.2vw, 18px);
-  letter-spacing: 1px;
-  color: var(--gold);
-  margin: 0 0 24px;
-}
-
-/* ============ BRIEF / FAKTA ============ */
-
-.factGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-.factCard {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 18px 20px;
+.acc {
+  margin-bottom: 14px;
   background: var(--bg-2);
   border: 3px solid var(--line);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4);
 }
 
-.factCard:last-child {
-  grid-column: 1 / -1;
-}
-
-.factLabel {
-  font-family: var(--font-pixel);
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  color: var(--blue);
-}
-
-.factValue {
-  font-family: var(--font-terminal);
-  font-size: 21px;
-  line-height: 1.25;
-  color: var(--ink);
-}
-
-/* ============ PANEL ============ */
-
-.panel {
-  padding: clamp(20px, 4vw, 32px);
-  background: var(--bg-2);
-  border: 3px solid var(--line);
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
-}
-
-.panelIntro {
-  font-family: var(--font-terminal);
-  font-size: 21px;
-  color: var(--muted);
-  margin: 0 0 18px;
-}
-.panelIntro strong {
-  color: var(--gold);
-}
-
-/* ============ CHECKLISTA ============ */
-
-.checklist {
+.accSummary {
   list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.checkItem {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  font-family: var(--font-terminal);
-  font-size: 21px;
-  line-height: 1.3;
-  color: var(--ink);
-}
-
-.checkBox {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  cursor: pointer;
+  user-select: none;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: var(--bg-3);
-  border: 3px solid var(--blue);
-  color: var(--blue);
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px clamp(18px, 3vw, 24px);
+}
+.accSummary::-webkit-details-marker {
+  display: none;
+}
+.accSummary::marker {
+  content: '';
+}
+
+.accTitle {
+  font-family: var(--font-pixel);
+  font-size: clamp(13px, 2vw, 16px);
+  color: var(--ink);
+  transition: color 120ms;
+}
+
+.accSummary:hover .accTitle {
+  color: var(--gold-light);
+}
+
+.accIcon {
+  flex-shrink: 0;
+  font-family: var(--font-pixel);
   font-size: 18px;
-}
-
-.bonusTag {
-  font-family: var(--font-pixel);
-  font-size: 9px;
+  line-height: 1;
   color: var(--gold);
-  border: 2px solid var(--gold);
-  padding: 2px 5px;
-  margin-right: 9px;
+  transition: transform 120ms steps(2, jump-none);
 }
 
-/* ============ SÅ DELTAR DU (KRAV) ============ */
-
-.reqCallout {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: clamp(20px, 4vw, 32px);
-  background: linear-gradient(180deg, rgba(244, 181, 58, 0.07), transparent 60%),
-    var(--bg-2);
-  border: 3px solid var(--gold);
-  box-shadow: 6px 6px 0 rgba(244, 181, 58, 0.25);
+.acc[open] .accIcon {
+  transform: rotate(45deg);
 }
 
-.reqBadge {
-  align-self: flex-start;
-  font-family: var(--font-pixel);
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: var(--gold-ink);
-  background: var(--gold);
-  padding: 6px 9px;
+.acc[open] .accSummary {
+  border-bottom: 3px solid var(--line);
 }
+
+.accBody {
+  padding: 22px clamp(18px, 3vw, 24px) 24px;
+}
+
+/* ============ SÅ DELTAR DU ============ */
 
 .reqList {
   list-style: none;
-  margin: 0;
+  margin: 0 0 20px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -470,7 +277,6 @@
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
-  padding-top: 4px;
 }
 
 .reqSupport {
@@ -482,61 +288,110 @@
   color: var(--dim);
 }
 
-/* ============ HUR MAN VINNER ============ */
+/* ============ BRIEF / FAKTA ============ */
 
-.winLead {
-  font-family: var(--font-pixel);
-  font-size: clamp(13px, 2.4vw, 17px);
-  line-height: 1.6;
-  color: var(--ink);
-  margin: 0 0 22px;
+.factGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 28px;
 }
 
-.winList {
+.factCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.factCard:last-child {
+  grid-column: 1 / -1;
+}
+
+.factLabel {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--blue);
+}
+
+.factValue {
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+/* ============ SÅ LÄMNAR DU IN ============ */
+
+.panelIntro {
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+.panelIntro strong {
+  color: var(--gold);
+}
+
+.checklist {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  font-family: var(--font-terminal);
-  font-size: 21px;
-  line-height: 1.35;
-  color: var(--muted);
 }
 
-.winList li {
-  position: relative;
-  padding-left: 24px;
-}
-.winList li::before {
-  content: '▸';
-  position: absolute;
-  left: 0;
-  color: var(--gold);
-}
-.winList strong {
+.checkItem {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  line-height: 1.3;
   color: var(--ink);
+}
+
+.checkBox {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-3);
+  border: 3px solid var(--blue);
+  color: var(--blue);
+  font-size: 18px;
+}
+
+.bonusTag {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  padding: 2px 5px;
+  margin-right: 9px;
 }
 
 /* ============ KRITERIER ============ */
 
+.criteriaLead {
+  font-family: var(--font-terminal);
+  font-size: 21px;
+  line-height: 1.35;
+  color: var(--muted);
+  margin: 0 0 22px;
+}
+
 .criteriaList {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-}
-
-.criterion {
-  padding: 20px 22px;
-  background: var(--bg-2);
-  border: 3px solid var(--line);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45);
+  gap: 22px;
 }
 
 .criterionExtra {
-  border-color: var(--blue);
-  box-shadow: 5px 5px 0 rgba(28, 99, 196, 0.4);
+  padding-left: 16px;
+  border-left: 3px solid var(--blue);
 }
 
 .criterionHead {
@@ -544,7 +399,7 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .criterionNo {
@@ -572,7 +427,7 @@
   font-size: 20px;
   line-height: 1.3;
   color: var(--muted);
-  margin: 0 0 14px;
+  margin: 0 0 12px;
 }
 
 .meter {
@@ -595,62 +450,35 @@
 
 /* ============ PRISER ============ */
 
-.prizeGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.prizeCard {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 22px 20px;
-  background: var(--bg-2);
-  border: 3px solid var(--line);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45);
-}
-
-.prizeFeatured {
-  border-color: var(--gold);
-  box-shadow: 5px 5px 0 rgba(244, 181, 58, 0.3);
-}
-
-.prizeRank {
-  font-family: var(--font-pixel);
-  font-size: clamp(18px, 3vw, 26px);
-  color: var(--gold);
-}
-
-.prizeTitle {
-  font-family: var(--font-terminal);
-  font-size: 19px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.prizeItems {
+.prizeList {
   list-style: none;
-  margin: 6px 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
+}
+
+.prizeRow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
   font-family: var(--font-terminal);
-  font-size: 20px;
-  line-height: 1.25;
+  font-size: 21px;
+  line-height: 1.3;
+}
+
+.prizeMark {
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+.prizeName {
   color: var(--ink);
 }
-.prizeItems li {
-  position: relative;
-  padding-left: 18px;
-}
-.prizeItems li::before {
-  content: '+';
-  position: absolute;
-  left: 0;
-  color: var(--blue);
+
+.prizeDetail {
+  color: var(--dim);
 }
 
 /* ============ TIPS ============ */
@@ -668,8 +496,7 @@
   display: flex;
   gap: 16px;
   align-items: flex-start;
-  padding: 14px 18px;
-  background: var(--bg-2);
+  padding-left: 16px;
   border-left: 3px solid var(--gold);
   font-family: var(--font-terminal);
   font-size: 21px;
@@ -689,10 +516,11 @@
 
 .footer {
   border-top: 3px solid var(--line);
-  padding: 40px 0 64px;
+  margin-top: 8px;
+  padding: 32px 0 64px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
 
 .wipNote {
@@ -702,12 +530,6 @@
   font-size: 19px;
   line-height: 1.4;
   color: var(--dim);
-}
-
-.footerCtas {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
 }
 
 .footerNav {
@@ -726,46 +548,10 @@
   color: var(--gold);
 }
 
-/* ============ KEYFRAMES ============ */
-
-@keyframes hk-blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  50.01%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes hk-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* ============ RESPONSIVE ============ */
 
 @media (max-width: 768px) {
-  .heroScrim {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(8, 8, 16, 0.55) 0%,
-        rgba(8, 8, 16, 0.75) 45%,
-        rgba(8, 8, 16, 0.95) 100%
-      ),
-      linear-gradient(0deg, var(--bg) 0%, transparent 40%);
-  }
-  .hero {
-    min-height: clamp(30rem, 86svh, 40rem);
-  }
-  .factGrid,
-  .prizeGrid {
+  .factGrid {
     grid-template-columns: 1fr;
   }
 }
@@ -773,15 +559,10 @@
 /* ============ REDUCED MOTION ============ */
 
 @media (prefers-reduced-motion: reduce) {
-  .tickerTrack {
-    animation: none;
+  .accIcon {
+    transition: none;
   }
-  .cursor {
-    animation: none;
-    opacity: 1;
-  }
-  .btnPrimary,
-  .btnGhost {
-    transition: background 120ms, color 120ms, border-color 120ms;
+  .btnPrimary {
+    transition: background 120ms;
   }
 }

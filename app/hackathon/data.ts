@@ -2,7 +2,7 @@
 // OBS: datumen nedan är inte spikade. Sätt rätt år/kanal när det är klart.
 
 export const HACKATHON = {
-  status: 'wip' as const,
+  status: 'live' as const,
   eyebrow: 'Open Sverige · Spel-Hackathon',
   title: 'HACKATHON',
   tagline: 'Skapa ett litet spel på en vecka.',
@@ -14,7 +14,7 @@ export const HACKATHON = {
   discordUrl: 'https://discord.gg/CSphbTk8En',
   githubUrl: 'https://github.com/opensverige',
   wipNote:
-    'Work in progress — exakta datum och submissions-kanal spikas snart. Alla nivåer är välkomna. Kom med din idé.',
+    'Hackathonet pågår nu. Öppen källkod väger extra, alla nivåer är välkomna — kom med din idé.',
 } as const
 
 export type Requirement = { title: string; body: string }
@@ -38,7 +38,7 @@ export const SUPPORT_NOTE =
 export type Fact = { label: string; value: string }
 
 export const FACTS: Fact[] = [
-  { label: 'När', value: 'Mån 9 juni – Sön 15 juni · 1 vecka' },
+  { label: 'När', value: 'Pågår nu · 1 vecka' },
   { label: 'Tema', value: 'Skapa ett litet spel' },
   { label: 'Teknik', value: 'Valfri genre & engine — Godot, Unity, Pygame, web…' },
   { label: 'Krav', value: 'Spelbart: minst en loop eller nivå. Inget krav på storlek eller grafik.' },
@@ -90,34 +90,20 @@ export const CRITERIA: Criterion[] = [
   },
 ]
 
-export type Prize = { rank: string; title: string; items: string[]; featured?: boolean }
+export type Prize = { name: string; detail?: string }
 
+// Prispott (announcerad). Öppen källkod väger extra i juryn.
 export const PRIZES: Prize[] = [
-  {
-    rank: '1:a',
-    title: 'Vinnaren',
-    items: ['1000 kr på grunden.ai', 'Keychron mekaniskt tangentbord'],
-    featured: true,
-  },
-  {
-    rank: '2:a',
-    title: 'Andraplats',
-    items: ['Amazon-presentkort', 'Pryl (mus, hörlurar m.m.)'],
-  },
-  {
-    rank: '3:a',
-    title: 'Tredjeplats',
-    items: ['Amazon-presentkort', 'Pryl (mus, hörlurar m.m.)'],
-  },
+  { name: '8Bitdo Retro Mechanical Keyboard', detail: 'Hot-swappable · Nordic' },
+  { name: '8Bitdo N30 Wireless Mouse', detail: 'Retro' },
+  { name: 'Marhynchus Mini Mechanical Macropad', detail: 'Med knob & RGB' },
+  { name: '1000 kr på grunden.ai', detail: 'GLM 5.1' },
 ]
 
 export const TIPS: string[] = [
   'Håll scopet litet. En loop som funkar slår en stor idé som aldrig blir klar.',
   'Gör det spelbart i webbläsaren om du kan (itch.io HTML5 / GitHub Pages) — fler hinner testa och rösta.',
-  'Välj verktyg du redan kan. Ett hackathon är fel tillfälle att lära sig en ny engine.',
   'Lägg koden öppet på GitHub från dag ett. Det väger extra hos juryn och hjälper andra bygga vidare.',
   'En tydlig kärnmekanik slår tio halvfärdiga. Polera det som redan funkar.',
   'Skriv en rad om hur man spelar i inlämningen. En förvirrad domare röstar lågt.',
-  'Bygg klart på lördag, lämna in på söndag. Buggfixar tar alltid längre tid än man tror.',
-  'Fastnar du? Fråga i Discord — communityn hjälper till.',
 ]

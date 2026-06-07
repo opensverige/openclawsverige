@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { pixelDisplay, vt323 } from './fonts'
 import styles from './hackathon.module.css'
 
+const OG_IMAGE = {
+  url: '/hackathon-og.png',
+  width: 1200,
+  height: 630,
+  alt: 'HACKATHON — Open Sverige Spel-Hackathon',
+}
+
 export const metadata: Metadata = {
   title: 'Spel-Hackathon — OpenSverige',
   description:
@@ -10,6 +17,14 @@ export const metadata: Metadata = {
     title: 'Open Sverige · Spel-Hackathon',
     description:
       'Skapa ett litet spel på en vecka. Community + jury, öppen kod väger extra. Kom med din idé.',
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Open Sverige · Spel-Hackathon',
+    description:
+      'Skapa ett litet spel på en vecka. Community + jury, öppen kod väger extra.',
+    images: [OG_IMAGE.url],
   },
 }
 
