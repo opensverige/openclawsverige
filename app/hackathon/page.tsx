@@ -1,15 +1,8 @@
+'use client'
+
+import { useState } from 'react'
 import { Countdown } from './Countdown'
-import {
-  HACKATHON,
-  PARTICIPATION_LEAD,
-  REQUIREMENTS,
-  SUPPORT_NOTE,
-  FACTS,
-  SUBMIT,
-  CRITERIA,
-  PRIZES,
-  TIPS,
-} from './data'
+import { CONTENT, SHARED, type Lang } from './data'
 import styles from './hackathon.module.css'
 
 function Meter({ weight, extra }: { weight: number; extra?: boolean }) {
@@ -35,11 +28,41 @@ function AccIcon() {
   )
 }
 
+function ChannelLink() {
+  return (
+    <a
+      className={styles.channelLink}
+      href={SHARED.channelUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {SHARED.channelName}
+    </a>
+  )
+}
+
 export default function HackathonPage() {
+  const [lang, setLang] = useState<Lang>('sv')
+  const c = CONTENT[lang]
+
   return (
     <main id="main-content">
       {/* ============ HERO ============ */}
       <section className={styles.hero}>
+        <div className={styles.langToggle} role="group" aria-label="Language / Språk">
+          {(['sv', 'en'] as const).map((l) => (
+            <button
+              key={l}
+              type="button"
+              className={`${styles.langBtn} ${lang === l ? styles.langBtnActive : ''}`}
+              onClick={() => setLang(l)}
+              aria-pressed={lang === l}
+            >
+              {l.toUpperCase()}
+            </button>
+          ))}
+        </div>
+
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className={styles.heroImg}
@@ -48,30 +71,33 @@ export default function HackathonPage() {
           width={1200}
           height={630}
         />
-        <p className={styles.tagline}>{HACKATHON.tagline}</p>
-        <p className={styles.heroMeta}>Inlämning · {HACKATHON.deadlineLabel}</p>
-        <Countdown deadlineISO={HACKATHON.deadlineISO} />
+        <p className={styles.tagline}>{c.tagline}</p>
+        <p className={styles.heroMeta}>
+          {c.submissionPrefix} · {c.deadlineLabel}
+        </p>
+        <Countdown deadlineISO={SHARED.deadlineISO} labels={c.countdown} />
         <a
           className={styles.btnPrimary}
-          href={HACKATHON.discordUrl}
+          href={SHARED.discordUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Gå med i {HACKATHON.discordChannel} <span aria-hidden="true">→</span>
+          {c.cta} <span aria-hidden="true">→</span>
         </a>
       </section>
 
       {/* ============ DETALJER (accordions) ============ */}
       <div className={styles.wrap}>
+        {/* Så deltar du */}
         <details className={styles.acc} open>
           <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>Så deltar du</span>
+            <span className={styles.accTitle}>{c.sections.delta}</span>
             <AccIcon />
           </summary>
           <div className={styles.accBody}>
-            <p className={styles.reqLead}>{PARTICIPATION_LEAD}</p>
+            <p className={styles.reqLead}>{c.participationLead}</p>
             <ol className={styles.reqList}>
-              {REQUIREMENTS.map((r, i) => (
+              {c.requirements.map((r, i) => (
                 <li className={styles.reqItem} key={r.title}>
                   <span className={styles.reqNum}>{String(i + 1).padStart(2, '0')}</span>
                   <div className={styles.reqText}>
@@ -84,25 +110,26 @@ export default function HackathonPage() {
             <div className={styles.reqActions}>
               <a
                 className={styles.btnPrimary}
-                href={HACKATHON.discordUrl}
+                href={SHARED.discordUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Gå med i Discord <span aria-hidden="true">→</span>
+                {c.cta} <span aria-hidden="true">→</span>
               </a>
-              <p className={styles.reqSupport}>{SUPPORT_NOTE}</p>
+              <p className={styles.reqSupport}>{c.support}</p>
             </div>
           </div>
         </details>
 
+        {/* Brief */}
         <details className={styles.acc}>
           <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>Brief</span>
+            <span className={styles.accTitle}>{c.sections.brief}</span>
             <AccIcon />
           </summary>
           <div className={styles.accBody}>
             <div className={styles.factGrid}>
-              {FACTS.map((fact) => (
+              {c.facts.map((fact) => (
                 <div className={styles.factCard} key={fact.label}>
                   <span className={styles.factLabel}>{fact.label}</span>
                   <span className={styles.factValue}>{fact.value}</span>
@@ -112,18 +139,18 @@ export default function HackathonPage() {
           </div>
         </details>
 
+        {/* Så lämnar du in */}
         <details className={styles.acc}>
           <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>Så lämnar du in</span>
+            <span className={styles.accTitle}>{c.sections.submit}</span>
             <AccIcon />
           </summary>
           <div className={styles.accBody}>
             <p className={styles.panelIntro}>
-              Posta i <strong>{HACKATHON.discordChannel}</strong> senast{' '}
-              {HACKATHON.deadlineLabel}:
+              {c.submitPrefix} <ChannelLink /> {c.submitBy} {c.deadlineLabel}:
             </p>
             <ul className={styles.checklist}>
-              {SUBMIT.map((item) => (
+              {c.submit.map((item) => (
                 <li className={styles.checkItem} key={item.text}>
                   <span className={styles.checkBox} aria-hidden="true">
                     {item.bonus ? '★' : '✓'}
@@ -138,43 +165,49 @@ export default function HackathonPage() {
           </div>
         </details>
 
+        {/* Kriterier */}
         <details className={styles.acc}>
           <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>Kriterier</span>
+            <span className={styles.accTitle}>{c.sections.criteria}</span>
             <AccIcon />
           </summary>
           <div className={styles.accBody}>
-            <p className={styles.criteriaLead}>
-              Community röstar på spelglädje, en liten jury bedömer helheten.
-              1–5 poäng per kriterium — högst total vinner.
+            <p className={styles.criteriaLead}>{c.criteriaLead}</p>
+            <p className={styles.votingNote}>
+              {c.votingPrefix} <ChannelLink /> {c.votingSuffix}
             </p>
             <div className={styles.criteriaList}>
-              {CRITERIA.map((c) => (
+              {c.criteria.map((cr) => (
                 <div
-                  className={c.extra ? styles.criterionExtra : ''}
-                  key={c.no}
+                  className={cr.extra ? styles.criterionExtra : ''}
+                  key={cr.no}
                 >
                   <div className={styles.criterionHead}>
-                    <span className={styles.criterionNo}>{c.no}</span>
-                    <span className={styles.criterionName}>{c.name}</span>
-                    {c.extra && <span className={styles.extraBadge}>Väger extra</span>}
+                    <span className={styles.criterionNo}>{cr.no}</span>
+                    <span className={styles.criterionName}>{cr.name}</span>
+                    {cr.extra && (
+                      <span className={styles.extraBadge}>
+                        {lang === 'sv' ? 'Väger extra' : 'Weighs extra'}
+                      </span>
+                    )}
                   </div>
-                  <p className={styles.criterionBody}>{c.body}</p>
-                  <Meter weight={c.weight} extra={c.extra} />
+                  <p className={styles.criterionBody}>{cr.body}</p>
+                  <Meter weight={cr.weight} extra={cr.extra} />
                 </div>
               ))}
             </div>
           </div>
         </details>
 
+        {/* Priser */}
         <details className={styles.acc}>
           <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>Priser</span>
+            <span className={styles.accTitle}>{c.sections.prizes}</span>
             <AccIcon />
           </summary>
           <div className={styles.accBody}>
             <ul className={styles.prizeList}>
-              {PRIZES.map((p) => (
+              {c.prizes.map((p) => (
                 <li className={styles.prizeRow} key={p.name}>
                   <span className={styles.prizeMark} aria-hidden="true">★</span>
                   <span>
@@ -187,14 +220,15 @@ export default function HackathonPage() {
           </div>
         </details>
 
+        {/* Tips */}
         <details className={styles.acc}>
           <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>Tips</span>
+            <span className={styles.accTitle}>{c.sections.tips}</span>
             <AccIcon />
           </summary>
           <div className={styles.accBody}>
             <ul className={styles.tipsList}>
-              {TIPS.map((tip, i) => (
+              {c.tips.map((tip, i) => (
                 <li className={styles.tipItem} key={tip}>
                   <span className={styles.tipNum}>{String(i + 1).padStart(2, '0')}</span>
                   <span>{tip}</span>
@@ -204,11 +238,29 @@ export default function HackathonPage() {
           </div>
         </details>
 
+        {/* Regler */}
+        <details className={styles.acc}>
+          <summary className={styles.accSummary}>
+            <span className={styles.accTitle}>{c.sections.rules}</span>
+            <AccIcon />
+          </summary>
+          <div className={styles.accBody}>
+            <ul className={styles.rulesList}>
+              {c.rules.map((rule) => (
+                <li className={styles.ruleItem} key={rule}>
+                  <span className={styles.ruleMark} aria-hidden="true">§</span>
+                  <span>{rule}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </details>
+
         {/* ============ FOOTER ============ */}
         <footer className={styles.footer}>
-          <p className={styles.wipNote}>{HACKATHON.wipNote}</p>
+          <p className={styles.wipNote}>{c.wipNote}</p>
           <nav className={styles.footerNav} aria-label="Hackathon-footer">
-            <a href="/lab">← opensverige / lab</a>
+            <a href="/lab">{c.footerBack}</a>
             <a href="/">opensverige.se →</a>
           </nav>
         </footer>

@@ -3,8 +3,18 @@
 import { useEffect, useState } from 'react'
 import styles from './hackathon.module.css'
 
+export interface CountdownLabels {
+  days: string
+  hours: string
+  mins: string
+  secs: string
+  closed: string
+  aria: string
+}
+
 interface CountdownProps {
   deadlineISO: string
+  labels: CountdownLabels
 }
 
 type TimeLeft = { days: number; hours: number; mins: number; secs: number }
@@ -20,14 +30,7 @@ function computeTimeLeft(deadline: number): TimeLeft | null {
   }
 }
 
-const UNITS: Array<{ key: keyof TimeLeft; label: string }> = [
-  { key: 'days', label: 'dgr' },
-  { key: 'hours', label: 'tim' },
-  { key: 'mins', label: 'min' },
-  { key: 'secs', label: 'sek' },
-]
-
-export function Countdown({ deadlineISO }: CountdownProps) {
+export function Countdown({ deadlineISO, labels }: CountdownProps) {
   // null tills komponenten mountat — undviker hydration-mismatch (servern och
   // klienten har olika "nu").
   const [time, setTime] = useState<TimeLeft | null>(null)
@@ -43,17 +46,23 @@ export function Countdown({ deadlineISO }: CountdownProps) {
 
   if (mounted && time === null) {
     return (
-      <div className={styles.countdown} role="timer" aria-label="Inlämning stängd">
-        <span className={styles.countdownClosed}>INLÄMNING STÄNGD</span>
+      <div className={styles.countdown} role="timer" aria-label={labels.closed}>
+        <span className={styles.countdownClosed}>{labels.closed}</span>
       </div>
     )
   }
 
   const pad = (n: number) => String(n).padStart(2, '0')
+  const units: Array<{ key: keyof TimeLeft; label: string }> = [
+    { key: 'days', label: labels.days },
+    { key: 'hours', label: labels.hours },
+    { key: 'mins', label: labels.mins },
+    { key: 'secs', label: labels.secs },
+  ]
 
   return (
-    <div className={styles.countdown} role="timer" aria-label="Tid kvar till inlämning">
-      {UNITS.map(({ key, label }) => (
+    <div className={styles.countdown} role="timer" aria-label={labels.aria}>
+      {units.map(({ key, label }) => (
         <div key={key} className={styles.countdownUnit}>
           <span className={styles.countdownNum}>{time ? pad(time[key]) : '––'}</span>
           <span className={styles.countdownLabel}>{label}</span>
