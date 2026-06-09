@@ -238,6 +238,38 @@ export default function HackathonPage() {
           </div>
         </details>
 
+        {/* Resurser */}
+        <details className={styles.acc}>
+          <summary className={styles.accSummary}>
+            <span className={styles.accTitle}>{c.sections.resources}</span>
+            <AccIcon />
+          </summary>
+          <div className={styles.accBody}>
+            <p className={styles.criteriaLead}>{c.resourcesLead}</p>
+            {c.resources.map((g) => (
+              <div className={styles.resGroup} key={g.group}>
+                <span className={styles.resGroupLabel}>{g.group}</span>
+                <ul className={styles.resList}>
+                  {g.items.map((it) => (
+                    <li className={styles.resItem} key={it.url}>
+                      <a
+                        className={styles.resName}
+                        href={it.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {it.name} <span aria-hidden="true">→</span>
+                      </a>
+                      <span className={styles.resNote}>{it.note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <p className={styles.resTip}>{c.resourcesTip}</p>
+          </div>
+        </details>
+
         {/* Regler */}
         <details className={styles.acc}>
           <summary className={styles.accSummary}>

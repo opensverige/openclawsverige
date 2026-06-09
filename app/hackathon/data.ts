@@ -23,6 +23,8 @@ export type Criterion = {
   extra?: boolean
 }
 export type Prize = { name: string; detail?: string }
+export type ResourceItem = { name: string; url: string; note: string }
+export type ResourceGroup = { group: string; items: ResourceItem[] }
 
 export type Content = {
   tagline: string
@@ -44,6 +46,7 @@ export type Content = {
     criteria: string
     prizes: string
     tips: string
+    resources: string
     rules: string
   }
   participationLead: string
@@ -58,6 +61,9 @@ export type Content = {
   criteria: Criterion[]
   prizes: Prize[]
   tips: string[]
+  resourcesLead: string
+  resources: ResourceGroup[]
+  resourcesTip: string
   rules: string[]
   support: string
   wipNote: string
@@ -87,6 +93,7 @@ export const CONTENT: Record<Lang, Content> = {
       criteria: 'Kriterier',
       prizes: 'Priser',
       tips: 'Tips',
+      resources: 'Resurser',
       rules: 'Regler',
     },
     participationLead:
@@ -139,6 +146,38 @@ export const CONTENT: Record<Lang, Content> = {
       'En tydlig kärnmekanik slår tio halvfärdiga. Polera det som redan funkar.',
       'Skriv en rad om hur man spelar i inlämningen. En förvirrad domare röstar lågt.',
     ],
+    resourcesLead:
+      'AI-verktyg för att generera game assets — sprites, pixel art, animationer, textures. Spelar bra ihop med Claude / vibe coding.',
+    resources: [
+      {
+        group: 'Pixel art & sprites',
+        items: [
+          { name: 'PixelLab.ai', url: 'https://www.pixellab.ai', note: 'Pixel art, sprite sheets, tilesets. MCP-server — använd direkt i Claude Code.' },
+          { name: 'Sprite AI', url: 'https://www.sprite-ai.art', note: 'Allt-i-ett: sprites, animator, palette, export till sheets/GIF/atlas.' },
+          { name: 'AutoSprite', url: 'https://www.autosprite.io', note: 'En sprite → full animerad sprite sheet (Unity/Godot).' },
+          { name: 'God Mode AI', url: 'https://godmodeai.dev', note: 'Isometriska & action-sprites, retro-paletter (NES/Game Boy).' },
+          { name: 'sprite-sheet-creator · öppen', url: 'https://github.com/blendi-remade/sprite-sheet-creator', note: 'Prompt → sprite sheets, kör lokalt med fal.ai.' },
+        ],
+      },
+      {
+        group: 'Textures, miljöer & 3D',
+        items: [
+          { name: 'Leonardo.ai', url: 'https://leonardo.ai', note: 'Textures, material och konsistenta miljöer.' },
+          { name: 'Meshy.ai', url: 'https://www.meshy.ai', note: 'Text/bild → 3D-modell med texturer & auto-rigging.' },
+          { name: 'Tripo Studio', url: 'https://www.tripo3d.ai', note: 'Snabb 3D-generering, game-ready meshes.' },
+        ],
+      },
+      {
+        group: 'Gratis & öppen källkod',
+        items: [
+          { name: 'Perchance Pixel Art', url: 'https://perchance.org/ai-pixel-art-generator', note: 'Helt gratis, inga limits — bra för prototyping.' },
+          { name: 'falsprite · öppen', url: 'https://github.com/lovisdotio/falsprite', note: 'Text-prompt → animerade sprite sheets på fal.ai.' },
+          { name: 'ZzSprite · öppen', url: 'https://github.com/KilledByAPixel/ZzSprite', note: 'Procedurella symmetriska pixel-sprites.' },
+        ],
+      },
+    ],
+    resourcesTip:
+      'Workflow: skriv logiken i Claude Code, generera assets i PixelLab (MCP), finjustera i Aseprite eller LibreSprite.',
     rules: [
       'Spelet ska byggas under hackathonveckan. Vi tar inte emot spel som påbörjats eller byggts tidigare.',
       'Tävlingen är öppen för deltagare i Sverige.',
@@ -171,6 +210,7 @@ export const CONTENT: Record<Lang, Content> = {
       criteria: 'Criteria',
       prizes: 'Prizes',
       tips: 'Tips',
+      resources: 'Resources',
       rules: 'Rules',
     },
     participationLead:
@@ -223,6 +263,38 @@ export const CONTENT: Record<Lang, Content> = {
       'One clear core mechanic beats ten half-finished ones. Polish what already works.',
       'Write one line on how to play in your submission. A confused judge votes low.',
     ],
+    resourcesLead:
+      'AI tools for generating game assets — sprites, pixel art, animations, textures. Plays nicely with Claude / vibe coding.',
+    resources: [
+      {
+        group: 'Pixel art & sprites',
+        items: [
+          { name: 'PixelLab.ai', url: 'https://www.pixellab.ai', note: 'Pixel art, sprite sheets, tilesets. MCP server — use it inside Claude Code.' },
+          { name: 'Sprite AI', url: 'https://www.sprite-ai.art', note: 'All-in-one: sprites, animator, palette, export to sheets/GIF/atlas.' },
+          { name: 'AutoSprite', url: 'https://www.autosprite.io', note: 'One sprite → full animated sprite sheet (Unity/Godot).' },
+          { name: 'God Mode AI', url: 'https://godmodeai.dev', note: 'Isometric & action sprites, retro palettes (NES/Game Boy).' },
+          { name: 'sprite-sheet-creator · open', url: 'https://github.com/blendi-remade/sprite-sheet-creator', note: 'Prompt → sprite sheets, runs locally with fal.ai.' },
+        ],
+      },
+      {
+        group: 'Textures, environments & 3D',
+        items: [
+          { name: 'Leonardo.ai', url: 'https://leonardo.ai', note: 'Textures, materials and consistent environments.' },
+          { name: 'Meshy.ai', url: 'https://www.meshy.ai', note: 'Text/image → 3D model with textures & auto-rigging.' },
+          { name: 'Tripo Studio', url: 'https://www.tripo3d.ai', note: 'Fast 3D generation, game-ready meshes.' },
+        ],
+      },
+      {
+        group: 'Free & open source',
+        items: [
+          { name: 'Perchance Pixel Art', url: 'https://perchance.org/ai-pixel-art-generator', note: 'Free, no limits — good for prototyping.' },
+          { name: 'falsprite · open', url: 'https://github.com/lovisdotio/falsprite', note: 'Text prompt → animated sprite sheets on fal.ai.' },
+          { name: 'ZzSprite · open', url: 'https://github.com/KilledByAPixel/ZzSprite', note: 'Procedural symmetric pixel sprites.' },
+        ],
+      },
+    ],
+    resourcesTip:
+      'Workflow: write the logic in Claude Code, generate assets in PixelLab (MCP), fine-tune in Aseprite or LibreSprite.',
     rules: [
       "Your game must be built during the hackathon week. We don't accept games started or built beforehand.",
       'The competition is open to participants in Sweden.',

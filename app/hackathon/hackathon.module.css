@@ -607,6 +607,67 @@
   color: var(--gold);
 }
 
+/* ============ RESURSER ============ */
+
+.resGroup {
+  margin-bottom: 22px;
+}
+
+.resGroupLabel {
+  display: block;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+
+.resList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.resName {
+  width: fit-content;
+  font-family: var(--font-terminal);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--gold);
+  text-decoration: none;
+}
+.resName:hover {
+  color: var(--gold-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.resNote {
+  font-family: var(--font-terminal);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.resTip {
+  margin: 4px 0 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--gold);
+  font-family: var(--font-terminal);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--dim);
+}
+
 /* ============ FOOTER ============ */
 
 .footer {
