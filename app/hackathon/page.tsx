@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Countdown } from './Countdown'
 import { CONTENT, SHARED, type Lang } from './data'
 import styles from './hackathon.module.css'
@@ -44,6 +44,23 @@ function ChannelLink() {
 export default function HackathonPage() {
   const [lang, setLang] = useState<Lang>('sv')
   const c = CONTENT[lang]
+
+  // Ankarlänkar: öppna + scrolla till accordion vars id matchar URL-hashen
+  // (t.ex. /hackathon#resources), både vid laddning och vid hashbyte.
+  useEffect(() => {
+    const openFromHash = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1))
+      if (!id) return
+      const el = document.getElementById(id)
+      if (el instanceof HTMLDetailsElement) {
+        el.open = true
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+    openFromHash()
+    window.addEventListener('hashchange', openFromHash)
+    return () => window.removeEventListener('hashchange', openFromHash)
+  }, [])
 
   return (
     <main id="main-content">
@@ -89,7 +106,7 @@ export default function HackathonPage() {
       {/* ============ DETALJER (accordions) ============ */}
       <div className={styles.wrap}>
         {/* Så deltar du */}
-        <details className={styles.acc} open>
+        <details id="delta" className={styles.acc} open>
           <summary className={styles.accSummary}>
             <span className={styles.accTitle}>{c.sections.delta}</span>
             <AccIcon />
@@ -122,7 +139,7 @@ export default function HackathonPage() {
         </details>
 
         {/* Brief */}
-        <details className={styles.acc}>
+        <details id="brief" className={styles.acc}>
           <summary className={styles.accSummary}>
             <span className={styles.accTitle}>{c.sections.brief}</span>
             <AccIcon />
@@ -140,7 +157,7 @@ export default function HackathonPage() {
         </details>
 
         {/* Så lämnar du in */}
-        <details className={styles.acc}>
+        <details id="submit" className={styles.acc}>
           <summary className={styles.accSummary}>
             <span className={styles.accTitle}>{c.sections.submit}</span>
             <AccIcon />
@@ -166,7 +183,7 @@ export default function HackathonPage() {
         </details>
 
         {/* Kriterier */}
-        <details className={styles.acc}>
+        <details id="criteria" className={styles.acc}>
           <summary className={styles.accSummary}>
             <span className={styles.accTitle}>{c.sections.criteria}</span>
             <AccIcon />
@@ -200,7 +217,7 @@ export default function HackathonPage() {
         </details>
 
         {/* Priser */}
-        <details className={styles.acc}>
+        <details id="prizes" className={styles.acc}>
           <summary className={styles.accSummary}>
             <span className={styles.accTitle}>{c.sections.prizes}</span>
             <AccIcon />
@@ -221,7 +238,7 @@ export default function HackathonPage() {
         </details>
 
         {/* Tips */}
-        <details className={styles.acc}>
+        <details id="tips" className={styles.acc}>
           <summary className={styles.accSummary}>
             <span className={styles.accTitle}>{c.sections.tips}</span>
             <AccIcon />
@@ -239,7 +256,7 @@ export default function HackathonPage() {
         </details>
 
         {/* Resurser */}
-        <details className={styles.acc}>
+        <details id="resources" className={styles.acc}>
           <summary className={styles.accSummary}>
             <span className={styles.accTitle}>{c.sections.resources}</span>
             <AccIcon />
@@ -271,7 +288,7 @@ export default function HackathonPage() {
         </details>
 
         {/* Regler */}
-        <details className={styles.acc}>
+        <details id="rules" className={styles.acc}>
           <summary className={styles.accSummary}>
             <span className={styles.accTitle}>{c.sections.rules}</span>
             <AccIcon />
