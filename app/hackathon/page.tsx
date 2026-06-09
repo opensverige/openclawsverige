@@ -28,6 +28,42 @@ function AccIcon() {
   )
 }
 
+function SummaryRow({
+  id,
+  title,
+  copiedId,
+  onCopy,
+  copyLabel,
+}: {
+  id: string
+  title: string
+  copiedId: string | null
+  onCopy: (id: string) => void
+  copyLabel: string
+}) {
+  return (
+    <summary className={styles.accSummary}>
+      <span className={styles.accTitle}>{title}</span>
+      <span className={styles.accControls}>
+        <button
+          type="button"
+          className={`${styles.copyLink} ${copiedId === id ? styles.copyLinkDone : ''}`}
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            onCopy(id)
+          }}
+          aria-label={`${copyLabel}: ${title}`}
+          title={copyLabel}
+        >
+          {copiedId === id ? '✓' : '#'}
+        </button>
+        <AccIcon />
+      </span>
+    </summary>
+  )
+}
+
 function ChannelLink() {
   return (
     <a
@@ -43,7 +79,39 @@ function ChannelLink() {
 
 export default function HackathonPage() {
   const [lang, setLang] = useState<Lang>('sv')
+  const [copiedId, setCopiedId] = useState<string | null>(null)
   const c = CONTENT[lang]
+  const copyLabel = lang === 'sv' ? 'Kopiera länk' : 'Copy link'
+
+  const copyAnchor = async (id: string) => {
+    const url = `${window.location.origin}${window.location.pathname}#${id}`
+    let ok = false
+    try {
+      await navigator.clipboard.writeText(url)
+      ok = true
+    } catch {
+      // Fallback för kontexter utan Clipboard API
+      try {
+        const ta = document.createElement('textarea')
+        ta.value = url
+        ta.style.position = 'fixed'
+        ta.style.opacity = '0'
+        document.body.appendChild(ta)
+        ta.select()
+        ok = document.execCommand('copy')
+        document.body.removeChild(ta)
+      } catch {
+        ok = false
+      }
+    }
+    if (ok) {
+      setCopiedId(id)
+      window.setTimeout(
+        () => setCopiedId((cur) => (cur === id ? null : cur)),
+        1500,
+      )
+    }
+  }
 
   // Ankarlänkar: öppna + scrolla till accordion vars id matchar URL-hashen
   // (t.ex. /hackathon#resources), både vid laddning och vid hashbyte.
@@ -107,10 +175,7 @@ export default function HackathonPage() {
       <div className={styles.wrap}>
         {/* Så deltar du */}
         <details id="delta" className={styles.acc} open>
-          <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>{c.sections.delta}</span>
-            <AccIcon />
-          </summary>
+          <SummaryRow id="delta" title={c.sections.delta} copiedId={copiedId} onCopy={copyAnchor} copyLabel={copyLabel} />
           <div className={styles.accBody}>
             <p className={styles.reqLead}>{c.participationLead}</p>
             <ol className={styles.reqList}>
@@ -140,10 +205,7 @@ export default function HackathonPage() {
 
         {/* Brief */}
         <details id="brief" className={styles.acc}>
-          <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>{c.sections.brief}</span>
-            <AccIcon />
-          </summary>
+          <SummaryRow id="brief" title={c.sections.brief} copiedId={copiedId} onCopy={copyAnchor} copyLabel={copyLabel} />
           <div className={styles.accBody}>
             <div className={styles.factGrid}>
               {c.facts.map((fact) => (
@@ -158,10 +220,7 @@ export default function HackathonPage() {
 
         {/* Så lämnar du in */}
         <details id="submit" className={styles.acc}>
-          <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>{c.sections.submit}</span>
-            <AccIcon />
-          </summary>
+          <SummaryRow id="submit" title={c.sections.submit} copiedId={copiedId} onCopy={copyAnchor} copyLabel={copyLabel} />
           <div className={styles.accBody}>
             <p className={styles.panelIntro}>
               {c.submitPrefix} <ChannelLink /> {c.submitBy} {c.deadlineLabel}:
@@ -184,10 +243,7 @@ export default function HackathonPage() {
 
         {/* Kriterier */}
         <details id="criteria" className={styles.acc}>
-          <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>{c.sections.criteria}</span>
-            <AccIcon />
-          </summary>
+          <SummaryRow id="criteria" title={c.sections.criteria} copiedId={copiedId} onCopy={copyAnchor} copyLabel={copyLabel} />
           <div className={styles.accBody}>
             <p className={styles.criteriaLead}>{c.criteriaLead}</p>
             <p className={styles.votingNote}>
@@ -218,10 +274,7 @@ export default function HackathonPage() {
 
         {/* Priser */}
         <details id="prizes" className={styles.acc}>
-          <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>{c.sections.prizes}</span>
-            <AccIcon />
-          </summary>
+          <SummaryRow id="prizes" title={c.sections.prizes} copiedId={copiedId} onCopy={copyAnchor} copyLabel={copyLabel} />
           <div className={styles.accBody}>
             <ul className={styles.prizeList}>
               {c.prizes.map((p) => (
@@ -239,10 +292,7 @@ export default function HackathonPage() {
 
         {/* Tips */}
         <details id="tips" className={styles.acc}>
-          <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>{c.sections.tips}</span>
-            <AccIcon />
-          </summary>
+          <SummaryRow id="tips" title={c.sections.tips} copiedId={copiedId} onCopy={copyAnchor} copyLabel={copyLabel} />
           <div className={styles.accBody}>
             <ul className={styles.tipsList}>
               {c.tips.map((tip, i) => (
@@ -257,10 +307,7 @@ export default function HackathonPage() {
 
         {/* Resurser */}
         <details id="resources" className={styles.acc}>
-          <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>{c.sections.resources}</span>
-            <AccIcon />
-          </summary>
+          <SummaryRow id="resources" title={c.sections.resources} copiedId={copiedId} onCopy={copyAnchor} copyLabel={copyLabel} />
           <div className={styles.accBody}>
             <p className={styles.criteriaLead}>{c.resourcesLead}</p>
             {c.resources.map((g) => (
@@ -289,10 +336,7 @@ export default function HackathonPage() {
 
         {/* Regler */}
         <details id="rules" className={styles.acc}>
-          <summary className={styles.accSummary}>
-            <span className={styles.accTitle}>{c.sections.rules}</span>
-            <AccIcon />
-          </summary>
+          <SummaryRow id="rules" title={c.sections.rules} copiedId={copiedId} onCopy={copyAnchor} copyLabel={copyLabel} />
           <div className={styles.accBody}>
             <ul className={styles.rulesList}>
               {c.rules.map((rule) => (

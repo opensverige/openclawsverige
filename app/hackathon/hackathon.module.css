@@ -247,6 +247,31 @@
   color: var(--gold-light);
 }
 
+.accControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.copyLink {
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--dim);
+  background: transparent;
+  border: none;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: color 120ms;
+}
+.copyLink:hover {
+  color: var(--gold);
+}
+.copyLinkDone {
+  color: var(--gold);
+}
+
 .accIcon {
   flex-shrink: 0;
   font-family: var(--font-pixel);
