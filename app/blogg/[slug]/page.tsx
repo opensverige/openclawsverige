@@ -69,6 +69,8 @@ const CONTENT: Record<
     import('../../../content/blogg/vad-ar-ai-agenter.mdx'),
   'mcp-vs-rest': () => import('../../../content/blogg/mcp-vs-rest.mdx'),
   'gollum-testet': () => import('../../../content/blogg/gollum-testet.mdx'),
+  'bygg-spel-med-ai': () =>
+    import('../../../content/blogg/bygg-spel-med-ai.mdx'),
 }
 
 export default async function BlogPost({ params }: PageProps) {

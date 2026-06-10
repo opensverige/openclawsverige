@@ -1,0 +1,75 @@
+---
+title: 'Bygg ett spel med AI på en vecka'
+date: '2026-06-10'
+author: 'opensverige'
+tags: ['guide', 'hackathon', 'spelutveckling', 'vibecoding']
+
+---
+
+Hackathonet pågår: ett litet, spelbart spel på en vecka. Med AI som medbyggare hinner du längre än du tror — om du orkestrerar istället för att skriva varje rad själv. Här är verktygslådan och arbetsflödet vi rekommenderar, anpassat efter [reglerna](/hackathon#rules): bygg under veckan, håll det spelbart, lägg koden öppet. Öppen källkod väger extra.
+
+## Vibecoding på 30 sekunder
+
+"Vibecoding" betyder att du blir orkestrator: idé → AI-förslag → implementation → iteration. Du beskriver vad du vill, AI:n skriver koden, du styr och verifierar.
+
+Två fällor att undvika:
+
+- **Förberedelse-prokrastinering.** Att pyssla med verktyg känns produktivt — men inget skeppas. Sätt en timer och börja bygga.
+- **Teknisk skuld i farten.** AI genererar kod snabbt och glömmer tester. Håll scopet litet och committa ofta.
+
+## Håll AI i koppel: Karpathy-reglerna
+
+AI:n vill gärna överarbeta och "förbättra" kod du aldrig bad om. Lägg [Karpathy-reglerna](https://github.com/multica-ai/andrej-karpathy-skills) i en `CLAUDE.md` eller `AGENTS.md` så håller agenten sig till jobbet:
+
+1. **Tänk före kod.** Be agenten redovisa sina antaganden innan den skriver något.
+2. **Enkelhet först.** Kortaste lösningen som funkar — ingen spekulativ abstraktion.
+3. **Kirurgiska ingrepp.** Rör bara raderna som behövs. Ingen "drive-by"-refaktorering.
+4. **Målstyrd exekvering.** Definiera målet som ett test: skriv test, fixa, verifiera.
+
+## Välj din stack
+
+### Webb (rekommenderat) — Kaplay
+
+Ett spel som körs i webbläsaren är lättast att lämna in och får flest att testa och rösta. [Kaplay](https://github.com/kaplayjs/kaplay) — efterföljaren till Kaboom.js — har ett pyttekompakt API som AI:n kan utantill, perfekt för 2D-plattformare och pussel.
+
+- Starta från [remarkablegames/kaplay-template](https://github.com/remarkablegames/kaplay-template): Vite med hot reload, och `npm run bundle` zippar spelet redo för itch.io.
+- [claude-code-game-development](https://github.com/HermeticOrmus/claude-code-game-development) är ett referensbibliotek med mönster för rendering, ljud, NPC:er och procedurgenerering — allt med körbar kod.
+
+### Spelmotor — Godot + MCP
+
+Vill du ha en riktig motor kopplar du Claude direkt till Godot via MCP (Model Context Protocol):
+
+- [hi-godot/godot-ai](https://github.com/hi-godot/godot-ai) — 120+ verktyg, live-editor, och kan ta skärmdumpar så att AI:n faktiskt *ser* vad den bygger.
+- [better-godot-mcp](https://github.com/n24q02m/better-godot-mcp) — token-snål med 17 "mega-verktyg", stark för terminalagenter som Claude Code.
+
+## Grafik utan att rita
+
+Grafik brukar vara flaskhalsen under ett hackathon. Låt AI:n ta den:
+
+- [SpriteBrew](https://github.com/GAlbanese09/spritebrew) — text till pixel-sprites i 21 stilar, och "Animate My Character" genererar gång, attack och hopp automatiskt. Export redo för Godot och Unity.
+- [Spritesheet-Maker](https://github.com/Kavex/Spritesheet-Maker) — packa lösa bilder till ett ark plus JSON-metadata, så koden kan plocka rätt ruta utan hårdkodade värden.
+- [LibreUIUX](https://github.com/HermeticOrmus/LibreUIUX-Claude-Code) — får Claude att bygga snyggt UI med exakta Tailwind-värden istället för vaga "gör det finare".
+
+Fler verktyg finns i [hackathonets resurser](/hackathon#resources).
+
+## Arbetsflödet, fas för fas
+
+**Timme 0–1 · Sätt ramarna.** Klona en mall och kopiera in `starter-template/` från [vibe-coding-playbook](https://github.com/plamen5rov/vibe-coding-playbook). Fyll i `PROJECT.md` (tema, stack, känsla) och `TASKS.md` med mätbara delmål: "lägg till gravitation", "bygg poängsystem".
+
+**Löpande · Bygg i små steg.**
+
+- Be agenten planera och redovisa antaganden innan den kodar.
+- En liten funktion i taget, sedan `git commit` direkt. AI:n bryter ofta fungerande kod vid nästa prompt — täta commits är ditt skyddsnät.
+- Rensa kontexten (`/clear`) mellan funktioner så gammal debug-kod inte spökar.
+
+**Vid buggar · Förklara-före-lösning.** Be AI:n förklara *varför* felet sker ("varför faller spelaren genom plattformen?") innan den fixar. Fastnar den i en loop som rör till koden? Kör `git revert` till senaste stabila punkt och ta om med nya begränsningar.
+
+## Checklista inför inlämning
+
+- Byggt **under veckan** — förbyggda spel räknas inte
+- **Spelbart** — minst en loop eller nivå
+- Koden **öppen på GitHub** (väger extra hos juryn)
+- Helst spelbart i webbläsaren, så fler hinner rösta
+- Inlämnat i kanalen senast **söndag 14 juni kl 00:00**
+
+Allt om regler, kriterier och priser finns på [hackathon-sidan](/hackathon). Lycka till — vi ses i Discord.
