@@ -167,7 +167,7 @@ const orgJsonLd = {
   ],
   knowsLanguage: ['Swedish', 'English'],
   sameAs: [
-    'https://discord.gg/CSphbTk8En',
+    'https://discord.gg/ZbV4qB34um',
     'https://github.com/orgs/opensverige',
     'https://www.linkedin.com/groups/9544657/',
     'https://www.facebook.com/groups/2097332881024571/',
@@ -424,7 +424,7 @@ export default async function Home() {
           body="Att starta en lokal opensverige-grupp kräver tre saker: en plats, ett datum och tre builders. Ingen tillåtelse krävs."
         >
           <a
-            href="https://discord.gg/CSphbTk8En"
+            href="https://discord.gg/ZbV4qB34um"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary"
@@ -455,7 +455,7 @@ export default async function Home() {
           }
         >
           <a
-            href="https://discord.gg/CSphbTk8En"
+            href="https://discord.gg/ZbV4qB34um"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary"

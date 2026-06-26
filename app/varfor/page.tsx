@@ -298,7 +298,7 @@ export default function VarforPage() {
             <h2 className="varfor-cta-heading">Sluta lurka. Börja bygga.</h2>
             <div className="varfor-cta-btns">
               <a
-                href="https://discord.gg/CSphbTk8En"
+                href="https://discord.gg/ZbV4qB34um"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"

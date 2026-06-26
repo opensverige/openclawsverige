@@ -68,7 +68,7 @@ Inga API-nycklar krävs. Endpoints är öppna och cachade. CORS tillåtet från 
 
 ## Kontakt och community
 
-- Discord (primär kanal): https://discord.gg/CSphbTk8En
+- Discord (primär kanal): https://discord.gg/ZbV4qB34um
 - GitHub: https://github.com/orgs/opensverige
 - Email: opensverige@gmail.com
 - LinkedIn-grupp: https://www.linkedin.com/groups/9544657/

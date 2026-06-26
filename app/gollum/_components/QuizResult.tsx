@@ -130,7 +130,7 @@ export function QuizResult({ slug, lang, scoringResult }: QuizResultProps) {
         {/* Discord CTA */}
         {(isShipper || lang === 'sv') && (
           <a
-            href="https://discord.gg/CSphbTk8En"
+            href="https://discord.gg/ZbV4qB34um"
             target="_blank"
             rel="noopener noreferrer"
             style={{

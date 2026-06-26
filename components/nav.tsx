@@ -101,7 +101,7 @@ export function Nav() {
             Lab <span className="aw">→</span>
           </Link>
           <a
-            href="https://discord.gg/CSphbTk8En"
+            href="https://discord.gg/ZbV4qB34um"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-cta"

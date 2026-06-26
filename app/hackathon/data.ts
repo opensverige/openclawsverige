@@ -8,7 +8,7 @@ export const SHARED = {
   channelName: '⠴-❯_hackathon-spel',
   channelUrl:
     'https://discord.com/channels/1466847548864987289/1513152604241400018',
-  discordUrl: 'https://discord.gg/CSphbTk8En',
+  discordUrl: 'https://discord.gg/ZbV4qB34um',
   githubUrl: 'https://github.com/opensverige',
 } as const
 

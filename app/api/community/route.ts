@@ -4,7 +4,7 @@ const COMMUNITY_DATA = {
   name: 'opensverige',
   description: 'Sveriges öppna community för AI-agenter',
   url: 'https://opensverige.se',
-  discord: 'https://discord.gg/CSphbTk8En',
+  discord: 'https://discord.gg/ZbV4qB34um',
   github: 'https://github.com/opensverige',
   stats: {
     members: 250,

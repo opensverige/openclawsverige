@@ -49,7 +49,7 @@ function IconFacebook(props: SVGProps<SVGSVGElement>) {
 
 const SOCIAL = [
   {
-    href: 'https://discord.gg/CSphbTk8En',
+    href: 'https://discord.gg/ZbV4qB34um',
     label: 'Discord',
     Icon: IconDiscord,
   },

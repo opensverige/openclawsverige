@@ -2,7 +2,7 @@
 
 Grassroots-community för svenska AI-builders.
 
-[opensverige.se](https://opensverige.se) · [Discord](https://discord.gg/CSphbTk8En)
+[opensverige.se](https://opensverige.se) · [Discord](https://discord.gg/ZbV4qB34um)
 
 ---
 
@@ -59,7 +59,7 @@ Bygga > snacka. Öppet > gated. Svenska villkor > generiska lösningar. Grassroo
 
 Joina Discorden. Säg hej. Berätta vad du bygger.
 
-[discord.gg/CSphbTk8En](https://discord.gg/CSphbTk8En)
+[discord.gg/ZbV4qB34um](https://discord.gg/ZbV4qB34um)
 
 ---
 

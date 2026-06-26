@@ -88,7 +88,7 @@ export default function LabPage() {
               </p>
               <div className={styles.emptyCalloutActions}>
                 <a
-                  href="https://discord.gg/CSphbTk8En"
+                  href="https://discord.gg/ZbV4qB34um"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`${styles.emptyCalloutBtn} ${styles.emptyCalloutBtnPrimary}`}
@@ -114,7 +114,7 @@ export default function LabPage() {
             </span>
             <nav className={styles.labFooterRight} aria-label="Lab-footer">
               <a href="https://github.com/opensverige" target="_blank" rel="noopener noreferrer">GitHub →</a>
-              <a href="https://discord.gg/CSphbTk8En" target="_blank" rel="noopener noreferrer">Discord →</a>
+              <a href="https://discord.gg/ZbV4qB34um" target="_blank" rel="noopener noreferrer">Discord →</a>
               <a href="/">opensverige.se →</a>
             </nav>
           </footer>
