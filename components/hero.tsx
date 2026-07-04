@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import type { DiscordData } from '@/lib/discord'
 import { StatBar } from './stat-bar'
 
@@ -201,9 +200,9 @@ export function Hero({ discord }: HeroProps) {
           >
             Gå med i Discord <span className="aw">→</span>
           </a>
-          <Link href="/showcase" className="hero-btn secondary">
-            Se vad vi byggt <span className="aw aw-down">↓</span>
-          </Link>
+          <a href="https://infra.opensverige.se" className="hero-btn secondary">
+            Svensk Infra — jämför AI-leverantörer <span className="aw">→</span>
+          </a>
         </div>
       </div>
 

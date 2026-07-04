@@ -305,7 +305,7 @@ export default async function Home() {
           </div>
           <div className="see-all">
             <a href="https://infra.opensverige.se">
-              Se vad vi har byggt <span className="aw">→</span>
+              Vårt största bygge: Svensk Infra <span className="aw">→</span>
             </a>
           </div>
         </section>
