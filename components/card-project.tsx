@@ -7,17 +7,29 @@ interface CardProjectProps {
 
 const GLYPHS: Record<string, React.ReactNode> = {
   lunaraistorm: <span style={{ color: 'var(--gold)' }}>◆</span>,
-  kammaren: (
-    <span
-      className="g g-braille"
-      style={{ color: 'var(--crayfish-light)' }}
-      aria-hidden="true"
-    />
-  ),
-  'fortnox-skill': <span style={{ color: 'var(--success)' }}>▸</span>,
   faver: (
     <span style={{ color: 'var(--gold-light)' }} aria-hidden="true">
       ◎
+    </span>
+  ),
+  'agent-readiness-scanner': (
+    <span style={{ color: 'var(--success)' }} aria-hidden="true">
+      ◉
+    </span>
+  ),
+  'ai-infra': (
+    <span style={{ color: 'var(--nordic-blue-light)' }} aria-hidden="true">
+      ▦
+    </span>
+  ),
+  'grunden-ai': (
+    <span style={{ color: 'var(--gold)' }} aria-hidden="true">
+      ⬢
+    </span>
+  ),
+  'agent-arena': (
+    <span style={{ color: 'var(--crayfish-light)' }} aria-hidden="true">
+      ✦
     </span>
   ),
 }

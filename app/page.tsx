@@ -256,7 +256,7 @@ export default async function Home() {
     getShowcaseProjects(),
   ])
 
-  const featured = projects.slice(0, 3)
+  const featured = projects.filter((p) => p.featured).slice(0, 3)
 
   return (
     <>
