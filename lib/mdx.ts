@@ -15,6 +15,7 @@ export interface ShowcaseProject {
   description: string
   tags: string[]
   status: 'live' | 'wip' | 'oss'
+  featured: boolean
   url?: string
   author?: string
 }
@@ -79,6 +80,7 @@ export function getShowcaseProjects(): ShowcaseProject[] {
         description: (fm.description as string) || '',
         tags: (fm.tags as string[]) || [],
         status: (status === 'live' || status === 'wip' || status === 'oss' ? status : 'wip') as 'live' | 'wip' | 'oss',
+        featured: (fm.featured as string) === 'true',
         url: fm.url as string | undefined,
         author: fm.author as string | undefined,
       }
