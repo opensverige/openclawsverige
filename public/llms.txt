@@ -32,6 +32,7 @@ App-generatorer: Lovable, Bolt, v0
 
 ## Aktiva projekt (showcase)
 
+- **AI-kartan** (live) — Öppen karta över organisationer som bygger AI i Sverige, med källa och datum på varje uppgift. Egen llms.txt och öppen data. https://karta.opensverige.se
 - **KAMMAREN** (live) — Sovereign AI för svenska AB-ägare. Beräknar optimal lön, utdelning och 3:12-strategi. https://kammaren.nu
 - **FAVER** (live) — Hitta matrabatter i realtid via GPS. https://faver-one.vercel.app/map
 - **fortnox-skill** (open source) — OpenClaw-skill som kopplar AI-agent direkt till Fortnox. Fakturor, kunder, chatt. https://github.com/opensverige/fortnox-skill

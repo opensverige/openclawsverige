@@ -8,11 +8,17 @@ const COMMUNITY_DATA = {
   github: 'https://github.com/opensverige',
   stats: {
     members: 250,
-    projects: 5,
+    projects: 6,
     cities: ['Stockholm', 'Göteborg', 'Malmö'],
     founded: '2026-01',
   },
   showcase: [
+    {
+      name: 'AI-kartan',
+      status: 'live',
+      url: 'https://karta.opensverige.se',
+      tags: ['öppna data', 'karta', 'ai-organisationer'],
+    },
     {
       name: 'FAVER',
       status: 'live',

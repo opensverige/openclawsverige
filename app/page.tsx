@@ -303,7 +303,14 @@ export default async function Home() {
               <CardProject key={p.slug} project={p} />
             ))}
           </div>
-          <div className="see-all">
+          <div className="see-all see-all--stack">
+            <a href="https://karta.opensverige.se">
+              <span className="tag on" style={{ cursor: 'inherit' }}>
+                nytt
+              </span>
+              AI-kartan: vilka som bygger AI i Sverige{' '}
+              <span className="aw">→</span>
+            </a>
             <a href="https://infra.opensverige.se">
               Vårt största bygge: Svensk Infra <span className="aw">→</span>
             </a>
