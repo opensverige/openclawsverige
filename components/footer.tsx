@@ -97,6 +97,16 @@ export function Footer() {
 
       <p className="footer-cities">Stockholm · Göteborg · Malmö</p>
 
+      <nav className="footer-sajter" aria-label="Fler byggen från opensverige">
+        <span>Fler byggen</span>
+        <a href="https://karta.opensverige.se">
+          AI-kartan <span className="aw">→</span>
+        </a>
+        <a href="https://infra.opensverige.se">
+          Svensk Infra <span className="aw">→</span>
+        </a>
+      </nav>
+
       <div className="footer-gollum-row">
         <GollumCounter />
       </div>

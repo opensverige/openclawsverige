@@ -1081,6 +1081,35 @@ body {
   justify-self: end;
   text-align: right;
 }
+/* Systersajterna: en rad över hela sidfoten, på varje sida. */
+.footer-sajter {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2) var(--sp-4);
+}
+.footer-sajter a {
+  color: var(--text-muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.footer-sajter a:hover { color: var(--text-primary) }
+.footer-sajter a:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+.footer-sajter .aw { transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1) }
+.footer-sajter a:hover .aw { transform: translateX(3px) }
 
 /* ============ HOW IT WORKS CARDS ============ */
 
@@ -1579,6 +1608,10 @@ body {
 .see-all a:hover { color:var(--text-primary) }
 .see-all a .aw { transition:transform var(--transition) }
 .see-all a:hover .aw { transform:translateX(3px) }
+/* Två länkar under varandra, när sektionen pekar vidare till mer än ett bygge. */
+.see-all--stack {
+  display:flex; flex-direction:column; align-items:center; gap:var(--sp-3);
+}
 
 /* ============ GOLLUM QUIZ ============ */
 
